@@ -1,0 +1,292 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FA0B1A19126FBBE600550DCC /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA0B1A18126FBBE600550DCC /* main.cpp */; };
+		FA0B1A1C126FBC0E00550DCC /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA0B1A1B126FBC0E00550DCC /* OpenGL.framework */; };
+		FA0B1A20126FBC2D00550DCC /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA0B1A1F126FBC2D00550DCC /* GLUT.framework */; };
+		FA0B1A2C126FBC6C00550DCC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA0B1A2B126FBC6C00550DCC /* Foundation.framework */; };
+		FA0B1A50126FBCE500550DCC /* libZeroLSys-OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA0B1A4D126FBCD000550DCC /* libZeroLSys-OSX.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FA0B1A4C126FBCD000550DCC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA0B1A48126FBCD000550DCC /* ZeroLSys-OSX.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC046055464E500DB518D /* libZeroLSys-OSX.a */;
+			remoteInfo = "ZeroLSys-OSX";
+		};
+		FA0B1A4E126FBCDB00550DCC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA0B1A48126FBCD000550DCC /* ZeroLSys-OSX.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC045055464E500DB518D /* ZeroLSys-OSX */;
+			remoteInfo = "ZeroLSys-OSX";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		FA0B1A0F126FBBB000550DCC /* ZeroLSYS-Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ZeroLSYS-Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA0B1A12126FBBB100550DCC /* ZeroLSYS-Test-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ZeroLSYS-Test-Info.plist"; sourceTree = "<group>"; };
+		FA0B1A17126FBBE600550DCC /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
+		FA0B1A18126FBBE600550DCC /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		FA0B1A1B126FBC0E00550DCC /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
+		FA0B1A1F126FBC2D00550DCC /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = /System/Library/Frameworks/GLUT.framework; sourceTree = "<absolute>"; };
+		FA0B1A2B126FBC6C00550DCC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		FA0B1A48126FBCD000550DCC /* ZeroLSys-OSX.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "ZeroLSys-OSX.xcodeproj"; path = "../ZeroLSys-OSX/ZeroLSys-OSX.xcodeproj"; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FA0B1A0D126FBBB000550DCC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA0B1A50126FBCE500550DCC /* libZeroLSys-OSX.a in Frameworks */,
+				FA0B1A1C126FBC0E00550DCC /* OpenGL.framework in Frameworks */,
+				FA0B1A20126FBC2D00550DCC /* GLUT.framework in Frameworks */,
+				FA0B1A2C126FBC6C00550DCC /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FA0B1A01126FBB8600550DCC = {
+			isa = PBXGroup;
+			children = (
+				FA0B1A48126FBCD000550DCC /* ZeroLSys-OSX.xcodeproj */,
+				FA0B1A16126FBBD200550DCC /* Source */,
+				FA0B1A1A126FBBF100550DCC /* Frameworks */,
+				FA0B1A10126FBBB000550DCC /* Products */,
+				FA0B1A12126FBBB100550DCC /* ZeroLSYS-Test-Info.plist */,
+			);
+			sourceTree = "<group>";
+		};
+		FA0B1A10126FBBB000550DCC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FA0B1A0F126FBBB000550DCC /* ZeroLSYS-Test.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FA0B1A16126FBBD200550DCC /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				FA0B1A17126FBBE600550DCC /* main.h */,
+				FA0B1A18126FBBE600550DCC /* main.cpp */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		FA0B1A1A126FBBF100550DCC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FA0B1A1B126FBC0E00550DCC /* OpenGL.framework */,
+				FA0B1A1F126FBC2D00550DCC /* GLUT.framework */,
+				FA0B1A2B126FBC6C00550DCC /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FA0B1A49126FBCD000550DCC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FA0B1A4D126FBCD000550DCC /* libZeroLSys-OSX.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FA0B1A0E126FBBB000550DCC /* ZeroLSYS-Test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA0B1A15126FBBB100550DCC /* Build configuration list for PBXNativeTarget "ZeroLSYS-Test" */;
+			buildPhases = (
+				FA0B1A0B126FBBB000550DCC /* Resources */,
+				FA0B1A0C126FBBB000550DCC /* Sources */,
+				FA0B1A0D126FBBB000550DCC /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FA0B1A4F126FBCDB00550DCC /* PBXTargetDependency */,
+			);
+			name = "ZeroLSYS-Test";
+			productName = "ZeroLSYS-Test";
+			productReference = FA0B1A0F126FBBB000550DCC /* ZeroLSYS-Test.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FA0B1A03126FBB8600550DCC /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = FA0B1A06126FBB8600550DCC /* Build configuration list for PBXProject "ZeroLSys-OSX-Test" */;
+			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = FA0B1A01126FBB8600550DCC;
+			productRefGroup = FA0B1A10126FBBB000550DCC /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = FA0B1A49126FBCD000550DCC /* Products */;
+					ProjectRef = FA0B1A48126FBCD000550DCC /* ZeroLSys-OSX.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				FA0B1A0E126FBBB000550DCC /* ZeroLSYS-Test */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		FA0B1A4D126FBCD000550DCC /* libZeroLSys-OSX.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libZeroLSys-OSX.a";
+			remoteRef = FA0B1A4C126FBCD000550DCC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FA0B1A0B126FBBB000550DCC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FA0B1A0C126FBBB000550DCC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA0B1A19126FBBE600550DCC /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FA0B1A4F126FBCDB00550DCC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "ZeroLSys-OSX";
+			targetProxy = FA0B1A4E126FBCDB00550DCC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		FA0B1A04126FBB8600550DCC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Debug;
+		};
+		FA0B1A05126FBB8600550DCC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+			};
+			name = Release;
+		};
+		FA0B1A13126FBBB100550DCC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_64_BIT_PRE_XCODE_3_1 = x86_64;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INFOPLIST_FILE = "ZeroLSYS-Test-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "ZeroLSYS-Test";
+			};
+			name = Debug;
+		};
+		FA0B1A14126FBBB100550DCC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_64_BIT_PRE_XCODE_3_1 = x86_64;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INFOPLIST_FILE = "ZeroLSYS-Test-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "ZeroLSYS-Test";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FA0B1A06126FBB8600550DCC /* Build configuration list for PBXProject "ZeroLSys-OSX-Test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA0B1A04126FBB8600550DCC /* Debug */,
+				FA0B1A05126FBB8600550DCC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FA0B1A15126FBBB100550DCC /* Build configuration list for PBXNativeTarget "ZeroLSYS-Test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA0B1A13126FBBB100550DCC /* Debug */,
+				FA0B1A14126FBBB100550DCC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FA0B1A03126FBB8600550DCC /* Project object */;
+}
