@@ -11,6 +11,7 @@
 #define __ZLS_VIEWER_H__
 
 #include <string>
+#include <map>
 
 namespace ZeroLSys {
 	
@@ -18,7 +19,19 @@ namespace ZeroLSys {
 	
 	class StateViewer {
 	public:
+		typedef void (StateViewer::*SymbolHandler)();
+		
+		virtual void initialize() = 0;
+		virtual void terminate() = 0;
 		virtual void execute( const string& state ) = 0;
+		
+		void addSymbolHandlerForSymbol( const string& symbol, SymbolHandler handler ) {
+			_symbolHandlers[symbol] = handler;
+		}
+		
+	protected:
+		
+		map< string, SymbolHandler >	_symbolHandlers;
 	};
 	
 	

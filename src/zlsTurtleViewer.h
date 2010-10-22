@@ -11,13 +11,30 @@
 #define __TURTLE_VIEWER_H__
 
 #include "zlsStateViewer.h"
+#include <VG/openvg.h>
+#include <VG/vgu.h>
 
 namespace ZeroLSys {
 	
 	class TurtleViewer : public StateViewer {
 	public:
 		
+		virtual void initialize();
+		virtual void terminate();
+		
 		virtual void execute( const string& state );
+		
+	private:
+		
+		void DrawForward();		// F
+		void MoveForward();		// f
+		
+	private:
+		VGPath		_path;
+		VGPaint		_paint;
+		
+		VGfloat		_position;
+		VGfloat		_orientation;
 	};
 }
 

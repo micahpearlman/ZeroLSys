@@ -45,7 +45,6 @@ namespace ZeroLSys {
 		void setTransform( const string& transform ) {
 			_transform = transform;
 		}
-		
 	private:
 		
 		string _symbol;

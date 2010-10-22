@@ -8,7 +8,8 @@
  */
 
 #include "main.h"
-#include "../../src/zls.h"
+#include "../../src/zlsContext.h"
+#include "../../src/zlsTurtleViewer.h"
 using namespace ZeroLSys;
 
 #include <stdlib.h>
@@ -50,9 +51,9 @@ int main(int argc, char** argv)
 	LSystemContext& ctx = LSystemContext::singleton();
 	ctx.initialize();
 	
-    ctx.addRule( string("A") >> string("B") );
-	ctx.addRule( string("B") >> string("AB") );
-	ctx.setStartState( string("A") );
+    ctx.addRule( string("F") >> string("f") );
+	ctx.addRule( string("f") >> string("Ff") );
+	ctx.setStartState( string("F") );
 	ctx.reset();
 	
 	cout << ctx.iterate() << endl;
@@ -61,6 +62,10 @@ int main(int argc, char** argv)
 	cout << ctx.iterate() << endl;
 	cout << ctx.iterate() << endl;
 	
+	
+	TurtleViewer viewer;
+	viewer.initialize();
+	viewer.execute( ctx.iterate() );
 	
     glutMainLoop();
 	

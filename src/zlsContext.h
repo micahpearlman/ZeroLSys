@@ -37,7 +37,11 @@ namespace ZeroLSys {
 		
 		ProductionRule* ruleWithSymbol( const string& symbol ) {
 			map<string, ProductionRule>::iterator it = _rules.find(symbol);
-			return &it->second;
+			if ( it != _rules.end() ) {
+				return &it->second;
+			}
+			
+			return 0;
 		}
 		
 		string& state() {
