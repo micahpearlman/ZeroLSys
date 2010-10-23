@@ -57,10 +57,10 @@ int main(int argc, char** argv)
 	// l system init
 	LSystemContext& ctx = LSystemContext::singleton();
 	ctx.initialize();
-	
-    ctx.addRule( string("F") >> string("f") );
-	ctx.addRule( string("f") >> string("Ff") );
 	ctx.setStartState( string("F") );
+    ctx.addRule( string("F") >> string("F+F--F+F") );
+	//ctx.addRule( string("f") >> string("Ff") );
+	
 	ctx.reset();
 	
 	cout << ctx.iterate() << endl;
@@ -71,8 +71,10 @@ int main(int argc, char** argv)
 	
 	
 	viewer.initialize();
-	//viewer.execute( ctx.iterate() );
-	viewer.execute( string("FFF+FFF+FFF+FFF") );
+	viewer.setRotateRadiansFromDegrees( 60.0f );
+	viewer.setWidth( 1.0 );
+	viewer.execute( ctx.iterate() );
+	//viewer.execute( string("FFF+FFF+FFF+FFF") );
 	
     glutMainLoop();
 	

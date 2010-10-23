@@ -54,6 +54,13 @@ namespace ZeroLSys {
 			setRotateRadians( radians( d ) );
 		}
 		
+		VGfloat width() const {
+			return _width;
+		}
+		void setWidth( VGfloat w ) {
+			_width = w;
+		}
+		
 		string description() {
 			stringstream ss;
 			ss << "TurtleViewer: \n";
@@ -75,6 +82,7 @@ namespace ZeroLSys {
 		VGPaint		_paint;
 		VGfloat		_stepLength;
 		VGfloat		_rotateRadians;
+		VGfloat		_width;
 		
 		struct TurtleState {
 			TurtleState() {

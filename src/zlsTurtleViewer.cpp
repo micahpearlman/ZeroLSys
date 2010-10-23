@@ -46,7 +46,7 @@ namespace ZeroLSys {
 	}
 	
 	void TurtleViewer::draw() {
-		vgSetf( VG_STROKE_LINE_WIDTH, 7.0f );
+		vgSetf( VG_STROKE_LINE_WIDTH, _width );
 		
 		vgSeti(VG_MATRIX_MODE, VG_MATRIX_PATH_USER_TO_SURFACE);
 		vgLoadIdentity();
