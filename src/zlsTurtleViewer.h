@@ -28,11 +28,14 @@ namespace ZeroLSys {
 		:	StateViewer()
 		,	_stepLength(10)
 		,	_rotateRadians( radians(33) )
-		{}
+		,	_scale(1)
+		{
+			_offset[0] = _offset[1] = 0;
+		}
 		
 		virtual void initialize();
 		virtual void terminate();
-		
+		virtual void reset();
 		virtual void execute( const string& state );
 		
 		virtual void draw();
@@ -61,6 +64,18 @@ namespace ZeroLSys {
 			_width = w;
 		}
 		
+		void setOffset( VGfloat* o ) {
+			_offset[0] = o[0];
+			_offset[1] = o[1];
+		}
+		
+		VGfloat scale() const {
+			return _scale;
+		}
+		void setScale( VGfloat s ) {
+			_scale = s;
+		}
+		
 		string description() {
 			stringstream ss;
 			ss << "TurtleViewer: \n";
@@ -83,6 +98,10 @@ namespace ZeroLSys {
 		VGfloat		_stepLength;
 		VGfloat		_rotateRadians;
 		VGfloat		_width;
+		
+		// draw modifiers
+		VGfloat		_offset[2];
+		VGfloat		_scale;
 		
 		struct TurtleState {
 			TurtleState() {

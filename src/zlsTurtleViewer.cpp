@@ -29,7 +29,7 @@ namespace ZeroLSys {
 		
 		_path = vgCreatePath(VG_PATH_FORMAT_STANDARD, VG_PATH_DATATYPE_F,1,0,0,0, VG_PATH_CAPABILITY_ALL);
 		
-		MoveForward();	// set the initial position
+		
 		
 	}
 	
@@ -37,7 +37,16 @@ namespace ZeroLSys {
 		
 	}
 	
+	void TurtleViewer::reset() {
+		vgClearPath( _path, VG_PATH_CAPABILITY_ALL );
+		_state._position[0] = _state._position[1] = 0;
+		MoveForward();	// set the initial position
+	}
+	
 	void TurtleViewer::execute( const string& state ) {
+		
+		vgClearPath( _path, VG_PATH_CAPABILITY_ALL );
+		MoveForward();	// set the initial position
 		
 		for ( string::const_iterator c = state.begin(); c != state.end(); c++ ) {
 			StateViewer::SymbolHandler handler = _symbolHandlers[string(1, *c)];
@@ -50,6 +59,8 @@ namespace ZeroLSys {
 		
 		vgSeti(VG_MATRIX_MODE, VG_MATRIX_PATH_USER_TO_SURFACE);
 		vgLoadIdentity();
+		vgTranslate(_offset[0], _offset[1]);
+		vgScale( _scale, _scale );
 		
 		vgSetPaint(_paint, VG_STROKE_PATH );
 		vgDrawPath( _path, VG_STROKE_PATH );

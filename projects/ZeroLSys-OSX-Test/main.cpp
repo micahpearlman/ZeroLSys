@@ -17,29 +17,94 @@ using namespace ZeroLSys;
 
 #include <GLUT/glut.h>
 
-TurtleViewer viewer;
+struct RenderContext {
+	VGfloat _scale;
+	VGfloat _offset[2];
+	bool	_isMouseDown;
+	float	_mousePrevious[2];
+	
+	RenderContext()
+	:	_scale(1.0f)
+	,	_isMouseDown(false)
+	{
+		_offset[0] = _offset[1] = 0;
+		
+	}
+};
 
-void display(void)
-{
+static RenderContext gRenderContext;
+static TurtleViewer viewer;
+
+void display(void) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
+	viewer.setOffset( gRenderContext._offset );
+	viewer.setScale( gRenderContext._scale );
 	viewer.draw();
     
     glutSwapBuffers();
 }
 
-void reshape(int width, int height)
-{
+void reshape(int width, int height) {
     glViewport(0, 0, width, height);
+	vgResizeSurfaceSH( width, height );
 }
 
-void idle(void)
-{
+void idle(void) {
     glutPostRedisplay();
 }
 
-int main(int argc, char** argv)
-{
+void keyboard(unsigned char key, int x, int y) {
+	LSystemContext& ctx = LSystemContext::singleton();
+	
+	switch (key) {
+		case 's':
+			gRenderContext._scale -= 0.1f;
+			break;
+		case 'S':
+			gRenderContext._scale += 0.1f;
+			break;
+		case 'i':
+			viewer.execute( ctx.iterate() );
+			break;
+		case 'r':
+			ctx.reset();
+			viewer.reset();
+			break;
+
+		default:
+			break;
+	}
+}
+
+void mouse_button(int button, int state, int x, int y) {
+	if ( state == GLUT_DOWN ) {
+		gRenderContext._isMouseDown = true;
+		gRenderContext._mousePrevious[0] = x;
+		gRenderContext._mousePrevious[1] = y;
+	} else {
+		gRenderContext._isMouseDown = false;
+	}
+}
+
+void mouse_drag(int x, int y) {
+	if ( gRenderContext._isMouseDown ) {
+		float delta[2] = {
+			x - gRenderContext._mousePrevious[0],
+			y - gRenderContext._mousePrevious[1] 
+		};
+		
+		gRenderContext._offset[0] += delta[0];
+		gRenderContext._offset[1] += delta[1];
+		
+		gRenderContext._mousePrevious[0] = x;
+		gRenderContext._mousePrevious[1] = y;
+		
+	}
+	
+}
+
+int main(int argc, char** argv) {
     glutInit(&argc, argv);
     
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
@@ -50,6 +115,9 @@ int main(int argc, char** argv)
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
     glutIdleFunc(idle);
+	glutKeyboardFunc(keyboard);
+	glutMouseFunc(mouse_button);
+	glutMotionFunc(mouse_drag);
 	
 	// openvg init
 	vgCreateContextSH( 640, 480 );
@@ -63,17 +131,17 @@ int main(int argc, char** argv)
 	
 	ctx.reset();
 	
-	cout << ctx.iterate() << endl;
-	cout << ctx.iterate() << endl;
-	cout << ctx.iterate() << endl;
-	cout << ctx.iterate() << endl;
-	cout << ctx.iterate() << endl;
+//	cout << ctx.iterate() << endl;
+//	cout << ctx.iterate() << endl;
+//	cout << ctx.iterate() << endl;
+//	cout << ctx.iterate() << endl;
+//	cout << ctx.iterate() << endl;
 	
 	
 	viewer.initialize();
 	viewer.setRotateRadiansFromDegrees( 60.0f );
 	viewer.setWidth( 1.0 );
-	viewer.execute( ctx.iterate() );
+	//viewer.execute( ctx.iterate() );
 	//viewer.execute( string("FFF+FFF+FFF+FFF") );
 	
     glutMainLoop();
