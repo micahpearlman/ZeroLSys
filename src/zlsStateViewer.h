@@ -24,11 +24,19 @@ namespace ZeroLSys {
 		virtual void initialize() = 0;
 		virtual void terminate() = 0;
 		virtual void execute( const string& state ) = 0;
+		virtual void draw() = 0;
 		
 		void addSymbolHandlerForSymbol( const string& symbol, SymbolHandler handler ) {
 			_symbolHandlers[symbol] = handler;
 		}
 		
+		SymbolHandler handlerFromSymbol( const string& symbol ) {
+			map< string, SymbolHandler >::iterator it = _symbolHandlers.find( symbol );
+			if ( it != _symbolHandlers.end() ) {
+				return it->second;
+			}
+			return 0;
+		}
 	protected:
 		
 		map< string, SymbolHandler >	_symbolHandlers;

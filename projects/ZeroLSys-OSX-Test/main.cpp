@@ -17,9 +17,13 @@ using namespace ZeroLSys;
 
 #include <GLUT/glut.h>
 
+TurtleViewer viewer;
+
 void display(void)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
+	viewer.draw();
     
     glutSwapBuffers();
 }
@@ -47,6 +51,9 @@ int main(int argc, char** argv)
     glutReshapeFunc(reshape);
     glutIdleFunc(idle);
 	
+	// openvg init
+	vgCreateContextSH( 640, 480 );
+	
 	// l system init
 	LSystemContext& ctx = LSystemContext::singleton();
 	ctx.initialize();
@@ -63,9 +70,9 @@ int main(int argc, char** argv)
 	cout << ctx.iterate() << endl;
 	
 	
-	TurtleViewer viewer;
 	viewer.initialize();
-	viewer.execute( ctx.iterate() );
+	//viewer.execute( ctx.iterate() );
+	viewer.execute( string("FFF+FFF+FFF+FFF") );
 	
     glutMainLoop();
 	
