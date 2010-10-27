@@ -34,6 +34,7 @@ struct RenderContext {
 
 static RenderContext gRenderContext;
 static TurtleViewer viewer;
+LSystemContext ctx;
 
 void display(void) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -55,7 +56,7 @@ void idle(void) {
 }
 
 void keyboard(unsigned char key, int x, int y) {
-	LSystemContext& ctx = LSystemContext::singleton();
+	
 	
 	switch (key) {
 		case 's':
@@ -123,20 +124,25 @@ int main(int argc, char** argv) {
 	vgCreateContextSH( 640, 480 );
 	
 	// l system init
-	LSystemContext& ctx = LSystemContext::singleton();
 	ctx.initialize();
 	ctx.setStartState( string("F") );
     ctx.addRule( string("F") >> string("F+F--F+F") );
 	//ctx.addRule( string("f") >> string("Ff") );
 	
 	ctx.reset();
+
+//	string json = ctx.writeJSON();
+//	cout << json << endl;
+//	ctx.readJSON( json );
 	
-//	cout << ctx.iterate() << endl;
-//	cout << ctx.iterate() << endl;
-//	cout << ctx.iterate() << endl;
-//	cout << ctx.iterate() << endl;
-//	cout << ctx.iterate() << endl;
+	stringstream ss;
+	ctx.write(ss);
 	
+	cout << ss.str() << endl;
+	
+	LSystemContext killme;
+	killme.initialize();
+	killme.read( ss );
 	
 	viewer.initialize();
 	viewer.setRotateRadiansFromDegrees( 60.0f );

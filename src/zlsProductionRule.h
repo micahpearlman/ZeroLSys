@@ -11,6 +11,7 @@
 #define __ZLS_PRODUCTION_RULE_H__
 
 #include <string>
+#include <iostream>
 
 namespace ZeroLSys {
 	
@@ -45,10 +46,16 @@ namespace ZeroLSys {
 		void setTransform( const string& transform ) {
 			_transform = transform;
 		}
+
+		// IO
+		void read( istream& is );
+		void write( ostream& os );
+		
 	private:
 		
 		string _symbol;
 		string _transform;
+		
 	};
 
 	inline ProductionRule operator>>( const string& symbol, const string& transform ) {

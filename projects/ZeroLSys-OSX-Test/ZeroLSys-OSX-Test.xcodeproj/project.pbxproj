@@ -19,14 +19,14 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = FA0B1A48126FBCD000550DCC /* ZeroLSys-OSX.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = D2AAC046055464E500DB518D /* libZeroLSys-OSX.a */;
+			remoteGlobalIDString = D2AAC046055464E500DB518D;
 			remoteInfo = "ZeroLSys-OSX";
 		};
 		FA0B1A4E126FBCDB00550DCC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FA0B1A48126FBCD000550DCC /* ZeroLSys-OSX.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = D2AAC045055464E500DB518D /* ZeroLSys-OSX */;
+			remoteGlobalIDString = D2AAC045055464E500DB518D;
 			remoteInfo = "ZeroLSys-OSX";
 		};
 /* End PBXContainerItemProxy section */
@@ -224,7 +224,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = ../../../MonkVG/include;
+				HEADER_SEARCH_PATHS = (
+					/opt/local/include,
+					../../../MonkVG/include,
+				);
 				INFOPLIST_FILE = "ZeroLSYS-Test-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				OTHER_LDFLAGS = (
@@ -252,7 +255,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = ../../../MonkVG/include;
+				HEADER_SEARCH_PATHS = (
+					/opt/local/include,
+					../../../MonkVG/include,
+				);
 				INFOPLIST_FILE = "ZeroLSYS-Test-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				OTHER_LDFLAGS = (

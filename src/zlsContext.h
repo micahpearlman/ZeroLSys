@@ -13,8 +13,10 @@
 #include <string>
 #include <vector>
 #include <map>
-#include <tr1/memory>
+#include <iostream>
 #include "zlsProductionRule.h"
+#include "zlsStateViewer.h"
+
 
 namespace ZeroLSys {
 	
@@ -23,11 +25,25 @@ namespace ZeroLSys {
 	
 	class LSystemContext {
 	public:
-		static LSystemContext& singleton();
+		
+		LSystemContext()
+		:	_stateViewer( 0 )
+		,	_start("empty")
+		,	_state("empty")
+		{
+			
+		}
+		
 		void initialize();
 		void reset();
 		void terminate();
+
+		void read( istream& is );
+		void write( ostream& os );
 		
+		string startState() const {
+			return _start;
+		}
 		void setStartState( const string& start ) {
 			_start = start;
 		}
@@ -50,10 +66,22 @@ namespace ZeroLSys {
 		
 		string& iterate();
 		
+		StateViewer* stateViewer() {
+			return _stateViewer;
+		}
+		void setStateViewer( StateViewer* sv ) {
+			_stateViewer = sv;
+		}
+		
+		
+		
 	private:
+		typedef map<string, ProductionRule> ProductionRuleMap;
 		string							_start;
 		string							_state;
-		map<string, ProductionRule>		_rules;
+		ProductionRuleMap				_rules;
+		StateViewer*					_stateViewer;
+		
 	};
 }
 #endif // __ZLS_H__

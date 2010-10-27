@@ -16,6 +16,10 @@
 		FA0B1B7E12721EC100550DCC /* zlsTurtleViewer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA0B1B7C12721EC100550DCC /* zlsTurtleViewer.cpp */; };
 		FA0B1B7F12721EC100550DCC /* zlsTurtleViewer.h in Headers */ = {isa = PBXBuildFile; fileRef = FA0B1B7D12721EC100550DCC /* zlsTurtleViewer.h */; };
 		FA0B1BA91272214100550DCC /* libMonkVG-OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA0B1BA61272212900550DCC /* libMonkVG-OSX.a */; };
+		FA99BF6D1278A73D005B3825 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA99BF691278A73D005B3825 /* tinyxml.cpp */; };
+		FA99BF6E1278A73D005B3825 /* tinyxml.h in Headers */ = {isa = PBXBuildFile; fileRef = FA99BF6A1278A73D005B3825 /* tinyxml.h */; };
+		FA99BF6F1278A73D005B3825 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA99BF6B1278A73D005B3825 /* tinyxmlerror.cpp */; };
+		FA99BF701278A73D005B3825 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA99BF6C1278A73D005B3825 /* tinyxmlparser.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -23,14 +27,14 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = FA0B1BA11272212900550DCC /* MonkVG-OSX.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = D2AAC046055464E500DB518D /* libMonkVG-OSX.a */;
+			remoteGlobalIDString = D2AAC046055464E500DB518D;
 			remoteInfo = "MonkVG-OSX";
 		};
 		FA0B1BA71272213100550DCC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FA0B1BA11272212900550DCC /* MonkVG-OSX.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = D2AAC045055464E500DB518D /* MonkVG-OSX */;
+			remoteGlobalIDString = D2AAC045055464E500DB518D;
 			remoteInfo = "MonkVG-OSX";
 		};
 /* End PBXContainerItemProxy section */
@@ -46,6 +50,10 @@
 		FA0B1B7C12721EC100550DCC /* zlsTurtleViewer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = zlsTurtleViewer.cpp; path = ../../src/zlsTurtleViewer.cpp; sourceTree = SOURCE_ROOT; };
 		FA0B1B7D12721EC100550DCC /* zlsTurtleViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zlsTurtleViewer.h; path = ../../src/zlsTurtleViewer.h; sourceTree = SOURCE_ROOT; };
 		FA0B1BA11272212900550DCC /* MonkVG-OSX.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "MonkVG-OSX.xcodeproj"; path = "../../../MonkVG/projects/MonkVG-OSX/MonkVG-OSX.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		FA99BF691278A73D005B3825 /* tinyxml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tinyxml.cpp; path = ../../thirdparty/tinyxml/tinyxml.cpp; sourceTree = SOURCE_ROOT; };
+		FA99BF6A1278A73D005B3825 /* tinyxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tinyxml.h; path = ../../thirdparty/tinyxml/tinyxml.h; sourceTree = SOURCE_ROOT; };
+		FA99BF6B1278A73D005B3825 /* tinyxmlerror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tinyxmlerror.cpp; path = ../../thirdparty/tinyxml/tinyxmlerror.cpp; sourceTree = SOURCE_ROOT; };
+		FA99BF6C1278A73D005B3825 /* tinyxmlparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tinyxmlparser.cpp; path = ../../thirdparty/tinyxml/tinyxmlparser.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +82,7 @@
 		08FB7795FE84155DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				FA99BF641278A72B005B3825 /* tinyxml */,
 				FA0B1B7C12721EC100550DCC /* zlsTurtleViewer.cpp */,
 				FA0B1B7D12721EC100550DCC /* zlsTurtleViewer.h */,
 				FA0B1B5512721D7E00550DCC /* zlsProductionRule.cpp */,
@@ -109,6 +118,17 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		FA99BF641278A72B005B3825 /* tinyxml */ = {
+			isa = PBXGroup;
+			children = (
+				FA99BF691278A73D005B3825 /* tinyxml.cpp */,
+				FA99BF6A1278A73D005B3825 /* tinyxml.h */,
+				FA99BF6B1278A73D005B3825 /* tinyxmlerror.cpp */,
+				FA99BF6C1278A73D005B3825 /* tinyxmlparser.cpp */,
+			);
+			name = tinyxml;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -120,6 +140,7 @@
 				FA0B1B5A12721D7E00550DCC /* zlsProductionRule.h in Headers */,
 				FA0B1B5C12721D7E00550DCC /* zlsStateViewer.h in Headers */,
 				FA0B1B7F12721EC100550DCC /* zlsTurtleViewer.h in Headers */,
+				FA99BF6E1278A73D005B3825 /* tinyxml.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,6 +214,9 @@
 				FA0B1B5912721D7E00550DCC /* zlsProductionRule.cpp in Sources */,
 				FA0B1B5B12721D7E00550DCC /* zlsStateViewer.cpp in Sources */,
 				FA0B1B7E12721EC100550DCC /* zlsTurtleViewer.cpp in Sources */,
+				FA99BF6D1278A73D005B3825 /* tinyxml.cpp in Sources */,
+				FA99BF6F1278A73D005B3825 /* tinyxmlerror.cpp in Sources */,
+				FA99BF701278A73D005B3825 /* tinyxmlparser.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,7 +240,11 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				HEADER_SEARCH_PATHS = ../../../MonkVG/include;
+				HEADER_SEARCH_PATHS = (
+					../../thirdparty/json_spirit_v4.03,
+					/opt/local/include,
+					../../../MonkVG/include,
+				);
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = "ZeroLSys-OSX";
 			};
@@ -228,7 +256,11 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
-				HEADER_SEARCH_PATHS = ../../../MonkVG/include;
+				HEADER_SEARCH_PATHS = (
+					../../thirdparty/json_spirit_v4.03,
+					/opt/local/include,
+					../../../MonkVG/include,
+				);
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = "ZeroLSys-OSX";
 			};
