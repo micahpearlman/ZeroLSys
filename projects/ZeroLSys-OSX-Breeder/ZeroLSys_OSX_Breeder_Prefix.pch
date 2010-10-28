@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'ZeroLSys-OSX-Breeder' target in the 'ZeroLSys-OSX-Breeder' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
