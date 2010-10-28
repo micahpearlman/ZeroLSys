@@ -127,13 +127,10 @@ int main(int argc, char** argv) {
 	ctx.initialize();
 	ctx.setStartState( string("F") );
     ctx.addRule( string("F") >> string("F+F--F+F") );
-	//ctx.addRule( string("f") >> string("Ff") );
+	ctx.addRule( string("f") >> string("Ff") );
 	
 	ctx.reset();
 
-//	string json = ctx.writeJSON();
-//	cout << json << endl;
-//	ctx.readJSON( json );
 	
 	stringstream ss;
 	ctx.write(ss);

@@ -8,34 +8,27 @@
  */
 
 #include "zlsProductionRule.h"
-#include "tinyxml.h"
+
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/xml_parser.hpp>
 
 namespace ZeroLSys {
+	
+	using boost::property_tree::ptree;
+	
 	void ProductionRule::read( istream& is ) {
-		TiXmlDocument doc;
-		is >> doc;
 		
-		TiXmlElement* rule = doc.FirstChildElement();
-		
-		TiXmlText* symbol = rule->FirstChildElement( "Symbol" )->FirstChild()->ToText();
-		_symbol = symbol->Value();
-		
-		TiXmlText* transform = rule->FirstChildElement( "Transform" )->FirstChild()->ToText();
-		_transform = transform->Value();
+		ptree pt;
+		read_xml( is, pt );
+		_symbol = pt.get<string>( "Symbol" );
+		_transform = pt.get<string>( "Transform" );
 	}
 	
 	void ProductionRule::write( ostream& os ) {
-		TiXmlElement* rule = new TiXmlElement( "Rule" );
-		
-		TiXmlElement* symbol = new TiXmlElement( "Symbol" );
-		symbol->LinkEndChild( new TiXmlText( _symbol ) );
-		rule->LinkEndChild( symbol );
-
-		TiXmlElement* transform = new TiXmlElement( "Transform" );
-		transform->LinkEndChild( new TiXmlText( _transform ) );
-		rule->LinkEndChild( transform );
-		
-		os << *rule;
+		ptree pt;
+		pt.put( "Symbol", _symbol );
+		pt.put( "Transform", _transform );
+		write_xml( os, pt );
 		
 	}
 

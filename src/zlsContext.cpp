@@ -9,7 +9,10 @@
 
 #include "zlsContext.h"
 #include <iostream>
-#include "tinyxml.h"
+
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/xml_parser.hpp>
+#include <boost/foreach.hpp>
 
 namespace ZeroLSys {
 	
@@ -25,55 +28,39 @@ namespace ZeroLSys {
 		
 	}
 	
+	using boost::property_tree::ptree;
+	
 	void LSystemContext::read( istream& is ) {
-		TiXmlDocument doc;
-		is >> doc;
+		ptree pt;
 		
-		TiXmlElement* root = doc.FirstChildElement();
+		read_xml( is, pt );
+		_start = pt.get<string>( "LSystem.Start" );
 		
-		// start
-		TiXmlText* start = root->FirstChildElement( "Start" )->FirstChild()->ToText();
-		_start = start->Value();
-		
-		// rules
-		TiXmlElement* rules = root->FirstChildElement( "Rules" );
-		for ( TiXmlElement* rule = rules->FirstChildElement( "Rule" ); rule != 0; rule = rule->NextSiblingElement() ) {
-			stringstream ruleStream;
-			ruleStream << *rule;
-			
-			ProductionRule rule;
-			rule.read( ruleStream );
-			addRule( rule );
+		BOOST_FOREACH( ptree::value_type& v, pt.get_child( "LSystem.Rules" ) ) {
+			stringstream rs;
+			write_xml( rs, v.second );
+			ProductionRule newrule;
+			newrule.read( rs );
+			addRule( newrule );
 		}
+		
+		
 	}
 	
 	void LSystemContext::write( ostream& os ) {
-		TiXmlDocument doc;
-		TiXmlDeclaration* decl = new TiXmlDeclaration( "1.0", "", "" );
-		doc.LinkEndChild( decl );
-		TiXmlElement* root = new TiXmlElement( "LSystem" );
-		doc.LinkEndChild( root );
 		
-		TiXmlElement* start = new TiXmlElement( "Start" );
-		start->LinkEndChild( new TiXmlText( _start ) );
-		root->LinkEndChild( start );
+		ptree root;
+		root.put( "LSystem.Start", _start );
 		
-		// write rules
-		TiXmlElement* blahblah = new TiXmlElement( "blahblah" );
-		stringstream rulestream;
 		for ( ProductionRuleMap::iterator ruleIt = _rules.begin(); ruleIt != _rules.end(); ruleIt++ ) {
-			ruleIt->second.write(rulestream);
+			stringstream rs;
+			ruleIt->second.write( rs );
+			ptree rule_pt;
+			read_xml( rs, rule_pt );
+			root.add_child( "LSystem.Rules.Rule", rule_pt );
 		}
-		rulestream >> *blahblah;
-		TiXmlElement* rules = new TiXmlElement( "Rules" );
-		rules->LinkEndChild( blahblah );
-		root->LinkEndChild( rules );
-
-		// setup for pretty print so we can hand edit
-		TiXmlPrinter pretty_printer;
-		pretty_printer.SetIndent( "\t" );
-		doc.Accept( &pretty_printer );
-		os << pretty_printer.Str();
+		
+		write_xml( os, root );
 		
 	}
 
