@@ -35,6 +35,8 @@ namespace ZeroLSys {
 			_offset[0] = _offset[1] = 0;
 		}
 		
+		virtual ~TurtleViewer();
+		
 		virtual void initialize();
 		virtual void terminate();
 		virtual void reset();

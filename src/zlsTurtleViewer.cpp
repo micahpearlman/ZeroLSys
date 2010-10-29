@@ -34,8 +34,15 @@ namespace ZeroLSys {
 	}
 	
 	void TurtleViewer::terminate( ) {
-		
+		vgDestroyPath( _path );
+		_path = VG_INVALID_HANDLE;
+		vgDestroyPaint( _paint );
+		_paint = VG_INVALID_HANDLE;
 	}
+	
+	TurtleViewer::~TurtleViewer() {
+		terminate();
+	}	
 	
 	void TurtleViewer::reset() {
 		vgClearPath( _path, VG_PATH_CAPABILITY_ALL );

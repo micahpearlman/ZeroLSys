@@ -24,6 +24,10 @@ namespace ZeroLSys {
 		:	_isDirty( false )
 		{}
 		
+		virtual ~StateViewer() {
+			_symbolHandlers.clear();
+		}
+		
 		typedef void (StateViewer::*SymbolHandler)();
 		
 		virtual void initialize() = 0;
