@@ -9,7 +9,7 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>????</string>
+				<string>*</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string></string>
@@ -17,10 +17,10 @@
 			<string>DocumentType</string>
 			<key>CFBundleTypeOSTypes</key>
 			<array>
-				<string>????</string>
+				<string>****</string>
 			</array>
 			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
+			<string>Viewer</string>
 			<key>NSDocumentClass</key>
 			<string>MyDocument</string>
 		</dict>

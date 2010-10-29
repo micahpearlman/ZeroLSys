@@ -18,7 +18,25 @@
 		FA99C1261279146A005B3825 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA99C1251279146A005B3825 /* GLUT.framework */; };
 		FA99C12A1279147E005B3825 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA99C1291279147E005B3825 /* OpenGL.framework */; };
 		FA99C17A127919CB005B3825 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA99C179127919CB005B3825 /* QuartzCore.framework */; };
+		FAC2C4B4127A402B000B4C92 /* libZeroLSys-OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC2C4B1127A4012000B4C92 /* libZeroLSys-OSX.a */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FAC2C4B0127A4012000B4C92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FAC2C4AC127A4012000B4C92 /* ZeroLSys-OSX.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC046055464E500DB518D /* libZeroLSys-OSX.a */;
+			remoteInfo = "ZeroLSys-OSX";
+		};
+		FAC2C4B2127A401E000B4C92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FAC2C4AC127A4012000B4C92 /* ZeroLSys-OSX.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC045055464E500DB518D /* ZeroLSys-OSX */;
+			remoteInfo = "ZeroLSys-OSX";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		089C1660FE840EACC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -40,6 +58,7 @@
 		FA99C1251279146A005B3825 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		FA99C1291279147E005B3825 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		FA99C179127919CB005B3825 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		FAC2C4AC127A4012000B4C92 /* ZeroLSys-OSX.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "ZeroLSys-OSX.xcodeproj"; path = "../ZeroLSys-OSX/ZeroLSys-OSX.xcodeproj"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAC2C4B4127A402B000B4C92 /* libZeroLSys-OSX.a in Frameworks */,
 				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
 				FA99C1261279146A005B3825 /* GLUT.framework in Frameworks */,
 				FA99C12A1279147E005B3825 /* OpenGL.framework in Frameworks */,
@@ -86,6 +106,7 @@
 		2A37F4AAFDCFA73011CA2CEA /* ZeroLSys-OSX-Breeder */ = {
 			isa = PBXGroup;
 			children = (
+				FAC2C4AC127A4012000B4C92 /* ZeroLSys-OSX.xcodeproj */,
 				2A37F4ABFDCFA73011CA2CEA /* Classes */,
 				2A37F4AFFDCFA73011CA2CEA /* Other Sources */,
 				2A37F4B8FDCFA73011CA2CEA /* Resources */,
@@ -139,6 +160,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FAC2C4AD127A4012000B4C92 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FAC2C4B1127A4012000B4C92 /* libZeroLSys-OSX.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -153,6 +182,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				FAC2C4B3127A401E000B4C92 /* PBXTargetDependency */,
 			);
 			name = "ZeroLSys-OSX-Breeder";
 			productInstallPath = "$(HOME)/Applications";
@@ -177,12 +207,28 @@
 			);
 			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* ZeroLSys-OSX-Breeder */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = FAC2C4AD127A4012000B4C92 /* Products */;
+					ProjectRef = FAC2C4AC127A4012000B4C92 /* ZeroLSys-OSX.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8D15AC270486D014006FF6A4 /* ZeroLSys-OSX-Breeder */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		FAC2C4B1127A4012000B4C92 /* libZeroLSys-OSX.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libZeroLSys-OSX.a";
+			remoteRef = FAC2C4B0127A4012000B4C92 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8D15AC2B0486D014006FF6A4 /* Resources */ = {
@@ -210,6 +256,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FAC2C4B3127A401E000B4C92 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "ZeroLSys-OSX";
+			targetProxy = FAC2C4B2127A401E000B4C92 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		089C165FFE840EACC02AAC07 /* InfoPlist.strings */ = {
@@ -258,9 +312,14 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ZeroLSys_OSX_Breeder_Prefix.pch;
+				HEADER_SEARCH_PATHS = (
+					/opt/local/include,
+					../../../MonkVG/include,
+				);
 				INFOPLIST_FILE = "ZeroLSys_OSX_Breeder-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = "ZeroLSys-OSX-Breeder";
+				USER_HEADER_SEARCH_PATHS = "/opt/local/include ../../../MonkVG/include\n/opt/local/include";
 			};
 			name = Debug;
 		};
@@ -272,9 +331,14 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ZeroLSys_OSX_Breeder_Prefix.pch;
+				HEADER_SEARCH_PATHS = (
+					/opt/local/include,
+					../../../MonkVG/include,
+				);
 				INFOPLIST_FILE = "ZeroLSys_OSX_Breeder-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = "ZeroLSys-OSX-Breeder";
+				USER_HEADER_SEARCH_PATHS = "/opt/local/include ../../../MonkVG/include\n/opt/local/include";
 			};
 			name = Release;
 		};

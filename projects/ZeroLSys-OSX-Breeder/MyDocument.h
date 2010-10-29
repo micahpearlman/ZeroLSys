@@ -8,8 +8,21 @@
 
 
 #import <Cocoa/Cocoa.h>
+#import "OpenVGView.h"
+#import "../../src/zlsContext.h"
 
-@interface MyDocument : NSDocument
-{
+using namespace ZeroLSys;
+
+@interface MyDocument : NSDocument {
+
+@public	
+	IBOutlet OpenVGView*		openVGView;
+
+@private
+	LSystemContext*		_lsystemContext;
 }
+
+
+- (IBAction) doIterate:(id)sender;
+
 @end

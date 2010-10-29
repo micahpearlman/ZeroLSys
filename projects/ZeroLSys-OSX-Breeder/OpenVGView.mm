@@ -17,10 +17,25 @@
 
 @implementation OpenVGView
 
+@dynamic stateViewer;
+
+- (StateViewer*) stateViewer {
+	return (StateViewer*)_turtleViewer;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+	if( self = [super initWithCoder:aDecoder] ) {
+		_turtleViewer = new TurtleViewer();
+		_turtleViewer->initialize();
+		_turtleViewer->setRotateRadiansFromDegrees( 60.0f );
+		_turtleViewer->setWidth( 1.0f );
+	}
+	return self;
+}
 - (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code here.
+
     }
     return self;
 }
@@ -36,17 +51,22 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTime
 
 - (void)prepareOpenGL {
 	
-    glShadeModel(GL_SMOOTH);
-    glEnable(GL_NORMALIZE);
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_COLOR_MATERIAL);
-    glEnable(GL_LIGHTING);
-    glEnable(GL_LIGHT0);
-    glClearColor(0.2f, 0.1f, 0.1f, 0.0f);
-    GLfloat light_diffuse[] = { 1, 1, 1, 1 };
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
-    GLfloat light_position[] = { 0, 0, 5, 1 };
-    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+//    glShadeModel(GL_SMOOTH);
+//    glEnable(GL_NORMALIZE);
+//    glEnable(GL_DEPTH_TEST);
+//    glEnable(GL_COLOR_MATERIAL);
+//    glEnable(GL_LIGHTING);
+//    glEnable(GL_LIGHT0);
+//    glClearColor(0.2f, 0.1f, 0.1f, 0.0f);
+//    GLfloat light_diffuse[] = { 1, 1, 1, 1 };
+//    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+//    GLfloat light_position[] = { 0, 0, 5, 1 };
+//    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+	
+	// openvg init
+	// openvg init
+	vgCreateContextSH( self.bounds.size.width, self.bounds.size.height );
+	
 	
     // Synchronize buffer swaps with vertical refresh rate
     GLint swapInt = 0;
@@ -76,27 +96,36 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTime
 
 - (void)reshape {
     const NSSize size = self.bounds.size;
-    glViewport(0,0,size.width,size.height);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluPerspective(45.0f,size.width/size.height,0.1f,100.0f);
+	vgResizeSurfaceSH( size.width, size.height );
+//    glViewport(0,0,size.width,size.height);
+//    glMatrixMode(GL_PROJECTION);
+//    glLoadIdentity();
+//    gluPerspective(45.0f,size.width/size.height,0.1f,100.0f);
 }
 
 - (void)drawRect:(NSRect)rect {
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glTranslatef(0.0f,0.0f,-6);
-    glRotatef(20,0,0,1);
-    glRotatef(20,1,0,0);
-    glColor3f(1,0,0);
-    glutSolidCube(2);
+	
+//	viewer.setOffset( gRenderContext._offset );
+//	viewer.setScale( gRenderContext._scale );
+	_turtleViewer->draw();
+	
+//    glMatrixMode(GL_MODELVIEW);
+//    glLoadIdentity();
+//    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//    glTranslatef(0.0f,0.0f,-6);
+//    glRotatef(20,0,0,1);
+//    glRotatef(20,1,0,0);
+//    glColor3f(1,0,0);
+//    glutSolidCube(2);
     [[self openGLContext] flushBuffer];
 }
 
 - (void)dealloc {
     // Release the display link
     CVDisplayLinkRelease(_displayLink);
+	_turtleViewer->terminate();
+	delete _turtleViewer;
 	
     [super dealloc];
 }
