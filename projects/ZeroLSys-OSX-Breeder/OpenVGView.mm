@@ -31,6 +31,8 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTime
 		_turtleViewer->initialize();
 		_turtleViewer->setRotateRadiansFromDegrees( 60.0f );
 		_turtleViewer->setWidth( 1.0f );
+		_scale = 1.0f;
+		_offset[0] = _offset[1] = 0;
 		
 		// Synchronize buffer swaps with vertical refresh rate
 		GLint swapInt = 1;
@@ -49,13 +51,6 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTime
 		
 	}
 	return self;
-}
-- (id)initWithFrame:(NSRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
-
-    }
-    return self;
 }
 
 #pragma mark -
@@ -80,6 +75,8 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTime
 	
 	//	viewer.setOffset( gRenderContext._offset );
 	//	viewer.setScale( gRenderContext._scale );
+	_turtleViewer->setOffset( _offset );
+	_turtleViewer->setScale( _scale );
 	_turtleViewer->draw();
     [[self openGLContext] flushBuffer];
 	
@@ -88,10 +85,6 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTime
     return kCVReturnSuccess;
 }
 
-- (void) awakeFromNib {
-//    // Activate the display link
-//    CVDisplayLinkStart(_displayLink);
-}
 
 - (void)prepareOpenGL {
 	NSOpenGLContext	*currentContext = [self openGLContext];
@@ -120,29 +113,40 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTime
 	CGLUnlockContext((CGLContextObj)[currentContext CGLContextObj]);
 }
 
-- (void)drawRect:(NSRect)rect {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
-//	viewer.setOffset( gRenderContext._offset );
-//	viewer.setScale( gRenderContext._scale );
-	_turtleViewer->draw();
-	
-//    glMatrixMode(GL_MODELVIEW);
-//    glLoadIdentity();
+//- (void)drawRect:(NSRect)rect {
 //    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-//    glTranslatef(0.0f,0.0f,-6);
-//    glRotatef(20,0,0,1);
-//    glRotatef(20,1,0,0);
-//    glColor3f(1,0,0);
-//    glutSolidCube(2);
-    [[self openGLContext] flushBuffer];
-}
+//	
+//    [[self openGLContext] flushBuffer];
+//}
 
 #pragma mark -
 #pragma mark Event Handling
--(void)magnifyWithEvent:(NSEvent *)event {
-	NSLog(@"magnification = %f", [event magnification] );
+
+- (void)magnifyWithEvent:(NSEvent *)event {
+	_scale *= (1.0f + [event magnification]);
 }
+
+- (void) mouseDown:(NSEvent *) theEvent { 
+	NSPoint where = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+	_previousMouse = where;
+	
+	[self mouseDragged:theEvent]; 
+}
+- (void) mouseDragged:(NSEvent *)theEvent {
+	NSPoint where = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+  	
+	float delta[2] = {
+		where.x - _previousMouse.x,
+		where.y - _previousMouse.y 
+	};
+	
+	_offset[0] += delta[0];
+	_offset[1] += -delta[1];
+	
+	_previousMouse = where;
+}
+
+
 
 - (void)dealloc {
     // Release the display link

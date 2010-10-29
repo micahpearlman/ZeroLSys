@@ -19,6 +19,11 @@ using namespace ZeroLSys;
 	
 @private
 	TurtleViewer*		_turtleViewer;
+	float				_scale;
+	float				_offset[2];
+	
+@private
+	NSPoint				_previousMouse;
 }
 
 @property (readonly) StateViewer* stateViewer;
