@@ -19,6 +19,7 @@
 		FA99C12A1279147E005B3825 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA99C1291279147E005B3825 /* OpenGL.framework */; };
 		FA99C17A127919CB005B3825 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA99C179127919CB005B3825 /* QuartzCore.framework */; };
 		FAC2C4B4127A402B000B4C92 /* libZeroLSys-OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC2C4B1127A4012000B4C92 /* libZeroLSys-OSX.a */; };
+		FAC2C5AA127B5AF2000B4C92 /* BreederAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAC2C5A9127B5AF2000B4C92 /* BreederAppDelegate.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,8 @@
 		FA99C1291279147E005B3825 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		FA99C179127919CB005B3825 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		FAC2C4AC127A4012000B4C92 /* ZeroLSys-OSX.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "ZeroLSys-OSX.xcodeproj"; path = "../ZeroLSys-OSX/ZeroLSys-OSX.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		FAC2C5A8127B5AF2000B4C92 /* BreederAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BreederAppDelegate.h; sourceTree = "<group>"; };
+		FAC2C5A9127B5AF2000B4C92 /* BreederAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BreederAppDelegate.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +126,8 @@
 				2A37F4ACFDCFA73011CA2CEA /* MyDocument.mm */,
 				FA99C122127913EE005B3825 /* OpenVGView.h */,
 				FA99C123127913EE005B3825 /* OpenVGView.mm */,
+				FAC2C5A8127B5AF2000B4C92 /* BreederAppDelegate.h */,
+				FAC2C5A9127B5AF2000B4C92 /* BreederAppDelegate.mm */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -252,6 +257,7 @@
 				8D15AC310486D014006FF6A4 /* MyDocument.mm in Sources */,
 				8D15AC320486D014006FF6A4 /* main.m in Sources */,
 				FA99C124127913EE005B3825 /* OpenVGView.mm in Sources */,
+				FAC2C5AA127B5AF2000B4C92 /* BreederAppDelegate.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

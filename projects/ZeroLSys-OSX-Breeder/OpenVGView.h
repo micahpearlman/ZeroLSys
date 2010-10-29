@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import <CoreVideo/CoreVideo.h>
+#import <QuartzCore/QuartzCore.h>
 #import "../../src/zlsTurtleViewer.h"
 
 using namespace ZeroLSys;

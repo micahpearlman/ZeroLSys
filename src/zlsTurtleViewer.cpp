@@ -39,22 +39,29 @@ namespace ZeroLSys {
 	
 	void TurtleViewer::reset() {
 		vgClearPath( _path, VG_PATH_CAPABILITY_ALL );
-		_state._position[0] = _state._position[1] = 0;
+		_turtleState._position[0] = _turtleState._position[1] = 0;
 		MoveForward();	// set the initial position
 	}
 	
-	void TurtleViewer::execute( const string& state ) {
-		
-		vgClearPath( _path, VG_PATH_CAPABILITY_ALL );
-		MoveForward();	// set the initial position
-		
-		for ( string::const_iterator c = state.begin(); c != state.end(); c++ ) {
-			StateViewer::SymbolHandler handler = _symbolHandlers[string(1, *c)];
-			(this->*handler)();
-		}
-	}
 	
 	void TurtleViewer::draw() {
+		
+		if ( _isDirty && _state.length() > 0 ) {
+			vgClearPath( _path, VG_PATH_CAPABILITY_ALL );
+			MoveForward();	// set the initial position
+			
+			for ( string::const_iterator c = _state.begin(); c != _state.end(); c++ ) {
+				StateViewer::SymbolHandler handler = _symbolHandlers[string(1, *c)];
+				(this->*handler)();
+			}
+
+			_isDirty = false;
+		}
+		
+		if ( _path == VG_INVALID_HANDLE ) {
+			return;
+		}
+		
 		vgSetf( VG_STROKE_LINE_WIDTH, _width );
 		
 		vgSeti(VG_MATRIX_MODE, VG_MATRIX_PATH_USER_TO_SURFACE);
@@ -71,33 +78,33 @@ namespace ZeroLSys {
 	void TurtleViewer::DrawForward() {
 		cout << "DrawForward" << endl;
 		
-		_state._position[0] = _state._position[0] + _stepLength * cosf( _state._orientation );
-		_state._position[1] = _state._position[1] + _stepLength * sinf( _state._orientation );
+		_turtleState._position[0] = _turtleState._position[0] + _stepLength * cosf( _turtleState._orientation );
+		_turtleState._position[1] = _turtleState._position[1] + _stepLength * sinf( _turtleState._orientation );
 		
 		static const VGubyte segments[1] = { VG_LINE_TO | VG_ABSOLUTE };
-		vgAppendPathData( _path, 1, segments, _state._position );
+		vgAppendPathData( _path, 1, segments, _turtleState._position );
 	}
 	
 	// f
 	void TurtleViewer::MoveForward() {
 		
 		cout << "DrawForward" << endl;
-		_state._position[0] = _state._position[0] + _stepLength * cosf( _state._orientation );
-		_state._position[1] = _state._position[1] + _stepLength * sinf( _state._orientation );
+		_turtleState._position[0] = _turtleState._position[0] + _stepLength * cosf( _turtleState._orientation );
+		_turtleState._position[1] = _turtleState._position[1] + _stepLength * sinf( _turtleState._orientation );
 		
 		static const VGubyte segments[1] = { VG_MOVE_TO | VG_ABSOLUTE };
-		vgAppendPathData( _path, 1, segments, _state._position );
+		vgAppendPathData( _path, 1, segments, _turtleState._position );
 		
 	}
 	
 	// +
 	void TurtleViewer::TurnLeft() {
-		_state._orientation += _rotateRadians;
+		_turtleState._orientation += _rotateRadians;
 	}		
 	
 	// -
 	void TurtleViewer::TurnRight() {
-		_state._orientation -= _rotateRadians;
+		_turtleState._orientation -= _rotateRadians;
 	}		
 
 	

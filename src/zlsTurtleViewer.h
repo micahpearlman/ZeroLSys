@@ -29,6 +29,8 @@ namespace ZeroLSys {
 		,	_stepLength(10)
 		,	_rotateRadians( radians(33) )
 		,	_scale(1)
+		,	_path(VG_INVALID_HANDLE)
+		,	_paint(VG_INVALID_HANDLE)
 		{
 			_offset[0] = _offset[1] = 0;
 		}
@@ -36,7 +38,7 @@ namespace ZeroLSys {
 		virtual void initialize();
 		virtual void terminate();
 		virtual void reset();
-		virtual void execute( const string& state );
+		//virtual void execute( const string& state );
 		
 		virtual void draw();
 		
@@ -76,10 +78,11 @@ namespace ZeroLSys {
 			_scale = s;
 		}
 		
+		
 		string description() {
 			stringstream ss;
 			ss << "TurtleViewer: \n";
-			ss << _state.description();
+			ss << _turtleState.description();
 			return ss.str();
 		}
 		
@@ -120,7 +123,7 @@ namespace ZeroLSys {
 			}
 		};
 		
-		TurtleState		_state;
+		TurtleState		_turtleState;
 		
 	};
 }

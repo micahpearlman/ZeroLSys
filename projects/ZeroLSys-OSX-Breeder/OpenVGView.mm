@@ -19,6 +19,8 @@
 
 @dynamic stateViewer;
 
+static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeStamp* now, const CVTimeStamp* outputTime, CVOptionFlags flagsIn, CVOptionFlags* flagsOut, void* displayLinkContext);
+
 - (StateViewer*) stateViewer {
 	return (StateViewer*)_turtleViewer;
 }
@@ -29,6 +31,22 @@
 		_turtleViewer->initialize();
 		_turtleViewer->setRotateRadiansFromDegrees( 60.0f );
 		_turtleViewer->setWidth( 1.0f );
+		
+		// Synchronize buffer swaps with vertical refresh rate
+		GLint swapInt = 1;
+		[[self openGLContext] setValues:&swapInt forParameter:NSOpenGLCPSwapInterval]; 
+		
+		// Create a display link capable of being used with all active displays
+		CVDisplayLinkCreateWithActiveCGDisplays(&_displayLink);
+		
+		// Set the renderer output callback function
+		CVDisplayLinkSetOutputCallback(_displayLink, &MyDisplayLinkCallback, self);
+		
+		// Set the display link for the current renderer
+		CGLContextObj cglContext = (CGLContextObj)[[self openGLContext] CGLContextObj];
+		CGLPixelFormatObj cglPixelFormat = (CGLPixelFormatObj)[[self pixelFormat] CGLPixelFormatObj];
+		CVDisplayLinkSetCurrentCGDisplayFromOpenGLContext(_displayLink, cglContext, cglPixelFormat);
+		
 	}
 	return self;
 }
@@ -40,6 +58,8 @@
     return self;
 }
 
+#pragma mark -
+#pragma mark Display Link
 
 // This is the renderer output callback function
 static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeStamp* now, const CVTimeStamp* outputTime, CVOptionFlags flagsIn, CVOptionFlags* flagsOut, void* displayLinkContext) {
@@ -47,60 +67,57 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTime
     return result;
 }
 
+- (CVReturn)getFrameForTime:(const CVTimeStamp*)outputTime {
+    // Add your drawing codes here
+	//[self setNeedsDisplay:YES];
+	[[self openGLContext] makeCurrentContext];
+	NSOpenGLContext	*currentContext = [self openGLContext];
+	// must lock GL context because display link is threaded
+	CGLLockContext((CGLContextObj)[currentContext CGLContextObj]);
 
+	
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
+	//	viewer.setOffset( gRenderContext._offset );
+	//	viewer.setScale( gRenderContext._scale );
+	_turtleViewer->draw();
+    [[self openGLContext] flushBuffer];
+	
+	CGLUnlockContext((CGLContextObj)[currentContext CGLContextObj]);
+	
+    return kCVReturnSuccess;
+}
+
+- (void) awakeFromNib {
+//    // Activate the display link
+//    CVDisplayLinkStart(_displayLink);
+}
 
 - (void)prepareOpenGL {
+	NSOpenGLContext	*currentContext = [self openGLContext];
+	// must lock GL context because display link is threaded
+	CGLLockContext((CGLContextObj)[currentContext CGLContextObj]);
 	
-//    glShadeModel(GL_SMOOTH);
-//    glEnable(GL_NORMALIZE);
-//    glEnable(GL_DEPTH_TEST);
-//    glEnable(GL_COLOR_MATERIAL);
-//    glEnable(GL_LIGHTING);
-//    glEnable(GL_LIGHT0);
-//    glClearColor(0.2f, 0.1f, 0.1f, 0.0f);
-//    GLfloat light_diffuse[] = { 1, 1, 1, 1 };
-//    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
-//    GLfloat light_position[] = { 0, 0, 5, 1 };
-//    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-	
-	// openvg init
 	// openvg init
 	vgCreateContextSH( self.bounds.size.width, self.bounds.size.height );
 	
-	
-    // Synchronize buffer swaps with vertical refresh rate
-    GLint swapInt = 0;
-    [[self openGLContext] setValues:&swapInt forParameter:NSOpenGLCPSwapInterval]; 
-	
-    // Create a display link capable of being used with all active displays
-    CVDisplayLinkCreateWithActiveCGDisplays(&_displayLink);
-	
-    // Set the renderer output callback function
-    CVDisplayLinkSetOutputCallback(_displayLink, &MyDisplayLinkCallback, self);
-	
-    // Set the display link for the current renderer
-    CGLContextObj cglContext = (CGLContextObj)[[self openGLContext] CGLContextObj];
-    CGLPixelFormatObj cglPixelFormat = (CGLPixelFormatObj)[[self pixelFormat] CGLPixelFormatObj];
-    CVDisplayLinkSetCurrentCGDisplayFromOpenGLContext(_displayLink, cglContext, cglPixelFormat);
+	CGLUnlockContext((CGLContextObj)[currentContext CGLContextObj]);
 	
     // Activate the display link
     CVDisplayLinkStart(_displayLink);
 	
 }
 
-- (CVReturn)getFrameForTime:(const CVTimeStamp*)outputTime {
-    // Add your drawing codes here
-	[self setNeedsDisplay:YES];
-    return kCVReturnSuccess;
-}
 
 - (void)reshape {
+	NSOpenGLContext	*currentContext = [self openGLContext];
+	// must lock GL context because display link is threaded
+	CGLLockContext((CGLContextObj)[currentContext CGLContextObj]);
+	
     const NSSize size = self.bounds.size;
 	vgResizeSurfaceSH( size.width, size.height );
-//    glViewport(0,0,size.width,size.height);
-//    glMatrixMode(GL_PROJECTION);
-//    glLoadIdentity();
-//    gluPerspective(45.0f,size.width/size.height,0.1f,100.0f);
+	
+	CGLUnlockContext((CGLContextObj)[currentContext CGLContextObj]);
 }
 
 - (void)drawRect:(NSRect)rect {
@@ -119,6 +136,12 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTime
 //    glColor3f(1,0,0);
 //    glutSolidCube(2);
     [[self openGLContext] flushBuffer];
+}
+
+#pragma mark -
+#pragma mark Event Handling
+-(void)magnifyWithEvent:(NSEvent *)event {
+	NSLog(@"magnification = %f", [event magnification] );
 }
 
 - (void)dealloc {

@@ -24,6 +24,8 @@ using namespace std;
         // Add your subclass-specific initialization here.
         // If an error occurs here, send a [self release] message and return nil.
 		_lsystemContext = 0;
+		
+		[[NSDocumentController sharedDocumentController] setAutosavingDelay:1.0];
     
     }
     return self;
@@ -88,7 +90,7 @@ using namespace std;
 
 - (IBAction) doIterate:(id)sender {
 	_lsystemContext->iterate();
-	_lsystemContext->stateViewer()->execute( _lsystemContext->state() );
+	_lsystemContext->stateViewer()->setState( _lsystemContext->state() );
 }
 
 - (void) dealloc {
