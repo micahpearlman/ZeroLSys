@@ -25,16 +25,18 @@ namespace ZeroLSys {
 		addSymbolHandlerForSymbol( string("f"), (StateViewer::SymbolHandler)&TurtleViewer::MoveForward );
 		addSymbolHandlerForSymbol( string("+"), (StateViewer::SymbolHandler)&TurtleViewer::TurnLeft );
 		addSymbolHandlerForSymbol( string("-"), (StateViewer::SymbolHandler)&TurtleViewer::TurnRight );
+		addSymbolHandlerForSymbol( string("C"), (StateViewer::SymbolHandler)&TurtleViewer::ChangeColor );
+		addSymbolHandlerForSymbol( string("["), (StateViewer::SymbolHandler)&TurtleViewer::PushState );
+		addSymbolHandlerForSymbol( string("]"), (StateViewer::SymbolHandler)&TurtleViewer::PopState );
 		
 		// setup openvg
 		_paint = vgCreatePaint();
-		VGfloat color[4] = { 1.0f, 0.0f, 0.0f, 1.0f };
-		vgSetParameterfv(_paint, VG_PAINT_COLOR, 4, &color[0]);
+		VGfloat c[4] = {
+			1,1,1,1
+		};
+		vgSetParameterfv(_paint, VG_PAINT_COLOR, 4, &c[0] );
 		
 		_path = vgCreatePath(VG_PATH_FORMAT_STANDARD, VG_PATH_DATATYPE_F,1,0,0,0, VG_PATH_CAPABILITY_ALL);
-		
-		
-		
 	}
 	
 	void TurtleViewer::terminate( ) {
@@ -88,27 +90,6 @@ namespace ZeroLSys {
 				const char k = *c;
 				
 				parseParameters( c );
-				
-//				_currentParameters.clear();
-//				// get parameters if they are there
-//				if ( *(c+1) == '(' ) {		// NOTE:  assumes that whitespace has been removed...
-//					size_t cur_pos = distance( _state.begin(), c );
-//					size_t close_pos = _state.find_first_of(")", cur_pos);
-//					if ( close_pos != string::npos ) {
-//						string parameter_string( c+2, _state.begin() +  close_pos );
-//						char_separator<char> sep(",");
-//						tokenizer< char_separator<char> > tokens(parameter_string, sep);
-//						BOOST_FOREACH(string t, tokens) {
-//							_currentParameters.push_back( lexical_cast<float>( t ) );
-//						}
-//						
-//						// reset the iterator past the parameters
-//						c = _state.begin() + close_pos;
-//					}
-//				}
-				
-				cout << k;
-				
 				StateViewer::SymbolHandler handler = handlerForSymbol( string(1,k) );
 				if ( handler ) {
 					(this->*handler)();
@@ -116,8 +97,6 @@ namespace ZeroLSys {
 				
 			}
 			
-			cout << endl;
-
 			_isDirty = false;
 		}
 		
@@ -187,7 +166,32 @@ namespace ZeroLSys {
 		//cout << "TurnRight: " << currentTurtleState()._rotateRadians << endl;
 
 		currentTurtleState()._orientation -= currentTurtleState()._rotateRadians;
+	}	
+	
+	// C
+	void TurtleViewer::ChangeColor() { 
+		if ( _currentParameters.empty() == false ) {
+			currentTurtleState()._color[0] = nextParameter();
+			currentTurtleState()._color[1] = nextParameter();		
+			currentTurtleState()._color[2] = nextParameter();
+			currentTurtleState()._color[3] = nextParameter();			
+		}
+		
+		cout << currentTurtleState().description() << endl;
+		
+		vgSetParameterfv(_paint, VG_PAINT_COLOR, 4, &currentTurtleState()._color[0] );
+	}
+	
+	// [
+	void TurtleViewer::PushState() {
+		pushTurtleState();
+	}	
+	// ]
+	void TurtleViewer::PopState() {
+		popTurtleState();
 	}		
+
+
 
 	
 	

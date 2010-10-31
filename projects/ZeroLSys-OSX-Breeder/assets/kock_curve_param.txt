@@ -5,7 +5,7 @@
 	<Rules>
 		<Rule>
 			<Symbol>F</Symbol>
-			<Transform>F(10) +(33) F(10) -(33) -(33) F(10) +(180) F(10)</Transform>
+			<Transform>C(1,1,0,1) F(10) +(33) F(10) -(33) -(33) F(10) +(90) F(10)</Transform>
 		</Rule>
 		<Rule>
 			<Symbol>f</Symbol>

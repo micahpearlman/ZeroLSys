@@ -27,14 +27,14 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = FAC2C4AC127A4012000B4C92 /* ZeroLSys-OSX.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = D2AAC046055464E500DB518D /* libZeroLSys-OSX.a */;
+			remoteGlobalIDString = D2AAC046055464E500DB518D;
 			remoteInfo = "ZeroLSys-OSX";
 		};
 		FAC2C4B2127A401E000B4C92 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FAC2C4AC127A4012000B4C92 /* ZeroLSys-OSX.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = D2AAC045055464E500DB518D /* ZeroLSys-OSX */;
+			remoteGlobalIDString = D2AAC045055464E500DB518D;
 			remoteInfo = "ZeroLSys-OSX";
 		};
 /* End PBXContainerItemProxy section */

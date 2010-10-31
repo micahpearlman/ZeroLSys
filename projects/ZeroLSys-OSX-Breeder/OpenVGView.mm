@@ -17,20 +17,23 @@
 
 @implementation OpenVGView
 
-@dynamic stateViewer;
+@synthesize stateViewer = _turtleViewer;
+
+//@dynamic stateViewer;
+//
+//- (StateViewer*) stateViewer {
+//	return (StateViewer*)_turtleViewer;
+//}
 
 static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeStamp* now, const CVTimeStamp* outputTime, CVOptionFlags flagsIn, CVOptionFlags* flagsOut, void* displayLinkContext);
 
-- (StateViewer*) stateViewer {
-	return (StateViewer*)_turtleViewer;
-}
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
 	if( self = [super initWithCoder:aDecoder] ) {
 		_turtleViewer = new TurtleViewer();
-		_turtleViewer->initialize();
-		_turtleViewer->setRotateRadiansFromDegrees( 60.0f );
-		_turtleViewer->setWidth( 1.0f );
+		self.stateViewer->initialize();
+		self.stateViewer->setRotateRadiansFromDegrees( 60.0f );
+		self.stateViewer->setWidth( 1.0f );
 		_scale = 1.0f;
 		_offset[0] = _offset[1] = 0;
 		
@@ -75,9 +78,9 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTime
 	
 	//	viewer.setOffset( gRenderContext._offset );
 	//	viewer.setScale( gRenderContext._scale );
-	_turtleViewer->setOffset( _offset );
-	_turtleViewer->setScale( _scale );
-	_turtleViewer->draw();
+	self.stateViewer->setOffset( _offset );
+	self.stateViewer->setScale( _scale );
+	self.stateViewer->draw();
     [[self openGLContext] flushBuffer];
 	
 	CGLUnlockContext((CGLContextObj)[currentContext CGLContextObj]);
@@ -150,7 +153,7 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTime
 - (void)dealloc {
     // Release the display link
     CVDisplayLinkRelease(_displayLink);
-	_turtleViewer->terminate();
+	self.stateViewer->terminate();
 	delete _turtleViewer;
 	
     [super dealloc];

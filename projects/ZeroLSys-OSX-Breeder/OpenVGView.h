@@ -26,7 +26,7 @@ using namespace ZeroLSys;
 	NSPoint				_previousMouse;
 }
 
-@property (readonly) StateViewer* stateViewer;
+@property (readonly) TurtleViewer* stateViewer;
 
 
 @end

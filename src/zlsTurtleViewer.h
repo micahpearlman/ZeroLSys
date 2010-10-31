@@ -96,6 +96,9 @@ namespace ZeroLSys {
 		void MoveForward();		// f
 		void TurnLeft();		// +
 		void TurnRight();		// -
+		void ChangeColor();		// C
+		void PushState();		// [
+		void PopState();		// ]
 		
 	private:	// drawing state
 		
@@ -114,6 +117,7 @@ namespace ZeroLSys {
 			,	_orientation(0) 
 			{
 				_position[0] = _position[1] = 100;
+				_color[0] = _color[1] = _color[2] = _color[3] = 1.0f;
 			}
 			
 			VGfloat		_position[2];
@@ -123,12 +127,18 @@ namespace ZeroLSys {
 			VGfloat		_rotateRadians;
 			VGfloat		_width;
 			
+			VGfloat		_color[4];
+			
 			
 			string description() {
 				stringstream ss;
 				ss	<< "state: \n"
 					<<		"\tposition: " << _position[0] << ", " << _position[1] << "\n"
-					<<		"\torientation: " << degrees(_orientation) << "\n";
+					<<		"\torientation: " << degrees(_orientation) << "\n"
+					<<		"\tstepLength: " << _stepLength << "\n"
+					<<		"\trotateDegrees: " << degrees(_rotateRadians) << "\n"
+					<<		"\twidth: "	<< _width << "\n"
+					<<		"\tcolor: " << _color[0] << ", " << _color[1] << ", " << _color[2] << ", " << _color[3] << "\n";
 				return ss.str();
 			}
 		};
@@ -139,6 +149,12 @@ namespace ZeroLSys {
 			return _turtleStateStack.back();
 		}
 		
+		void pushTurtleState() {
+			_turtleStateStack.push_back( currentTurtleState() );
+		}
+		void popTurtleState() {
+			_turtleStateStack.pop_back();
+		}
 
 		void parseParameters( string::iterator& c );
 		
