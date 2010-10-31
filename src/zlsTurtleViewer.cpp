@@ -29,21 +29,11 @@ namespace ZeroLSys {
 		addSymbolHandlerForSymbol( string("["), (StateViewer::SymbolHandler)&TurtleViewer::PushState );
 		addSymbolHandlerForSymbol( string("]"), (StateViewer::SymbolHandler)&TurtleViewer::PopState );
 		
-		// setup openvg
-		_paint = vgCreatePaint();
-		VGfloat c[4] = {
-			1,1,1,1
-		};
-		vgSetParameterfv(_paint, VG_PAINT_COLOR, 4, &c[0] );
-		
-		_path = vgCreatePath(VG_PATH_FORMAT_STANDARD, VG_PATH_DATATYPE_F,1,0,0,0, VG_PATH_CAPABILITY_ALL);
 	}
 	
 	void TurtleViewer::terminate( ) {
-		vgDestroyPath( _path );
-		_path = VG_INVALID_HANDLE;
-		vgDestroyPaint( _paint );
-		_paint = VG_INVALID_HANDLE;
+		_turtleStateStack.clear();
+		_turtleStateDrawables.clear();
 	}
 	
 	TurtleViewer::~TurtleViewer() {
@@ -51,9 +41,15 @@ namespace ZeroLSys {
 	}	
 	
 	void TurtleViewer::reset() {
-		vgClearPath( _path, VG_PATH_CAPABILITY_ALL );
-		currentTurtleState()._position[0] = currentTurtleState()._position[1] = 0;
-		MoveForward();	// set the initial position
+		_turtleStateStack.clear();
+		_turtleStateDrawables.clear();
+		TurtleState::SmartPtr start_state = TurtleState::create();
+		_turtleStateStack.push_back( start_state );
+		_turtleStateDrawables.push_back(start_state );
+		
+//		vgClearPath( _path, VG_PATH_CAPABILITY_ALL );
+//		currentTurtleState()._position[0] = currentTurtleState()._position[1] = 0;
+//		MoveForward();	// set the initial position
 	}
 	
 	
@@ -82,8 +78,12 @@ namespace ZeroLSys {
 	void TurtleViewer::draw() {
 		
 		if ( _isDirty && _state.length() > 0 ) {
-			vgClearPath( _path, VG_PATH_CAPABILITY_ALL );
-			MoveForward();	// set the initial position
+			reset();
+			//vgClearPath(currentTurtleState()._path, VG_PATH_CAPABILITY_ALL );
+//			_turtleStateStack.clear();
+//			_turtleStateDrawables.clear();
+			
+//			MoveForward();	// set the initial position
 			
 			for ( string::iterator c = _state.begin(); c != _state.end(); c++ ) {
 				
@@ -100,20 +100,14 @@ namespace ZeroLSys {
 			_isDirty = false;
 		}
 		
-		if ( _path == VG_INVALID_HANDLE ) {
-			return;
+		BOOST_FOREACH( TurtleState::SmartPtr s, _turtleStateDrawables ) {
+			vgSeti(VG_MATRIX_MODE, VG_MATRIX_PATH_USER_TO_SURFACE);
+			vgLoadIdentity();
+			vgTranslate(_offset[0], _offset[1]);
+			vgScale( _scale, _scale );
+			
+			s->draw();
 		}
-		
-		vgSetf( VG_STROKE_LINE_WIDTH, currentTurtleState()._width );
-		
-		vgSeti(VG_MATRIX_MODE, VG_MATRIX_PATH_USER_TO_SURFACE);
-		vgLoadIdentity();
-		vgTranslate(_offset[0], _offset[1]);
-		vgScale( _scale, _scale );
-		
-		vgSetPaint(_paint, VG_STROKE_PATH );
-		vgDrawPath( _path, VG_STROKE_PATH );
-		
 	}
 	
 	// F
@@ -127,7 +121,7 @@ namespace ZeroLSys {
 		currentTurtleState()._position[1] = currentTurtleState()._position[1] + currentTurtleState()._stepLength * sinf( currentTurtleState()._orientation );
 		
 		static const VGubyte segments[1] = { VG_LINE_TO | VG_ABSOLUTE };
-		vgAppendPathData( _path, 1, segments, currentTurtleState()._position );
+		vgAppendPathData( currentTurtleState()._path, 1, segments, currentTurtleState()._position );
 	}
 	
 	// f
@@ -141,7 +135,7 @@ namespace ZeroLSys {
 		currentTurtleState()._position[1] = currentTurtleState()._position[1] + currentTurtleState()._stepLength * sinf( currentTurtleState()._orientation );
 		
 		static const VGubyte segments[1] = { VG_MOVE_TO | VG_ABSOLUTE };
-		vgAppendPathData( _path, 1, segments, currentTurtleState()._position );
+		vgAppendPathData( currentTurtleState()._path, 1, segments, currentTurtleState()._position );
 		
 	}
 	
@@ -177,9 +171,9 @@ namespace ZeroLSys {
 			currentTurtleState()._color[3] = nextParameter();			
 		}
 		
-		cout << currentTurtleState().description() << endl;
+		//cout << currentTurtleState().description() << endl;
 		
-		vgSetParameterfv(_paint, VG_PAINT_COLOR, 4, &currentTurtleState()._color[0] );
+		vgSetParameterfv( currentTurtleState()._paint, VG_PAINT_COLOR, 4, &currentTurtleState()._color[0] );
 	}
 	
 	// [

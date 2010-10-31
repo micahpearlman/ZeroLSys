@@ -15,8 +15,11 @@
 #include <sstream>
 #include <VG/openvg.h>
 #include <VG/vgu.h>
+#include <boost/shared_ptr.hpp>
 
 namespace ZeroLSys {
+	
+	using namespace boost;
 	
 	static inline VGfloat radians (VGfloat degrees) {return degrees * M_PI/180.0f;}	
 	static inline VGfloat degrees (VGfloat radians) {return radians * 180.0f/M_PI;}
@@ -27,12 +30,9 @@ namespace ZeroLSys {
 		TurtleViewer() 
 		:	StateViewer()
 		,	_scale(1)
-		,	_path(VG_INVALID_HANDLE)
-		,	_paint(VG_INVALID_HANDLE)
 		{
 			_offset[0] = _offset[1] = 0;
-			
-			_turtleStateStack.push_back( TurtleState() );
+			reset();
 		}
 		
 		virtual ~TurtleViewer();
@@ -102,23 +102,68 @@ namespace ZeroLSys {
 		
 	private:	// drawing state
 		
-		
-		VGPath		_path;
-		VGPaint		_paint;
-		
+				
 		// draw modifiers
 		VGfloat		_offset[2];
 		VGfloat		_scale;
 		
 		struct TurtleState {
+			
+			typedef shared_ptr<TurtleState>	SmartPtr;
+			static TurtleState::SmartPtr create() {
+				return TurtleState::SmartPtr( new TurtleState() );
+			}
 			TurtleState() 
 			:	_stepLength(10)
 			,	_rotateRadians( radians(33) )
-			,	_orientation(0) 
+			,	_orientation(0)
+			,	_width(2)
+			,	_path(VG_INVALID_HANDLE)
+			,	_paint(VG_INVALID_HANDLE)
 			{
 				_position[0] = _position[1] = 100;
 				_color[0] = _color[1] = _color[2] = _color[3] = 1.0f;
+				
+				// setup openvg
+				_paint = vgCreatePaint();
+				vgSetParameterfv(_paint, VG_PAINT_COLOR, 4, &_color[0] );
+				_path = vgCreatePath(VG_PATH_FORMAT_STANDARD, VG_PATH_DATATYPE_F,1,0,0,0, VG_PATH_CAPABILITY_ALL);
+				
+				static const VGubyte segments[1] = { VG_MOVE_TO | VG_ABSOLUTE };
+				vgAppendPathData( _path, 1, segments, _position );
+				
+				
 			}
+			
+			virtual ~TurtleState() {
+				vgDestroyPath( _path );
+				_path = VG_INVALID_HANDLE;
+				vgDestroyPaint( _paint );
+				_paint = VG_INVALID_HANDLE;
+			}
+			
+			void copy( const TurtleState& other ) 
+			{
+				_orientation = other._orientation;
+				_stepLength = other._stepLength;
+				_rotateRadians = other._rotateRadians;
+				_width = other._width;
+				
+				_position[0] = other._position[0];
+				_position[1] = other._position[1];
+				
+				_color[0] = other._color[0];
+				_color[1] = other._color[1];
+				_color[2] = other._color[2];
+				_color[3] = other._color[3];
+				
+				static const VGubyte segments[1] = { VG_MOVE_TO | VG_ABSOLUTE };
+				vgAppendPathData( _path, 1, segments, _position );
+				
+				vgSetParameterfv( _paint, VG_PAINT_COLOR, 4, &_color[0] );
+				
+			}
+			
 			
 			VGfloat		_position[2];
 			VGfloat		_orientation;
@@ -128,6 +173,9 @@ namespace ZeroLSys {
 			VGfloat		_width;
 			
 			VGfloat		_color[4];
+			
+			VGPaint		_paint;
+			VGPath		_path;
 			
 			
 			string description() {
@@ -141,21 +189,37 @@ namespace ZeroLSys {
 					<<		"\tcolor: " << _color[0] << ", " << _color[1] << ", " << _color[2] << ", " << _color[3] << "\n";
 				return ss.str();
 			}
+			
+			void draw() {
+				if ( _path == VG_INVALID_HANDLE ) {
+					return;
+				}
+				
+				vgSetf( VG_STROKE_LINE_WIDTH, _width );
+				
+				
+				vgSetPaint( _paint, VG_STROKE_PATH );
+				vgDrawPath( _path, VG_STROKE_PATH );
+				
+			}
 		};
 		
-		vector<TurtleState>		_turtleStateStack;
+		vector<TurtleState::SmartPtr>		_turtleStateStack;
+		vector<TurtleState::SmartPtr>		_turtleStateDrawables;
 		
 		TurtleState& currentTurtleState() {
-			return _turtleStateStack.back();
+			return *_turtleStateStack.back();
 		}
 		
 		void pushTurtleState() {
-			_turtleStateStack.push_back( currentTurtleState() );
+			TurtleState::SmartPtr new_state = TurtleState::create();
+			new_state->copy( currentTurtleState() );
+			_turtleStateStack.push_back( new_state );
+			_turtleStateDrawables.push_back( new_state );
+			
 		}
 		void popTurtleState() {
 			_turtleStateStack.pop_back();
-			static const VGubyte segments[1] = { VG_MOVE_TO | VG_ABSOLUTE };
-			vgAppendPathData( _path, 1, segments, currentTurtleState()._position );
 		}
 
 		void parseParameters( string::iterator& c );
