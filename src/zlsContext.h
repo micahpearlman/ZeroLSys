@@ -14,6 +14,9 @@
 #include <vector>
 #include <map>
 #include <iostream>
+#include <algorithm>
+#include <cctype>
+
 #include "zlsProductionRule.h"
 #include "zlsStateViewer.h"
 
@@ -44,9 +47,8 @@ namespace ZeroLSys {
 		string startState() const {
 			return _start;
 		}
-		void setStartState( const string& start ) {
-			_start = start;
-		}
+		void setStartState( const string& start );
+		
 		void addRule( const ProductionRule& rule ) {
 			_rules[rule.symbol()] = rule;
 		}

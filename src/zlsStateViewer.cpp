@@ -9,3 +9,12 @@
 
 #include "zlsStateViewer.h"
 
+namespace ZeroLSys {
+	void StateViewer::setState( const string& s ) {
+		_isDirty = true;
+		_state = s;
+		// remove white space
+		_state.erase(std::remove_if(_state.begin(), _state.end(), std::isspace), _state.end());
+	}
+	
+}

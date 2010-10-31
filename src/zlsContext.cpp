@@ -8,11 +8,18 @@
  */
 
 #include "zlsContext.h"
+#include <string>
 #include <iostream>
+#include <algorithm>
+#include <cctype>
+
+using namespace std;
 
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 #include <boost/foreach.hpp>
+
+
 
 namespace ZeroLSys {
 	
@@ -27,6 +34,14 @@ namespace ZeroLSys {
 	void LSystemContext::terminate() {
 		
 	}
+	
+	void LSystemContext::setStartState( const string& start ) {
+		_start = start;
+		// remove white space
+		_start.erase(std::remove_if(_start.begin(), _start.end(), ::isspace), _start.end());
+		
+	}
+	
 	
 	using boost::property_tree::ptree;
 	

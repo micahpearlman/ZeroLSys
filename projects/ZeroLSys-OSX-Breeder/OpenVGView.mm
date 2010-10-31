@@ -93,12 +93,11 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTime
 	
 	// openvg init
 	vgCreateContextSH( self.bounds.size.width, self.bounds.size.height );
-	
-	CGLUnlockContext((CGLContextObj)[currentContext CGLContextObj]);
-	
+
     // Activate the display link
     CVDisplayLinkStart(_displayLink);
 	
+	CGLUnlockContext((CGLContextObj)[currentContext CGLContextObj]);
 }
 
 

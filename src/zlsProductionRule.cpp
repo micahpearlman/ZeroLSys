@@ -31,5 +31,19 @@ namespace ZeroLSys {
 		write_xml( os, pt );
 		
 	}
+	
+	void ProductionRule::setSymbol( const string& symbol ) {
+		_symbol = symbol;
+		// remove white space
+		_symbol.erase( std::remove_if(_symbol.begin(), _symbol.end(), ::isspace), _symbol.end() );
+	}
+	
+	
+	void ProductionRule::setTransform( const string& transform ) {
+		_transform = transform;
+		// remove white space
+		_transform.erase(std::remove_if(_transform.begin(), _transform.end(), ::isspace), _transform.end());
+	}
+	
 
 }

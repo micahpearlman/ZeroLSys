@@ -12,6 +12,8 @@
 
 #include <string>
 #include <map>
+#include <vector>
+#include <deque>
 
 namespace ZeroLSys {
 	
@@ -38,28 +40,34 @@ namespace ZeroLSys {
 		string state() const {
 			return _state;
 		}
-		void setState( string& s ) {
-			_isDirty = true;
-			_state = s;
-		}
+		void setState( const string& s ); 
 		
 		
 		void addSymbolHandlerForSymbol( const string& symbol, SymbolHandler handler ) {
 			_symbolHandlers[symbol] = handler;
 		}
 		
-		SymbolHandler handlerFromSymbol( const string& symbol ) {
+		SymbolHandler handlerForSymbol( const string& symbol ) {
 			map< string, SymbolHandler >::iterator it = _symbolHandlers.find( symbol );
 			if ( it != _symbolHandlers.end() ) {
 				return it->second;
 			}
 			return 0;
 		}
+		
+	protected:
+		float nextParameter() {
+			const float p = _currentParameters.front();
+			_currentParameters.pop_front();
+			return p;
+		}
+		
 	protected:
 		
 		map< string, SymbolHandler >	_symbolHandlers;
 		string							_state;
 		bool							_isDirty;
+		deque<float>					_currentParameters;
 
 	};
 	

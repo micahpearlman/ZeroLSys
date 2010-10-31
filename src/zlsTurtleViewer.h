@@ -26,13 +26,13 @@ namespace ZeroLSys {
 		
 		TurtleViewer() 
 		:	StateViewer()
-		,	_stepLength(10)
-		,	_rotateRadians( radians(33) )
 		,	_scale(1)
 		,	_path(VG_INVALID_HANDLE)
 		,	_paint(VG_INVALID_HANDLE)
 		{
 			_offset[0] = _offset[1] = 0;
+			
+			_turtleStateStack.push_back( TurtleState() );
 		}
 		
 		virtual ~TurtleViewer();
@@ -44,28 +44,28 @@ namespace ZeroLSys {
 		
 		virtual void draw();
 		
-		VGfloat stepLength() const {
-			return _stepLength;
+		VGfloat stepLength() {
+			return currentTurtleState()._stepLength;
 		}
 		void setStepLength( VGfloat sl ) {
-			_stepLength = sl;
+			currentTurtleState()._stepLength = sl;
 		}
 		
-		VGfloat rotateRadians() const {
-			return _rotateRadians;
+		VGfloat rotateRadians() {
+			return currentTurtleState()._rotateRadians;
 		}
 		void setRotateRadians( VGfloat r ) {
-			_rotateRadians = r;
+			currentTurtleState()._rotateRadians = r;
 		}
 		void setRotateRadiansFromDegrees( VGfloat d ) {
 			setRotateRadians( radians( d ) );
 		}
 		
-		VGfloat width() const {
-			return _width;
+		VGfloat width() {
+			return currentTurtleState()._width;
 		}
 		void setWidth( VGfloat w ) {
-			_width = w;
+			currentTurtleState()._width = w;
 		}
 		
 		void setOffset( VGfloat* o ) {
@@ -84,9 +84,11 @@ namespace ZeroLSys {
 		string description() {
 			stringstream ss;
 			ss << "TurtleViewer: \n";
-			ss << _turtleState.description();
+			ss << currentTurtleState().description();
 			return ss.str();
 		}
+		
+		
 		
 	private:	// symbol handlers
 		
@@ -100,21 +102,27 @@ namespace ZeroLSys {
 		
 		VGPath		_path;
 		VGPaint		_paint;
-		VGfloat		_stepLength;
-		VGfloat		_rotateRadians;
-		VGfloat		_width;
 		
 		// draw modifiers
 		VGfloat		_offset[2];
 		VGfloat		_scale;
 		
 		struct TurtleState {
-			TurtleState() {
+			TurtleState() 
+			:	_stepLength(10)
+			,	_rotateRadians( radians(33) )
+			,	_orientation(0) 
+			{
 				_position[0] = _position[1] = 100;
-				_orientation = 0;
 			}
+			
 			VGfloat		_position[2];
 			VGfloat		_orientation;
+			
+			VGfloat		_stepLength;
+			VGfloat		_rotateRadians;
+			VGfloat		_width;
+			
 			
 			string description() {
 				stringstream ss;
@@ -125,7 +133,14 @@ namespace ZeroLSys {
 			}
 		};
 		
-		TurtleState		_turtleState;
+		vector<TurtleState>		_turtleStateStack;
+		
+		TurtleState& currentTurtleState() {
+			return _turtleStateStack.back();
+		}
+		
+
+		void parseParameters( string::iterator& c );
 		
 	};
 }

@@ -9,6 +9,12 @@
 
 #include "zlsTurtleViewer.h"
 #include <iostream>
+#include <algorithm>
+#include <boost/foreach.hpp>
+#include <boost/tokenizer.hpp>
+#include <boost/lexical_cast.hpp>
+
+using namespace boost;
 
 namespace ZeroLSys {
 	
@@ -22,8 +28,6 @@ namespace ZeroLSys {
 		
 		// setup openvg
 		_paint = vgCreatePaint();
-//		vgSetPaint(_paint, VG_STROKE_PATH );
-		
 		VGfloat color[4] = { 1.0f, 0.0f, 0.0f, 1.0f };
 		vgSetParameterfv(_paint, VG_PAINT_COLOR, 4, &color[0]);
 		
@@ -46,10 +50,32 @@ namespace ZeroLSys {
 	
 	void TurtleViewer::reset() {
 		vgClearPath( _path, VG_PATH_CAPABILITY_ALL );
-		_turtleState._position[0] = _turtleState._position[1] = 0;
+		currentTurtleState()._position[0] = currentTurtleState()._position[1] = 0;
 		MoveForward();	// set the initial position
 	}
 	
+	
+	void TurtleViewer::parseParameters( string::iterator& c ) {
+		_currentParameters.clear();
+		// get parameters if they are there
+		if ( *(c+1) == '(' ) {		// NOTE:  assumes that whitespace has been removed...
+			c++;
+			size_t cur_pos = distance( _state.begin(), c );
+			size_t close_pos = _state.find_first_of(")", cur_pos);
+			if ( close_pos != string::npos ) {
+				string parameter_string( c+1, _state.begin() +  close_pos );
+				char_separator<char> sep(",");
+				tokenizer< char_separator<char> > tokens(parameter_string, sep);
+				BOOST_FOREACH(string t, tokens) {
+					_currentParameters.push_back( lexical_cast<float>( t ) );
+				}
+				
+				// reset the iterator past the parameters
+				c = _state.begin() + close_pos;
+			}
+		}
+		
+	}
 	
 	void TurtleViewer::draw() {
 		
@@ -57,10 +83,40 @@ namespace ZeroLSys {
 			vgClearPath( _path, VG_PATH_CAPABILITY_ALL );
 			MoveForward();	// set the initial position
 			
-			for ( string::const_iterator c = _state.begin(); c != _state.end(); c++ ) {
-				StateViewer::SymbolHandler handler = _symbolHandlers[string(1, *c)];
-				(this->*handler)();
+			for ( string::iterator c = _state.begin(); c != _state.end(); c++ ) {
+				
+				const char k = *c;
+				
+				parseParameters( c );
+				
+//				_currentParameters.clear();
+//				// get parameters if they are there
+//				if ( *(c+1) == '(' ) {		// NOTE:  assumes that whitespace has been removed...
+//					size_t cur_pos = distance( _state.begin(), c );
+//					size_t close_pos = _state.find_first_of(")", cur_pos);
+//					if ( close_pos != string::npos ) {
+//						string parameter_string( c+2, _state.begin() +  close_pos );
+//						char_separator<char> sep(",");
+//						tokenizer< char_separator<char> > tokens(parameter_string, sep);
+//						BOOST_FOREACH(string t, tokens) {
+//							_currentParameters.push_back( lexical_cast<float>( t ) );
+//						}
+//						
+//						// reset the iterator past the parameters
+//						c = _state.begin() + close_pos;
+//					}
+//				}
+				
+				cout << k;
+				
+				StateViewer::SymbolHandler handler = handlerForSymbol( string(1,k) );
+				if ( handler ) {
+					(this->*handler)();
+				}
+				
 			}
+			
+			cout << endl;
 
 			_isDirty = false;
 		}
@@ -69,7 +125,7 @@ namespace ZeroLSys {
 			return;
 		}
 		
-		vgSetf( VG_STROKE_LINE_WIDTH, _width );
+		vgSetf( VG_STROKE_LINE_WIDTH, currentTurtleState()._width );
 		
 		vgSeti(VG_MATRIX_MODE, VG_MATRIX_PATH_USER_TO_SURFACE);
 		vgLoadIdentity();
@@ -83,35 +139,54 @@ namespace ZeroLSys {
 	
 	// F
 	void TurtleViewer::DrawForward() {
-		cout << "DrawForward" << endl;
 		
-		_turtleState._position[0] = _turtleState._position[0] + _stepLength * cosf( _turtleState._orientation );
-		_turtleState._position[1] = _turtleState._position[1] + _stepLength * sinf( _turtleState._orientation );
+		if ( _currentParameters.empty() == false ) {
+			setStepLength( nextParameter() );
+		}
+		
+		currentTurtleState()._position[0] = currentTurtleState()._position[0] + currentTurtleState()._stepLength * cosf( currentTurtleState()._orientation );
+		currentTurtleState()._position[1] = currentTurtleState()._position[1] + currentTurtleState()._stepLength * sinf( currentTurtleState()._orientation );
 		
 		static const VGubyte segments[1] = { VG_LINE_TO | VG_ABSOLUTE };
-		vgAppendPathData( _path, 1, segments, _turtleState._position );
+		vgAppendPathData( _path, 1, segments, currentTurtleState()._position );
 	}
 	
 	// f
 	void TurtleViewer::MoveForward() {
 		
-		cout << "DrawForward" << endl;
-		_turtleState._position[0] = _turtleState._position[0] + _stepLength * cosf( _turtleState._orientation );
-		_turtleState._position[1] = _turtleState._position[1] + _stepLength * sinf( _turtleState._orientation );
+		if ( _currentParameters.empty() == false ) {
+			setStepLength( nextParameter() );
+		}
+		
+		currentTurtleState()._position[0] = currentTurtleState()._position[0] + currentTurtleState()._stepLength * cosf( currentTurtleState()._orientation );
+		currentTurtleState()._position[1] = currentTurtleState()._position[1] + currentTurtleState()._stepLength * sinf( currentTurtleState()._orientation );
 		
 		static const VGubyte segments[1] = { VG_MOVE_TO | VG_ABSOLUTE };
-		vgAppendPathData( _path, 1, segments, _turtleState._position );
+		vgAppendPathData( _path, 1, segments, currentTurtleState()._position );
 		
 	}
 	
 	// +
 	void TurtleViewer::TurnLeft() {
-		_turtleState._orientation += _rotateRadians;
+		if ( _currentParameters.empty() == false ) {
+			setRotateRadiansFromDegrees( nextParameter() );
+		}
+		
+		//cout << "TurnLeft: " << currentTurtleState()._rotateRadians << endl;
+		
+		currentTurtleState()._orientation += currentTurtleState()._rotateRadians;
 	}		
 	
 	// -
 	void TurtleViewer::TurnRight() {
-		_turtleState._orientation -= _rotateRadians;
+		
+		if ( _currentParameters.empty() == false ) {
+			setRotateRadiansFromDegrees( nextParameter() );
+		}
+		
+		//cout << "TurnRight: " << currentTurtleState()._rotateRadians << endl;
+
+		currentTurtleState()._orientation -= currentTurtleState()._rotateRadians;
 	}		
 
 	

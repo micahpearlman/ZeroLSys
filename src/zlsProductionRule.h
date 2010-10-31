@@ -12,6 +12,8 @@
 
 #include <string>
 #include <iostream>
+#include <algorithm>
+#include <cctype>
 
 namespace ZeroLSys {
 	
@@ -36,16 +38,12 @@ namespace ZeroLSys {
 		const string& symbol() const {
 			return _symbol;
 		}
-		void setSymbol( const string& symbol ) {
-			_symbol = symbol;
-		}
+		void setSymbol( const string& symbol );
 		
 		const string& transform() const {
 			return _transform;
 		}
-		void setTransform( const string& transform ) {
-			_transform = transform;
-		}
+		void setTransform( const string& transform );
 
 		// IO
 		void read( istream& is );
