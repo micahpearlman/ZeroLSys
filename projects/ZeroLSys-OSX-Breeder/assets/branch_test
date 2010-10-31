@@ -5,7 +5,7 @@
 	<Rules>
 		<Rule>
 			<Symbol>F</Symbol>
-			<Transform>C(1,1,0,1) F[+F[+F][ -F]][-F[+F][-F]]</Transform>
+			<Transform>+(10) C(1,1,0,1) F(30)[+(30)F][F-(25)]F</Transform>
 		</Rule>
 		<Rule>
 			<Symbol>f</Symbol>

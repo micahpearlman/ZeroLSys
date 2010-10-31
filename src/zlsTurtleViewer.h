@@ -154,6 +154,8 @@ namespace ZeroLSys {
 		}
 		void popTurtleState() {
 			_turtleStateStack.pop_back();
+			static const VGubyte segments[1] = { VG_MOVE_TO | VG_ABSOLUTE };
+			vgAppendPathData( _path, 1, segments, currentTurtleState()._position );
 		}
 
 		void parseParameters( string::iterator& c );
