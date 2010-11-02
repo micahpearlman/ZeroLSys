@@ -117,7 +117,7 @@ namespace ZeroLSys {
 			:	_stepLength(10)
 			,	_rotateRadians( radians(33) )
 			,	_orientation(0)
-			,	_width(2)
+			,	_width(0.1)
 			,	_path(VG_INVALID_HANDLE)
 			,	_paint(VG_INVALID_HANDLE)
 			{
