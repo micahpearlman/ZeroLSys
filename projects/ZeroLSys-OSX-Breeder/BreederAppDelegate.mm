@@ -7,11 +7,18 @@
 //
 
 #import "BreederAppDelegate.h"
-
+#include "../../src/zlsParser.h"
+#include <string>
+#include <iostream>
+#include <sstream>
 
 @implementation BreederAppDelegate
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {    
 	NSLog( @"applicationDidFinishLaunching" );
+	
+	ZeroLSys::Parser parser;
+	std::stringstream ss;
+	parser.parse( ss );
 }
 
 @end

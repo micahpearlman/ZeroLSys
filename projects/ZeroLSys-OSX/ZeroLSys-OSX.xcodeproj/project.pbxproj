@@ -16,6 +16,8 @@
 		FA0B1B7E12721EC100550DCC /* zlsTurtleViewer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA0B1B7C12721EC100550DCC /* zlsTurtleViewer.cpp */; };
 		FA0B1B7F12721EC100550DCC /* zlsTurtleViewer.h in Headers */ = {isa = PBXBuildFile; fileRef = FA0B1B7D12721EC100550DCC /* zlsTurtleViewer.h */; };
 		FA0B1BA91272214100550DCC /* libMonkVG-OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA0B1BA61272212900550DCC /* libMonkVG-OSX.a */; };
+		FA7D959F1280D7D500D01622 /* zlsParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA7D959D1280D7D500D01622 /* zlsParser.cpp */; };
+		FA7D95A01280D7D500D01622 /* zlsParser.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7D959E1280D7D500D01622 /* zlsParser.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +48,8 @@
 		FA0B1B7C12721EC100550DCC /* zlsTurtleViewer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = zlsTurtleViewer.cpp; path = ../../src/zlsTurtleViewer.cpp; sourceTree = SOURCE_ROOT; };
 		FA0B1B7D12721EC100550DCC /* zlsTurtleViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zlsTurtleViewer.h; path = ../../src/zlsTurtleViewer.h; sourceTree = SOURCE_ROOT; };
 		FA0B1BA11272212900550DCC /* MonkVG-OSX.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "MonkVG-OSX.xcodeproj"; path = "../../../MonkVG/projects/MonkVG-OSX/MonkVG-OSX.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		FA7D959D1280D7D500D01622 /* zlsParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = zlsParser.cpp; path = ../../src/zlsParser.cpp; sourceTree = SOURCE_ROOT; };
+		FA7D959E1280D7D500D01622 /* zlsParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zlsParser.h; path = ../../src/zlsParser.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +78,8 @@
 		08FB7795FE84155DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				FA7D959D1280D7D500D01622 /* zlsParser.cpp */,
+				FA7D959E1280D7D500D01622 /* zlsParser.h */,
 				FA0B1B7C12721EC100550DCC /* zlsTurtleViewer.cpp */,
 				FA0B1B7D12721EC100550DCC /* zlsTurtleViewer.h */,
 				FA0B1B5512721D7E00550DCC /* zlsProductionRule.cpp */,
@@ -120,6 +126,7 @@
 				FA0B1B5A12721D7E00550DCC /* zlsProductionRule.h in Headers */,
 				FA0B1B5C12721D7E00550DCC /* zlsStateViewer.h in Headers */,
 				FA0B1B7F12721EC100550DCC /* zlsTurtleViewer.h in Headers */,
+				FA7D95A01280D7D500D01622 /* zlsParser.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,6 +200,7 @@
 				FA0B1B5912721D7E00550DCC /* zlsProductionRule.cpp in Sources */,
 				FA0B1B5B12721D7E00550DCC /* zlsStateViewer.cpp in Sources */,
 				FA0B1B7E12721EC100550DCC /* zlsTurtleViewer.cpp in Sources */,
+				FA7D959F1280D7D500D01622 /* zlsParser.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
