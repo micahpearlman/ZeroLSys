@@ -21,7 +21,7 @@ using namespace std;
 
 
 
-namespace ZeroLSys {
+namespace ZLS {
 	
 	
 	void LSystemContext::initialize() {

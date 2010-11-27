@@ -15,7 +15,7 @@
 #include <vector>
 #include <deque>
 
-namespace ZeroLSys {
+namespace ZLS {
 	
 	using namespace std;
 	

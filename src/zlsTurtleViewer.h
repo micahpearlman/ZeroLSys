@@ -17,7 +17,7 @@
 #include <VG/vgu.h>
 #include <boost/shared_ptr.hpp>
 
-namespace ZeroLSys {
+namespace ZLS {
 	
 	using namespace boost;
 	
@@ -32,7 +32,7 @@ namespace ZeroLSys {
 		,	_scale(1)
 		{
 			_offset[0] = _offset[1] = 0;
-			reset();
+			//reset();
 		}
 		
 		virtual ~TurtleViewer();
@@ -117,12 +117,13 @@ namespace ZeroLSys {
 			:	_stepLength(10)
 			,	_rotateRadians( radians(33) )
 			,	_orientation(0)
-			,	_width(0.1)
+			,	_width(1.0)
 			,	_path(VG_INVALID_HANDLE)
 			,	_paint(VG_INVALID_HANDLE)
 			{
 				_position[0] = _position[1] = 100;
 				_color[0] = _color[1] = _color[2] = _color[3] = 1.0f;
+				_color[0] = 1.0f;
 				
 				// setup openvg
 				_paint = vgCreatePaint();

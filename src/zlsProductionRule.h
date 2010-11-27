@@ -15,7 +15,7 @@
 #include <algorithm>
 #include <cctype>
 
-namespace ZeroLSys {
+namespace ZLS {
 	
 	using namespace std;
 	

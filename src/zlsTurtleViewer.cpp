@@ -16,7 +16,7 @@
 
 using namespace boost;
 
-namespace ZeroLSys {
+namespace ZLS {
 	
 	void TurtleViewer::initialize( ) {
 		
@@ -28,6 +28,8 @@ namespace ZeroLSys {
 		addSymbolHandlerForSymbol( string("C"), (StateViewer::SymbolHandler)&TurtleViewer::ChangeColor );
 		addSymbolHandlerForSymbol( string("["), (StateViewer::SymbolHandler)&TurtleViewer::PushState );
 		addSymbolHandlerForSymbol( string("]"), (StateViewer::SymbolHandler)&TurtleViewer::PopState );
+		
+		reset();
 		
 	}
 	
@@ -76,6 +78,8 @@ namespace ZeroLSys {
 	}
 	
 	void TurtleViewer::draw() {
+		
+		
 		
 		if ( _isDirty && _state.length() > 0 ) {
 			reset();
@@ -189,4 +193,4 @@ namespace ZeroLSys {
 
 	
 	
-}	// namespace ZeroLSys
+}	// namespace ZLS

@@ -10,7 +10,7 @@
 #include "main.h"
 #include "../../src/zlsContext.h"
 #include "../../src/zlsTurtleViewer.h"
-using namespace ZeroLSys;
+using namespace ZLS;
 
 #include <stdlib.h>
 #include <iostream>
@@ -66,7 +66,7 @@ void keyboard(unsigned char key, int x, int y) {
 			gRenderContext._scale += 0.1f;
 			break;
 		case 'i':
-			viewer.execute( ctx.iterate() );
+			viewer.setState( ctx.iterate() );
 			break;
 		case 'r':
 			ctx.reset();
@@ -137,13 +137,13 @@ int main(int argc, char** argv) {
 	
 	cout << ss.str() << endl;
 	
-	LSystemContext killme;
-	killme.initialize();
-	killme.read( ss );
+//	LSystemContext killme;
+//	killme.initialize();
+//	killme.read( ss );
 	
 	viewer.initialize();
 	viewer.setRotateRadiansFromDegrees( 60.0f );
-	viewer.setWidth( 1.0 );
+	viewer.setWidth( 4.0 );
 	//viewer.execute( ctx.iterate() );
 	//viewer.execute( string("FFF+FFF+FFF+FFF") );
 	

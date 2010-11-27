@@ -12,7 +12,7 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 
-namespace ZeroLSys {
+namespace ZLS {
 	
 	using boost::property_tree::ptree;
 	

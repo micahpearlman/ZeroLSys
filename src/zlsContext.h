@@ -21,7 +21,7 @@
 #include "zlsStateViewer.h"
 
 
-namespace ZeroLSys {
+namespace ZLS {
 	
 	using namespace std;
 	
