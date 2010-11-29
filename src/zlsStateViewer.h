@@ -55,7 +55,17 @@ namespace ZLS {
 			return 0;
 		}
 		
-	protected:
+		void executeHandlerForSymbol( const string& symbol ) {
+			SymbolHandler sh = handlerForSymbol( symbol );
+			if ( sh ) {
+				(this->*sh)();
+			}
+		}
+		
+		void addParameter( const float p ) {
+			_currentParameters.push_back( p );
+		}
+		
 		float nextParameter() {
 			const float p = _currentParameters.front();
 			_currentParameters.pop_front();

@@ -16,6 +16,16 @@
 		FA0B1B7E12721EC100550DCC /* zlsTurtleViewer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA0B1B7C12721EC100550DCC /* zlsTurtleViewer.cpp */; };
 		FA0B1B7F12721EC100550DCC /* zlsTurtleViewer.h in Headers */ = {isa = PBXBuildFile; fileRef = FA0B1B7D12721EC100550DCC /* zlsTurtleViewer.h */; };
 		FA0B1BA91272214100550DCC /* libMonkVG-OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA0B1BA61272212900550DCC /* libMonkVG-OSX.a */; };
+		FA5B38AA12A19D9E000771A7 /* zlsAbstractSyntaxTree.h in Headers */ = {isa = PBXBuildFile; fileRef = FA5B38A812A19D9E000771A7 /* zlsAbstractSyntaxTree.h */; };
+		FA5B38AB12A19D9E000771A7 /* zlsAbstractSyntaxTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA5B38A912A19D9E000771A7 /* zlsAbstractSyntaxTree.cpp */; };
+		FA5B38BF12A1B7F5000771A7 /* zlsParser.h in Headers */ = {isa = PBXBuildFile; fileRef = FA5B38BE12A1B7F5000771A7 /* zlsParser.h */; };
+		FA5B38C112A1B82E000771A7 /* zlsScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = FA5B38C012A1B82E000771A7 /* zlsScanner.h */; };
+		FA5B38E912A1C2C6000771A7 /* lex.yy.cc in Sources */ = {isa = PBXBuildFile; fileRef = FA5B38E312A1C2C6000771A7 /* lex.yy.cc */; };
+		FA5B38EA12A1C2C6000771A7 /* zlsYaccParser.tab.hh in Headers */ = {isa = PBXBuildFile; fileRef = FA5B38E412A1C2C6000771A7 /* zlsYaccParser.tab.hh */; };
+		FA5B38EB12A1C2C6000771A7 /* zlsYaccParser.tab.cc in Sources */ = {isa = PBXBuildFile; fileRef = FA5B38E512A1C2C6000771A7 /* zlsYaccParser.tab.cc */; };
+		FA5B38EC12A1C2C6000771A7 /* stack.hh in Headers */ = {isa = PBXBuildFile; fileRef = FA5B38E612A1C2C6000771A7 /* stack.hh */; };
+		FA5B38ED12A1C2C6000771A7 /* position.hh in Headers */ = {isa = PBXBuildFile; fileRef = FA5B38E712A1C2C6000771A7 /* position.hh */; };
+		FA5B38EE12A1C2C6000771A7 /* location.hh in Headers */ = {isa = PBXBuildFile; fileRef = FA5B38E812A1C2C6000771A7 /* location.hh */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +56,18 @@
 		FA0B1B7C12721EC100550DCC /* zlsTurtleViewer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = zlsTurtleViewer.cpp; path = ../../src/zlsTurtleViewer.cpp; sourceTree = SOURCE_ROOT; };
 		FA0B1B7D12721EC100550DCC /* zlsTurtleViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zlsTurtleViewer.h; path = ../../src/zlsTurtleViewer.h; sourceTree = SOURCE_ROOT; };
 		FA0B1BA11272212900550DCC /* MonkVG-OSX.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "MonkVG-OSX.xcodeproj"; path = "../../../MonkVG/projects/MonkVG-OSX/MonkVG-OSX.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		FA5B38A612A19CC9000771A7 /* zlsYaccParser.yy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = zlsYaccParser.yy; path = ../../src/zlsYaccParser.yy; sourceTree = SOURCE_ROOT; };
+		FA5B38A712A19CC9000771A7 /* zlsLexScanner.ll */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm.llvm; name = zlsLexScanner.ll; path = ../../src/zlsLexScanner.ll; sourceTree = SOURCE_ROOT; };
+		FA5B38A812A19D9E000771A7 /* zlsAbstractSyntaxTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zlsAbstractSyntaxTree.h; path = ../../src/zlsAbstractSyntaxTree.h; sourceTree = SOURCE_ROOT; };
+		FA5B38A912A19D9E000771A7 /* zlsAbstractSyntaxTree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = zlsAbstractSyntaxTree.cpp; path = ../../src/zlsAbstractSyntaxTree.cpp; sourceTree = SOURCE_ROOT; };
+		FA5B38BE12A1B7F5000771A7 /* zlsParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zlsParser.h; path = ../../src/zlsParser.h; sourceTree = SOURCE_ROOT; };
+		FA5B38C012A1B82E000771A7 /* zlsScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zlsScanner.h; path = ../../src/zlsScanner.h; sourceTree = SOURCE_ROOT; };
+		FA5B38E312A1C2C6000771A7 /* lex.yy.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = lex.yy.cc; path = ../../src/lex.yy.cc; sourceTree = SOURCE_ROOT; };
+		FA5B38E412A1C2C6000771A7 /* zlsYaccParser.tab.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = zlsYaccParser.tab.hh; path = ../../src/zlsYaccParser.tab.hh; sourceTree = SOURCE_ROOT; };
+		FA5B38E512A1C2C6000771A7 /* zlsYaccParser.tab.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = zlsYaccParser.tab.cc; path = ../../src/zlsYaccParser.tab.cc; sourceTree = SOURCE_ROOT; };
+		FA5B38E612A1C2C6000771A7 /* stack.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = stack.hh; path = ../../src/stack.hh; sourceTree = SOURCE_ROOT; };
+		FA5B38E712A1C2C6000771A7 /* position.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = position.hh; path = ../../src/position.hh; sourceTree = SOURCE_ROOT; };
+		FA5B38E812A1C2C6000771A7 /* location.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = location.hh; path = ../../src/location.hh; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +96,7 @@
 		08FB7795FE84155DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				FA5B38C212A1BD75000771A7 /* Lex & Yacc */,
 				FA0B1B7C12721EC100550DCC /* zlsTurtleViewer.cpp */,
 				FA0B1B7D12721EC100550DCC /* zlsTurtleViewer.h */,
 				FA0B1B5512721D7E00550DCC /* zlsProductionRule.cpp */,
@@ -82,6 +105,10 @@
 				FA0B1B5812721D7E00550DCC /* zlsStateViewer.h */,
 				FA0B19F3126FB38A00550DCC /* zlsContext.h */,
 				FA0B19F4126FB38A00550DCC /* zlsContext.cpp */,
+				FA5B38A812A19D9E000771A7 /* zlsAbstractSyntaxTree.h */,
+				FA5B38A912A19D9E000771A7 /* zlsAbstractSyntaxTree.cpp */,
+				FA5B38BE12A1B7F5000771A7 /* zlsParser.h */,
+				FA5B38C012A1B82E000771A7 /* zlsScanner.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -109,6 +136,21 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		FA5B38C212A1BD75000771A7 /* Lex & Yacc */ = {
+			isa = PBXGroup;
+			children = (
+				FA5B38E312A1C2C6000771A7 /* lex.yy.cc */,
+				FA5B38E412A1C2C6000771A7 /* zlsYaccParser.tab.hh */,
+				FA5B38E512A1C2C6000771A7 /* zlsYaccParser.tab.cc */,
+				FA5B38E612A1C2C6000771A7 /* stack.hh */,
+				FA5B38E712A1C2C6000771A7 /* position.hh */,
+				FA5B38E812A1C2C6000771A7 /* location.hh */,
+				FA5B38A612A19CC9000771A7 /* zlsYaccParser.yy */,
+				FA5B38A712A19CC9000771A7 /* zlsLexScanner.ll */,
+			);
+			name = "Lex & Yacc";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -120,6 +162,13 @@
 				FA0B1B5A12721D7E00550DCC /* zlsProductionRule.h in Headers */,
 				FA0B1B5C12721D7E00550DCC /* zlsStateViewer.h in Headers */,
 				FA0B1B7F12721EC100550DCC /* zlsTurtleViewer.h in Headers */,
+				FA5B38AA12A19D9E000771A7 /* zlsAbstractSyntaxTree.h in Headers */,
+				FA5B38BF12A1B7F5000771A7 /* zlsParser.h in Headers */,
+				FA5B38C112A1B82E000771A7 /* zlsScanner.h in Headers */,
+				FA5B38EA12A1C2C6000771A7 /* zlsYaccParser.tab.hh in Headers */,
+				FA5B38EC12A1C2C6000771A7 /* stack.hh in Headers */,
+				FA5B38ED12A1C2C6000771A7 /* position.hh in Headers */,
+				FA5B38EE12A1C2C6000771A7 /* location.hh in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,6 +242,9 @@
 				FA0B1B5912721D7E00550DCC /* zlsProductionRule.cpp in Sources */,
 				FA0B1B5B12721D7E00550DCC /* zlsStateViewer.cpp in Sources */,
 				FA0B1B7E12721EC100550DCC /* zlsTurtleViewer.cpp in Sources */,
+				FA5B38AB12A19D9E000771A7 /* zlsAbstractSyntaxTree.cpp in Sources */,
+				FA5B38E912A1C2C6000771A7 /* lex.yy.cc in Sources */,
+				FA5B38EB12A1C2C6000771A7 /* zlsYaccParser.tab.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
