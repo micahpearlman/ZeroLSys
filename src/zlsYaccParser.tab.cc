@@ -41,7 +41,7 @@
 #include <string>
 #include <vector>
 
-#include "zlsAbstractSyntaxTree.h"
+#include "zlsParser.h"
 using namespace ZLS;
 
 
@@ -55,7 +55,7 @@ using namespace ZLS;
 /* User implementation prologue.  */
 
 /* Line 316 of lalr1.cc  */
-#line 86 "zlsYaccParser.yy"
+#line 83 "zlsYaccParser.yy"
 
 
 //#include "driver.h"
@@ -74,10 +74,10 @@ using namespace ZLS;
 /* Unqualified %code blocks.  */
 
 /* Line 317 of lalr1.cc  */
-#line 57 "zlsYaccParser.yy"
+#line 54 "zlsYaccParser.yy"
 
 	// Prototype for the yylex function
-	static int yylex(ZLS::BisonParser::semantic_type * yylval, ZLS::FlexScanner &scanner);
+	static int yylex(ZLS::BisonParser::semantic_type * yylval, ZLS::Parser &parser);
 
 
 
@@ -193,13 +193,13 @@ namespace ZLS {
 #endif
 
   /// Build a parser object.
-  BisonParser::BisonParser (ZLS::FlexScanner &scanner_yyarg)
+  BisonParser::BisonParser (ZLS::Parser &parser_yyarg)
     :
 #if YYDEBUG
       yydebug_ (false),
       yycdebug_ (&std::cerr),
 #endif
-      scanner (scanner_yyarg)
+      parser (parser_yyarg)
   {
   }
 
@@ -253,7 +253,7 @@ namespace ZLS {
         case 6: /* "\"string\"" */
 
 /* Line 479 of lalr1.cc  */
-#line 80 "zlsYaccParser.yy"
+#line 77 "zlsYaccParser.yy"
 	{ delete (yyvaluep->stringVal); };
 
 /* Line 479 of lalr1.cc  */
@@ -262,7 +262,7 @@ namespace ZLS {
       case 18: /* "constant" */
 
 /* Line 479 of lalr1.cc  */
-#line 81 "zlsYaccParser.yy"
+#line 78 "zlsYaccParser.yy"
 	{ delete (yyvaluep->astnode); };
 
 /* Line 479 of lalr1.cc  */
@@ -271,7 +271,7 @@ namespace ZLS {
       case 19: /* "variable" */
 
 /* Line 479 of lalr1.cc  */
-#line 81 "zlsYaccParser.yy"
+#line 78 "zlsYaccParser.yy"
 	{ delete (yyvaluep->astnode); };
 
 /* Line 479 of lalr1.cc  */
@@ -280,7 +280,7 @@ namespace ZLS {
       case 20: /* "atomexpr" */
 
 /* Line 479 of lalr1.cc  */
-#line 82 "zlsYaccParser.yy"
+#line 79 "zlsYaccParser.yy"
 	{ delete (yyvaluep->astnode); };
 
 /* Line 479 of lalr1.cc  */
@@ -289,7 +289,7 @@ namespace ZLS {
       case 21: /* "powexpr" */
 
 /* Line 479 of lalr1.cc  */
-#line 82 "zlsYaccParser.yy"
+#line 79 "zlsYaccParser.yy"
 	{ delete (yyvaluep->astnode); };
 
 /* Line 479 of lalr1.cc  */
@@ -298,7 +298,7 @@ namespace ZLS {
       case 22: /* "unaryexpr" */
 
 /* Line 479 of lalr1.cc  */
-#line 82 "zlsYaccParser.yy"
+#line 79 "zlsYaccParser.yy"
 	{ delete (yyvaluep->astnode); };
 
 /* Line 479 of lalr1.cc  */
@@ -307,7 +307,7 @@ namespace ZLS {
       case 23: /* "mulexpr" */
 
 /* Line 479 of lalr1.cc  */
-#line 82 "zlsYaccParser.yy"
+#line 79 "zlsYaccParser.yy"
 	{ delete (yyvaluep->astnode); };
 
 /* Line 479 of lalr1.cc  */
@@ -316,7 +316,7 @@ namespace ZLS {
       case 24: /* "addexpr" */
 
 /* Line 479 of lalr1.cc  */
-#line 82 "zlsYaccParser.yy"
+#line 79 "zlsYaccParser.yy"
 	{ delete (yyvaluep->astnode); };
 
 /* Line 479 of lalr1.cc  */
@@ -325,7 +325,7 @@ namespace ZLS {
       case 25: /* "expr" */
 
 /* Line 479 of lalr1.cc  */
-#line 82 "zlsYaccParser.yy"
+#line 79 "zlsYaccParser.yy"
 	{ delete (yyvaluep->astnode); };
 
 /* Line 479 of lalr1.cc  */
@@ -438,7 +438,7 @@ namespace ZLS {
     if (yychar == yyempty_)
       {
 	YYCDEBUG << "Reading a token: ";
-	yychar = yylex (&yylval, scanner);
+	yychar = yylex (&yylval, parser);
       }
 
 
@@ -522,7 +522,7 @@ namespace ZLS {
 	  case 2:
 
 /* Line 677 of lalr1.cc  */
-#line 104 "zlsYaccParser.yy"
+#line 101 "zlsYaccParser.yy"
     {
                (yyval.astnode) = new ZLS::ASTConstant((yysemantic_stack_[(1) - (1)].intVal));
            }
@@ -531,7 +531,7 @@ namespace ZLS {
   case 3:
 
 /* Line 677 of lalr1.cc  */
-#line 108 "zlsYaccParser.yy"
+#line 105 "zlsYaccParser.yy"
     {
                (yyval.astnode) = new ZLS::ASTConstant((yysemantic_stack_[(1) - (1)].floatVal));
            }
@@ -540,7 +540,7 @@ namespace ZLS {
   case 4:
 
 /* Line 677 of lalr1.cc  */
-#line 113 "zlsYaccParser.yy"
+#line 110 "zlsYaccParser.yy"
     {
                //if (!driver.calc.existsVariable(*$1)) {
 //                   error(yyloc, std::string("Unknown variable \"") + *$1 + "\"");
@@ -557,7 +557,7 @@ namespace ZLS {
   case 5:
 
 /* Line 677 of lalr1.cc  */
-#line 126 "zlsYaccParser.yy"
+#line 123 "zlsYaccParser.yy"
     {
                (yyval.astnode) = (yysemantic_stack_[(1) - (1)].astnode);
            }
@@ -566,7 +566,7 @@ namespace ZLS {
   case 6:
 
 /* Line 677 of lalr1.cc  */
-#line 130 "zlsYaccParser.yy"
+#line 127 "zlsYaccParser.yy"
     {
                (yyval.astnode) = (yysemantic_stack_[(1) - (1)].astnode);
            }
@@ -575,7 +575,7 @@ namespace ZLS {
   case 7:
 
 /* Line 677 of lalr1.cc  */
-#line 134 "zlsYaccParser.yy"
+#line 131 "zlsYaccParser.yy"
     {
                (yyval.astnode) = (yysemantic_stack_[(3) - (2)].astnode);
            }
@@ -584,7 +584,7 @@ namespace ZLS {
   case 8:
 
 /* Line 677 of lalr1.cc  */
-#line 139 "zlsYaccParser.yy"
+#line 136 "zlsYaccParser.yy"
     {
               (yyval.astnode) = (yysemantic_stack_[(1) - (1)].astnode);
           }
@@ -593,7 +593,7 @@ namespace ZLS {
   case 9:
 
 /* Line 677 of lalr1.cc  */
-#line 143 "zlsYaccParser.yy"
+#line 140 "zlsYaccParser.yy"
     {
               (yyval.astnode) = new ZLS::ASTPower((yysemantic_stack_[(3) - (1)].astnode), (yysemantic_stack_[(3) - (3)].astnode));
           }
@@ -602,7 +602,7 @@ namespace ZLS {
   case 10:
 
 /* Line 677 of lalr1.cc  */
-#line 148 "zlsYaccParser.yy"
+#line 145 "zlsYaccParser.yy"
     {
                 (yyval.astnode) = (yysemantic_stack_[(1) - (1)].astnode);
             }
@@ -611,7 +611,7 @@ namespace ZLS {
   case 11:
 
 /* Line 677 of lalr1.cc  */
-#line 152 "zlsYaccParser.yy"
+#line 149 "zlsYaccParser.yy"
     {
                 (yyval.astnode) = (yysemantic_stack_[(2) - (2)].astnode);
             }
@@ -620,7 +620,7 @@ namespace ZLS {
   case 12:
 
 /* Line 677 of lalr1.cc  */
-#line 156 "zlsYaccParser.yy"
+#line 153 "zlsYaccParser.yy"
     {
                 (yyval.astnode) = new ZLS::ASTNegate((yysemantic_stack_[(2) - (2)].astnode));
             }
@@ -629,7 +629,7 @@ namespace ZLS {
   case 13:
 
 /* Line 677 of lalr1.cc  */
-#line 161 "zlsYaccParser.yy"
+#line 158 "zlsYaccParser.yy"
     {
 			  (yyval.astnode) = (yysemantic_stack_[(1) - (1)].astnode);
 		  }
@@ -638,7 +638,7 @@ namespace ZLS {
   case 14:
 
 /* Line 677 of lalr1.cc  */
-#line 165 "zlsYaccParser.yy"
+#line 162 "zlsYaccParser.yy"
     {
 			  (yyval.astnode) = new ZLS::ASTMultiply((yysemantic_stack_[(3) - (1)].astnode), (yysemantic_stack_[(3) - (3)].astnode));
 		  }
@@ -647,7 +647,7 @@ namespace ZLS {
   case 15:
 
 /* Line 677 of lalr1.cc  */
-#line 169 "zlsYaccParser.yy"
+#line 166 "zlsYaccParser.yy"
     {
 			  (yyval.astnode) = new ZLS::ASTDivide((yysemantic_stack_[(3) - (1)].astnode), (yysemantic_stack_[(3) - (3)].astnode));
 		  }
@@ -656,7 +656,7 @@ namespace ZLS {
   case 16:
 
 /* Line 677 of lalr1.cc  */
-#line 173 "zlsYaccParser.yy"
+#line 170 "zlsYaccParser.yy"
     {
 			  (yyval.astnode) = new ZLS::ASTModulo((yysemantic_stack_[(3) - (1)].astnode), (yysemantic_stack_[(3) - (3)].astnode));
 		  }
@@ -665,7 +665,7 @@ namespace ZLS {
   case 17:
 
 /* Line 677 of lalr1.cc  */
-#line 178 "zlsYaccParser.yy"
+#line 175 "zlsYaccParser.yy"
     {
 			  (yyval.astnode) = (yysemantic_stack_[(1) - (1)].astnode);
 		  }
@@ -674,7 +674,7 @@ namespace ZLS {
   case 18:
 
 /* Line 677 of lalr1.cc  */
-#line 182 "zlsYaccParser.yy"
+#line 179 "zlsYaccParser.yy"
     {
 			  (yyval.astnode) = new ZLS::ASTAdd((yysemantic_stack_[(3) - (1)].astnode), (yysemantic_stack_[(3) - (3)].astnode));
 		  }
@@ -683,7 +683,7 @@ namespace ZLS {
   case 19:
 
 /* Line 677 of lalr1.cc  */
-#line 186 "zlsYaccParser.yy"
+#line 183 "zlsYaccParser.yy"
     {
 			  (yyval.astnode) = new ZLS::ASTSubtract((yysemantic_stack_[(3) - (1)].astnode), (yysemantic_stack_[(3) - (3)].astnode));
 		  }
@@ -692,7 +692,7 @@ namespace ZLS {
   case 20:
 
 /* Line 677 of lalr1.cc  */
-#line 191 "zlsYaccParser.yy"
+#line 188 "zlsYaccParser.yy"
     {
               (yyval.astnode) = (yysemantic_stack_[(1) - (1)].astnode);
           }
@@ -701,7 +701,7 @@ namespace ZLS {
   case 21:
 
 /* Line 677 of lalr1.cc  */
-#line 196 "zlsYaccParser.yy"
+#line 193 "zlsYaccParser.yy"
     {
 //                 driver.calc.variables[*$1] = $3->evaluate();
 //                 std::cout << "Setting variable " << *$1
@@ -714,34 +714,35 @@ namespace ZLS {
   case 28:
 
 /* Line 677 of lalr1.cc  */
-#line 211 "zlsYaccParser.yy"
+#line 208 "zlsYaccParser.yy"
     {
-              //driver.calc.expressions.push_back($2);
-          }
+				parser.setRoot( (yysemantic_stack_[(3) - (2)].astnode) );
+			  //driver.calc.expressions.push_back($2);
+			}
     break;
 
   case 29:
 
 /* Line 677 of lalr1.cc  */
-#line 215 "zlsYaccParser.yy"
+#line 213 "zlsYaccParser.yy"
     {
-              //driver.calc.expressions.push_back($2);
-          }
+			  //driver.calc.expressions.push_back($2);
+			}
     break;
 
   case 30:
 
 /* Line 677 of lalr1.cc  */
-#line 219 "zlsYaccParser.yy"
+#line 217 "zlsYaccParser.yy"
     {
-              //driver.calc.expressions.push_back($2);
-          }
+			  //driver.calc.expressions.push_back($2);
+			}
     break;
 
 
 
 /* Line 677 of lalr1.cc  */
-#line 745 "zlsYaccParser.tab.cc"
+#line 746 "zlsYaccParser.tab.cc"
 	default:
           break;
       }
@@ -1100,10 +1101,10 @@ namespace ZLS {
   const unsigned char
   BisonParser::yyrline_[] =
   {
-         0,   103,   103,   107,   112,   125,   129,   133,   138,   142,
-     147,   151,   155,   160,   164,   168,   172,   177,   181,   185,
-     190,   195,   204,   205,   206,   207,   208,   209,   210,   214,
-     218
+         0,   100,   100,   104,   109,   122,   126,   130,   135,   139,
+     144,   148,   152,   157,   161,   165,   169,   174,   178,   182,
+     187,   192,   201,   202,   203,   204,   205,   206,   207,   212,
+     216
   };
 
   // Print the state stack on the debug stream.
@@ -1195,11 +1196,11 @@ namespace ZLS {
 } // ZLS
 
 /* Line 1053 of lalr1.cc  */
-#line 1199 "zlsYaccParser.tab.cc"
+#line 1200 "zlsYaccParser.tab.cc"
 
 
 /* Line 1055 of lalr1.cc  */
-#line 225 "zlsYaccParser.yy"
+#line 223 "zlsYaccParser.yy"
  /*** Additional Code ***/
 
 // We have to implement the error function
@@ -1210,7 +1211,7 @@ void ZLS::BisonParser::error(const ZLS::BisonParser::location_type &loc, const s
 // Now that we have the Parser declared, we can declare the Scanner and implement
 // the yylex function
 #include "zlsScanner.h"
-static int yylex(ZLS::BisonParser::semantic_type * yylval, ZLS::FlexScanner &scanner) {
-	return scanner.yylex(yylval);
+static int yylex(ZLS::BisonParser::semantic_type * yylval, ZLS::Parser &parser) {
+	return parser.scanner().yylex(yylval);
 }
 

@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-#include "zlsAbstractSyntaxTree.h"
+#include "zlsParser.h"
 using namespace ZLS;
 
 %}
@@ -35,11 +35,8 @@ using namespace ZLS;
 /* set the parser's class identifier */
 %define parser_class_name "BisonParser"
 
-/* The driver is passed by reference to the parser and to the scanner. This
- * provides a simple but effective pure interface, not relying on global
- * variables. */
-%parse-param { ZLS::FlexScanner &scanner }
-%lex-param { ZLS::FlexScanner &scanner }
+%parse-param { ZLS::Parser &parser }
+%lex-param { ZLS::Parser &parser }
 
 /* verbose error messages */
 %error-verbose
@@ -49,14 +46,14 @@ using namespace ZLS;
 	// Forward-declare the Scanner class; the Parser needs to be assigned a 
 	// Scanner, but the Scanner can't be declared without the Parser
 	namespace ZLS {
-		class FlexScanner;
+		class Parser;
 		class ASTNode;
 	}
 }
 
 %code {
 	// Prototype for the yylex function
-	static int yylex(ZLS::BisonParser::semantic_type * yylval, ZLS::FlexScanner &scanner);
+	static int yylex(ZLS::BisonParser::semantic_type * yylval, ZLS::Parser &parser);
 }
 
  /*** BEGIN EXAMPLE - Change the example grammar's tokens below ***/
@@ -202,23 +199,24 @@ assignment : STRING '=' expr
              }
 
 start   : /* empty */
-        | start ';'
-        | start EOL
-        | start assignment ';'
-        | start assignment EOL
-        | start assignment END
-        | start expr ';'
-          {
-              //driver.calc.expressions.push_back($2);
-          }
-        | start expr EOL
-          {
-              //driver.calc.expressions.push_back($2);
-          }
-        | start expr END
-          {
-              //driver.calc.expressions.push_back($2);
-          }
+		| start ';'
+		| start EOL
+		| start assignment ';'
+		| start assignment EOL
+		| start assignment END
+		| start expr ';'
+			{
+				parser.setRoot( $2 );
+			  //driver.calc.expressions.push_back($2);
+			}
+		| start expr EOL
+			{
+			  //driver.calc.expressions.push_back($2);
+			}
+		| start expr END
+			{
+			  //driver.calc.expressions.push_back($2);
+			}
 
  /*** END EXAMPLE - Change the example grammar rules above ***/
 
@@ -232,6 +230,6 @@ void ZLS::BisonParser::error(const ZLS::BisonParser::location_type &loc, const s
 // Now that we have the Parser declared, we can declare the Scanner and implement
 // the yylex function
 #include "zlsScanner.h"
-static int yylex(ZLS::BisonParser::semantic_type * yylval, ZLS::FlexScanner &scanner) {
-	return scanner.yylex(yylval);
+static int yylex(ZLS::BisonParser::semantic_type * yylval, ZLS::Parser &parser) {
+	return parser.scanner().yylex(yylval);
 }

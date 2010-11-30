@@ -10,6 +10,8 @@
 #include "main.h"
 #include "../../src/zlsContext.h"
 #include "../../src/zlsTurtleViewer.h"
+#include "../../src/zlsParser.h"
+
 using namespace ZLS;
 
 #include <stdlib.h>
@@ -136,6 +138,12 @@ int main(int argc, char** argv) {
 	ctx.write(ss);
 	
 	cout << ss.str() << endl;
+	
+	stringstream ss2;
+	ss2 << string("1+2*3;");
+	Parser parser( &ss2 );
+	parser.parse();
+	parser.print();
 	
 //	LSystemContext killme;
 //	killme.initialize();

@@ -38,12 +38,12 @@
 /* "%code requires" blocks.  */
 
 /* Line 34 of lalr1.cc  */
-#line 48 "zlsYaccParser.yy"
+#line 45 "zlsYaccParser.yy"
 
 	// Forward-declare the Scanner class; the Parser needs to be assigned a 
 	// Scanner, but the Scanner can't be declared without the Parser
 	namespace ZLS {
-		class FlexScanner;
+		class Parser;
 		class ASTNode;
 	}
 
@@ -131,7 +131,7 @@ namespace ZLS {
     {
 
 /* Line 34 of lalr1.cc  */
-#line 64 "zlsYaccParser.yy"
+#line 61 "zlsYaccParser.yy"
 
     int					intVal;
     float				floatVal;
@@ -165,7 +165,7 @@ namespace ZLS {
     typedef token::yytokentype token_type;
 
     /// Build a parser object.
-    BisonParser (ZLS::FlexScanner &scanner_yyarg);
+    BisonParser (ZLS::Parser &parser_yyarg);
     virtual ~BisonParser ();
 
     /// Parse.
@@ -325,7 +325,7 @@ namespace ZLS {
     static const token_number_type yyundef_token_;
 
     /* User arguments.  */
-    ZLS::FlexScanner &scanner;
+    ZLS::Parser &parser;
   };
 
 /* Line 34 of lalr1.cc  */
