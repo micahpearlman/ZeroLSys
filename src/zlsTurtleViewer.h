@@ -81,7 +81,7 @@ namespace ZLS {
 		}
 		
 		
-		string description() {
+		virtual string description() {
 			stringstream ss;
 			ss << "TurtleViewer: \n";
 			ss << currentTurtleState().description();

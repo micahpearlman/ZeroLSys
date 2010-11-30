@@ -14,6 +14,7 @@
 #include <ostream>
 #include <cmath>
 #include <string>
+#include "zlsContext.h"
 #include "zlsStateViewer.h"
 
 namespace ZLS {
@@ -248,15 +249,15 @@ namespace ZLS {
 	
 	class ASTDrawForward : public ASTNode {
 	public:
-		explicit ASTDrawForward( StateViewer* sv, ASTNode* parameter )
+		explicit ASTDrawForward( Context* ctx, ASTNode* parameter )
 		:	ASTNode()
-		,	_stateViewer( sv )
+		,	_context( ctx )
 		,	_parameter( parameter )
 		{}
 		
 		virtual float evaluate() {
-			_stateViewer->addParameter( _parameter->evaluate() );
-			_stateViewer->executeHandlerForSymbol( string("F") );
+			_context->stateViewer()->addParameter( _parameter->evaluate() );
+			_context->stateViewer()->executeHandlerForSymbol( string("F") );
 			return 0;
 		}
 		
@@ -266,21 +267,21 @@ namespace ZLS {
 		}		
 		
 	private:
-		StateViewer*	_stateViewer;
+		Context*	_context;
 		ASTNode*		_parameter;
 	};
 
 	class ASTMoveForward : public ASTNode {
 	public:
-		explicit ASTMoveForward( StateViewer* sv, ASTNode* parameter )
+		explicit ASTMoveForward( Context* ctx, ASTNode* parameter )
 		:	ASTNode()
-		,	_stateViewer( sv )
+		,	_context( ctx )
 		,	_parameter( parameter )
 		{}
 		
 		virtual float evaluate() {
-			_stateViewer->addParameter( _parameter->evaluate() );
-			_stateViewer->executeHandlerForSymbol( string("f") );
+			_context->stateViewer()->addParameter( _parameter->evaluate() );
+			_context->stateViewer()->executeHandlerForSymbol( string("f") );
 			return 0;
 		}
 		
@@ -290,21 +291,21 @@ namespace ZLS {
 		}		
 		
 	private:
-		StateViewer*	_stateViewer;
-		ASTNode*		_parameter;
+		Context*	_context;
+		ASTNode*	_parameter;
 	};
 
 	class ASTTurnLeft : public ASTNode {
 	public:
-		explicit ASTTurnLeft( StateViewer* sv, ASTNode* parameter )
+		explicit ASTTurnLeft( Context* ctx, ASTNode* parameter )
 		:	ASTNode()
-		,	_stateViewer( sv )
+		,	_context( ctx )
 		,	_parameter( parameter )
 		{}
 		
 		virtual float evaluate() {
-			_stateViewer->addParameter( _parameter->evaluate() );
-			_stateViewer->executeHandlerForSymbol( string("+") );
+			_context->stateViewer()->addParameter( _parameter->evaluate() );
+			_context->stateViewer()->executeHandlerForSymbol( string("+") );
 			return 0;
 		}
 		
@@ -314,21 +315,21 @@ namespace ZLS {
 		}		
 		
 	private:
-		StateViewer*	_stateViewer;
+		Context*	_context;
 		ASTNode*		_parameter;
 	};
 
 	class ASTTurnRight : public ASTNode {
 	public:
-		explicit ASTTurnRight( StateViewer* sv, ASTNode* parameter )
+		explicit ASTTurnRight( Context* ctx, ASTNode* parameter )
 		:	ASTNode()
-		,	_stateViewer( sv )
+		,	_context( ctx )
 		,	_parameter( parameter )
 		{}
 		
 		virtual float evaluate() {
-			_stateViewer->addParameter( _parameter->evaluate() );
-			_stateViewer->executeHandlerForSymbol( string("-") );
+			_context->stateViewer()->addParameter( _parameter->evaluate() );
+			_context->stateViewer()->executeHandlerForSymbol( string("-") );
 			return 0;
 		}
 		
@@ -338,15 +339,15 @@ namespace ZLS {
 		}		
 		
 	private:
-		StateViewer*	_stateViewer;
+		Context*	_context;
 		ASTNode*		_parameter;
 	};
 
 	class ASTChangeColor : public ASTNode {
 	public:
-		explicit ASTChangeColor( StateViewer* sv, ASTNode* r, ASTNode* g, ASTNode* b, ASTNode* a )
+		explicit ASTChangeColor( Context* ctx, ASTNode* r, ASTNode* g, ASTNode* b, ASTNode* a )
 		:	ASTNode()
-		,	_stateViewer( sv )
+		,	_context( ctx )
 		,	_r( r )
 		,	_g( g )
 		,	_b( b )
@@ -354,11 +355,11 @@ namespace ZLS {
 		{}
 		
 		virtual float evaluate() {
-			_stateViewer->addParameter( _r->evaluate() );
-			_stateViewer->addParameter( _g->evaluate() );
-			_stateViewer->addParameter( _b->evaluate() );
-			_stateViewer->addParameter( _a->evaluate() );
-			_stateViewer->executeHandlerForSymbol( string("C") );
+			_context->stateViewer()->addParameter( _r->evaluate() );
+			_context->stateViewer()->addParameter( _g->evaluate() );
+			_context->stateViewer()->addParameter( _b->evaluate() );
+			_context->stateViewer()->addParameter( _a->evaluate() );
+			_context->stateViewer()->executeHandlerForSymbol( string("C") );
 			return 0;
 		}
 		
@@ -371,19 +372,19 @@ namespace ZLS {
 		}		
 		
 	private:
-		StateViewer*	_stateViewer;
+		Context*	_context;
 		ASTNode*		_r, *_g, *_b, *_a;
 	};
 	
 	class ASTPushState : public ASTNode {
 	public:
-		explicit ASTPushState( StateViewer* sv )
+		explicit ASTPushState( Context* ctx )
 		:	ASTNode()
-		,	_stateViewer( sv )
+		,	_context( ctx )
 		{}
 		
 		virtual float evaluate() {
-			_stateViewer->executeHandlerForSymbol( string("[") );
+			_context->stateViewer()->executeHandlerForSymbol( string("[") );
 			return 0;
 		}
 		
@@ -392,18 +393,18 @@ namespace ZLS {
 		}		
 		
 	private:
-		StateViewer*	_stateViewer;
+		Context*	_context;
 	};
 
 	class ASTPopState : public ASTNode {
 	public:
-		explicit ASTPopState( StateViewer* sv )
+		explicit ASTPopState( Context* ctx )
 		:	ASTNode()
-		,	_stateViewer( sv )
+		,	_context( ctx )
 		{}
 		
 		virtual float evaluate() {
-			_stateViewer->executeHandlerForSymbol( string("]") );
+			_context->stateViewer()->executeHandlerForSymbol( string("]") );
 			return 0;
 		}
 		
@@ -412,27 +413,9 @@ namespace ZLS {
 		}		
 		
 	private:
-		StateViewer*	_stateViewer;
+		Context*	_context;
 	};
 	
-	///////////////////// AST Context /////////////////////
-	class ASTContext {
-		
-	public:
-		bool doesVariableExist( const string& varname ) {
-			return _variables.find( varname ) != _variables.end();
-		}
-		float variableValue( const string& varname ) {
-			map<string, float>::iterator vi = _variables.find( varname );
-			if ( vi != _variables.end() ) {
-				return vi->second;
-			}
-			return 0;	// error
-		}
-	private:
-		map<string, float>	_variables;
-		vector<ASTNode*>	_expressions;
-	};
 	
 }
 #endif // __ZLS_ABSTRACTSYNTAXTREE_H__

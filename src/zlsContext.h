@@ -18,19 +18,19 @@
 #include <cctype>
 
 #include "zlsProductionRule.h"
-#include "zlsStateViewer.h"
-
 
 namespace ZLS {
 	
 	using namespace std;
+	class StateViewer;
+	class Parser;
 	
-	
-	class LSystemContext {
+	class Context {
 	public:
 		
-		LSystemContext()
+		Context()
 		:	_stateViewer( 0 )
+		,	_parser( 0 )
 		,	_start("empty")
 		,	_state("empty")
 		{
@@ -75,6 +75,11 @@ namespace ZLS {
 			_stateViewer = sv;
 		}
 		
+		Parser* parser() {
+			return _parser;
+		}
+		
+		string description();
 		
 		
 	private:
@@ -83,6 +88,7 @@ namespace ZLS {
 		string							_state;
 		ProductionRuleMap				_rules;
 		StateViewer*					_stateViewer;
+		Parser*							_parser;
 		
 	};
 }

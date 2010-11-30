@@ -38,19 +38,18 @@
 /* "%code requires" blocks.  */
 
 /* Line 34 of lalr1.cc  */
-#line 45 "zlsYaccParser.yy"
+#line 47 "zlsYaccParser.yy"
 
-	// Forward-declare the Scanner class; the Parser needs to be assigned a 
-	// Scanner, but the Scanner can't be declared without the Parser
+	// Forward-declare
 	namespace ZLS {
-		class Parser;
+		class Context;
 		class ASTNode;
 	}
 
 
 
 /* Line 34 of lalr1.cc  */
-#line 54 "zlsYaccParser.tab.hh"
+#line 53 "zlsYaccParser.tab.hh"
 
 
 #include <string>
@@ -59,20 +58,20 @@
 
 
 /* Line 34 of lalr1.cc  */
-#line 33 "zlsYaccParser.yy"
+#line 35 "zlsYaccParser.yy"
 namespace ZLS {
 
 /* Line 34 of lalr1.cc  */
-#line 67 "zlsYaccParser.tab.hh"
+#line 66 "zlsYaccParser.tab.hh"
   class position;
   class location;
 
 /* Line 34 of lalr1.cc  */
-#line 33 "zlsYaccParser.yy"
+#line 35 "zlsYaccParser.yy"
 } // ZLS
 
 /* Line 34 of lalr1.cc  */
-#line 76 "zlsYaccParser.tab.hh"
+#line 75 "zlsYaccParser.tab.hh"
 
 #include "location.hh"
 
@@ -115,11 +114,11 @@ do {							\
 
 
 /* Line 34 of lalr1.cc  */
-#line 33 "zlsYaccParser.yy"
+#line 35 "zlsYaccParser.yy"
 namespace ZLS {
 
 /* Line 34 of lalr1.cc  */
-#line 123 "zlsYaccParser.tab.hh"
+#line 122 "zlsYaccParser.tab.hh"
 
   /// A Bison parser.
   class BisonParser
@@ -136,12 +135,12 @@ namespace ZLS {
     int					intVal;
     float				floatVal;
     std::string*		stringVal;
-    ZLS::ASTNode*			astnode;
+    ZLS::ASTNode*		astnode;
 
 
 
 /* Line 34 of lalr1.cc  */
-#line 145 "zlsYaccParser.tab.hh"
+#line 144 "zlsYaccParser.tab.hh"
     };
 #else
     typedef YYSTYPE semantic_type;
@@ -155,9 +154,11 @@ namespace ZLS {
    enum yytokentype {
      END = 0,
      EOL = 258,
-     INTEGER = 259,
-     DOUBLE = 260,
-     STRING = 261
+     AXIOM = 259,
+     PRODUCTION = 260,
+     INTEGER = 261,
+     DOUBLE = 262,
+     STRING = 263
    };
 
     };
@@ -165,7 +166,7 @@ namespace ZLS {
     typedef token::yytokentype token_type;
 
     /// Build a parser object.
-    BisonParser (ZLS::Parser &parser_yyarg);
+    BisonParser (ZLS::Context &context_yyarg);
     virtual ~BisonParser ();
 
     /// Parse.
@@ -325,15 +326,15 @@ namespace ZLS {
     static const token_number_type yyundef_token_;
 
     /* User arguments.  */
-    ZLS::Parser &parser;
+    ZLS::Context &context;
   };
 
 /* Line 34 of lalr1.cc  */
-#line 33 "zlsYaccParser.yy"
+#line 35 "zlsYaccParser.yy"
 } // ZLS
 
 /* Line 34 of lalr1.cc  */
-#line 337 "zlsYaccParser.tab.hh"
+#line 338 "zlsYaccParser.tab.hh"
 
 
 

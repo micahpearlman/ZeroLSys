@@ -10,7 +10,6 @@
 #include "main.h"
 #include "../../src/zlsContext.h"
 #include "../../src/zlsTurtleViewer.h"
-#include "../../src/zlsParser.h"
 
 using namespace ZLS;
 
@@ -36,7 +35,7 @@ struct RenderContext {
 
 static RenderContext gRenderContext;
 static TurtleViewer viewer;
-LSystemContext ctx;
+ZLS::Context ctx;
 
 void display(void) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -133,21 +132,10 @@ int main(int argc, char** argv) {
 	
 	ctx.reset();
 
-	
 	stringstream ss;
-	ctx.write(ss);
-	
-	cout << ss.str() << endl;
-	
-	stringstream ss2;
-	ss2 << string("1+2*3;");
-	Parser parser( &ss2 );
-	parser.parse();
-	parser.print();
-	
-//	LSystemContext killme;
-//	killme.initialize();
-//	killme.read( ss );
+	ss << "1+2*3/4;";
+	ctx.read( ss );
+	cout << ctx.description() << endl;
 	
 	viewer.initialize();
 	viewer.setRotateRadiansFromDegrees( 60.0f );

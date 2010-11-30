@@ -36,6 +36,7 @@ namespace ZLS {
 		virtual void terminate() = 0;
 		//virtual void execute( const string& state ) = 0;
 		virtual void draw() = 0;
+		virtual string description() = 0;
 		
 		string state() const {
 			return _state;

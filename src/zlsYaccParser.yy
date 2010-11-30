@@ -6,6 +6,8 @@
 #include <string>
 #include <vector>
 
+#include "zlsContext.h"
+#include "zlsAbstractSyntaxTree.h"
 #include "zlsParser.h"
 using namespace ZLS;
 
@@ -35,67 +37,53 @@ using namespace ZLS;
 /* set the parser's class identifier */
 %define parser_class_name "BisonParser"
 
-%parse-param { ZLS::Parser &parser }
-%lex-param { ZLS::Parser &parser }
+%parse-param { ZLS::Context &context }
+%lex-param { ZLS::Context &context }
 
 /* verbose error messages */
 %error-verbose
 
 
 %code requires {
-	// Forward-declare the Scanner class; the Parser needs to be assigned a 
-	// Scanner, but the Scanner can't be declared without the Parser
+	// Forward-declare
 	namespace ZLS {
-		class Parser;
+		class Context;
 		class ASTNode;
 	}
 }
 
 %code {
 	// Prototype for the yylex function
-	static int yylex(ZLS::BisonParser::semantic_type * yylval, ZLS::Parser &parser);
+	static int yylex(ZLS::BisonParser::semantic_type * yylval, ZLS::Context &context);
 }
 
- /*** BEGIN EXAMPLE - Change the example grammar's tokens below ***/
 
 %union {
     int					intVal;
     float				floatVal;
     std::string*		stringVal;
-    ZLS::ASTNode*			astnode;
+    ZLS::ASTNode*		astnode;
 }
 
 %token                  END          0  "end of file"
 %token                  EOL             "end of line"
+%token                  AXIOM           "axiom"
+%token					PRODUCTION		"production"
 %token <intVal>			INTEGER         "integer"
 %token <floatVal>		DOUBLE          "double"
 %token <stringVal>		STRING          "string"
 
 %type <astnode>  constant variable
 %type <astnode>  atomexpr powexpr unaryexpr mulexpr addexpr expr
+%type <astnode>  moveforward drawforward turnleft turnright pushstate popstate changecolor
 
 %destructor { delete $$; } STRING
 %destructor { delete $$; } constant variable
 %destructor { delete $$; } atomexpr powexpr unaryexpr mulexpr addexpr expr
 
- /*** END EXAMPLE - Change the example grammar's tokens above ***/
-
-%{
-
-//#include "driver.h"
-//#include "scanner.h"
-
-/* this "connects" the bison parser in the driver to the flex scanner class
- * object. it defines the yylex() function call to pull the next token from the
- * current lexer object of the driver context. */
-//#undef yylex
-//#define yylex driver.lexer->lex
-
-%}
 
 %% /*** Grammar Rules ***/
 
- /*** BEGIN EXAMPLE - Change the example grammar rules below ***/
 
 constant : INTEGER
            {
@@ -197,7 +185,48 @@ assignment : STRING '=' expr
 //                 delete $1;
 //                 delete $3;
              }
+/*
+//void DrawForward();		// F
+//void MoveForward();		// f
+//void TurnLeft();		// +
+//void TurnRight();		// -
+//void ChangeColor();		// C
+//void PushState();		// [
+//void PopState();		// ]
+*/
+drawforward : 'F' '(' expr ')'
+			{
+				$$ = new ZLS::ASTDrawForward( &context, $3 );
+			}
 
+moveforward : 'f' '(' expr ')'
+			{
+				$$ = new ZLS::ASTMoveForward( &context, $3 );
+			}
+
+turnleft : '+' '(' expr ')'
+			{
+				$$ = new ZLS::ASTTurnLeft( &context, $3 );
+			}
+
+turnright : '-' '(' expr ')'
+			{
+				$$ = new ZLS::ASTTurnRight( &context, $3 );
+			}
+
+changecolor : '-' '(' expr ')'
+			{
+				//$$ = new ZLS::ASTTurnRight( &context, $3 );
+			}
+pushstate : '['
+			{
+				$$ = new ZLS::ASTPushState( &context );
+			}
+popstate : ']'
+			{
+				$$ = new ZLS::ASTPopState( &context );
+			}
+			
 start   : /* empty */
 		| start ';'
 		| start EOL
@@ -206,7 +235,7 @@ start   : /* empty */
 		| start assignment END
 		| start expr ';'
 			{
-				parser.setRoot( $2 );
+				context.parser()->setRoot( $2 );
 			  //driver.calc.expressions.push_back($2);
 			}
 		| start expr EOL
@@ -230,6 +259,6 @@ void ZLS::BisonParser::error(const ZLS::BisonParser::location_type &loc, const s
 // Now that we have the Parser declared, we can declare the Scanner and implement
 // the yylex function
 #include "zlsScanner.h"
-static int yylex(ZLS::BisonParser::semantic_type * yylval, ZLS::Parser &parser) {
-	return parser.scanner().yylex(yylval);
+static int yylex(ZLS::BisonParser::semantic_type * yylval, ZLS::Context &context) {
+	return context.parser()->scanner().yylex(yylval);
 }

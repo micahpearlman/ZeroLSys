@@ -44,7 +44,7 @@
 
 
 /* Line 162 of location.cc  */
-#line 33 "zlsYaccParser.yy"
+#line 35 "zlsYaccParser.yy"
 namespace ZLS {
 
 /* Line 162 of location.cc  */
@@ -159,7 +159,7 @@ namespace ZLS {
 
 
 /* Line 271 of location.cc  */
-#line 33 "zlsYaccParser.yy"
+#line 35 "zlsYaccParser.yy"
 } // ZLS
 
 /* Line 271 of location.cc  */

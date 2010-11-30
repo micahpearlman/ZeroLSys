@@ -23,6 +23,18 @@
     return token::DOUBLE;
 }
 
+"axiom" | 
+"AXIOM" {
+	return token::AXIOM;
+}
+
+"production" | 
+"prod" | 
+"PROD" | 
+"PRODUCTION" {
+	return token::PRODUCTION;
+}
+
 [A-Za-z][A-Za-z0-9_,.-]* {
     yylval->stringVal = new std::string(yytext, yyleng);
     return token::STRING;
@@ -35,12 +47,13 @@
 
  /* gobble up end-of-lines */
 \n {
-    //yylloc->lines(yyleng); yylloc->step();
     return token::EOL;
 }
+
 
  /* pass all other characters up to bison */
 . {
     return static_cast<token_type>(*yytext);
 }
 
+%%

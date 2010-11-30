@@ -8,80 +8,67 @@
  */
 
 #include "zlsContext.h"
+#include "zlsStateViewer.h"
+#include "zlsParser.h"
+
 #include <string>
 #include <iostream>
 #include <algorithm>
 #include <cctype>
+#include <sstream>
 
 using namespace std;
-
-#include <boost/property_tree/ptree.hpp>
-#include <boost/property_tree/xml_parser.hpp>
-#include <boost/foreach.hpp>
-
-
 
 namespace ZLS {
 	
 	
-	void LSystemContext::initialize() {
+	void Context::initialize() {
 		
 	}
 	
-	void LSystemContext::reset() {
+	void Context::reset() {
 		_state = _start;
 	}
-	void LSystemContext::terminate() {
+	void Context::terminate() {
 		
 	}
 	
-	void LSystemContext::setStartState( const string& start ) {
+	void Context::setStartState( const string& start ) {
 		_start = start;
 		// remove white space
 		_start.erase(std::remove_if(_start.begin(), _start.end(), ::isspace), _start.end());
 		
 	}
 	
-	
-	using boost::property_tree::ptree;
-	
-	void LSystemContext::read( istream& is ) {
-		ptree pt;
-		
-		read_xml( is, pt );
-		_start = pt.get<string>( "LSystem.Start" );
-		
-		BOOST_FOREACH( ptree::value_type& v, pt.get_child( "LSystem.Rules" ) ) {
-			stringstream rs;
-			write_xml( rs, v.second );
-			ProductionRule newrule;
-			newrule.read( rs );
-			addRule( newrule );
+	void Context::read( istream& is ) {
+		if ( _parser ) {
+			delete _parser;
+			_parser = 0;
 		}
-		
-		
+		_parser = new Parser( this, &is );
+		_parser->parse();
 	}
 	
-	void LSystemContext::write( ostream& os ) {
-		
-		ptree root;
-		root.put( "LSystem.Start", _start );
-		
-		for ( ProductionRuleMap::iterator ruleIt = _rules.begin(); ruleIt != _rules.end(); ruleIt++ ) {
-			stringstream rs;
-			ruleIt->second.write( rs );
-			ptree rule_pt;
-			read_xml( rs, rule_pt );
-			root.add_child( "LSystem.Rules.Rule", rule_pt );
+	void Context::write( ostream& os ) {
+		// todo
+	}
+	
+	string Context::description() {
+		stringstream ss;
+		if ( _parser ) {
+			ss << _parser->description();
+		}
+		if ( _stateViewer ) {
+			ss << _stateViewer->description();
 		}
 		
-		write_xml( os, root );
+		return ss.str();
 		
 	}
 
 	
 	
-	string& LSystemContext::iterate() {
+	string& Context::iterate() {
 		const char* s = _state.c_str();
 		string newstate;
 		

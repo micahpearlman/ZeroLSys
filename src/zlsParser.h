@@ -10,16 +10,18 @@
 #define __ZLS_PARSER_H__
 
 #include <vector>
-#include "zlsAbstractSyntaxTree.h"
+#include <sstream>
 #include "zlsScanner.h"
+#include "zlsAbstractSyntaxTree.h"
 
 namespace ZLS {
 	using namespace std;
+	class Context;
 	class Parser {
 	public:
-		Parser( std::istream * in = 0, std::ostream * out = 0 ) //: _parser(_scanner) 
+		Parser( Context* ctx, std::istream * in = 0, std::ostream * out = 0 ) //: _parser(_scanner) 
 		:	_scanner( in, out )
-		,	_parser( *this )
+		,	_parser( *ctx )
 		{
 			
 		}
@@ -28,8 +30,13 @@ namespace ZLS {
 			return _parser.parse();
 		}
 		
-		void print() {
-			_rootASTNode->print(cout, 0);
+		string description() {
+			stringstream ss;
+			if ( _rootASTNode ) {
+				_rootASTNode->print(ss, 0);
+			}
+			
+			return ss.str();
 		}
 		
 		ASTNode* root() {
