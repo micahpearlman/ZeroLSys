@@ -23,6 +23,7 @@
     return token::DOUBLE;
 }
 
+
 "axiom" | 
 "AXIOM" {
 	return token::AXIOM;
@@ -33,6 +34,34 @@
 "PROD" | 
 "PRODUCTION" {
 	return token::PRODUCTION;
+}
+
+"f" {
+	return token::MOVE_FORWARD;
+}
+
+"F" {
+	return token::DRAW_FORWARD;
+}
+
+"+" {
+	return token::TURN_LEFT;
+}
+
+"-" {
+	return token::TURN_RIGHT;
+}
+
+"C" {
+	return token::CHANGE_COLOR;
+}
+
+"[" {
+	return token::PUSH_STATE;
+}
+
+"]" {
+	return token::POP_STATE;
 }
 
 [A-Za-z][A-Za-z0-9_,.-]* {

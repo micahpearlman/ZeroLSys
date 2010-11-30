@@ -24,6 +24,7 @@ namespace ZLS {
 	using namespace std;
 	class StateViewer;
 	class Parser;
+	class ASTNode;
 	
 	class Context {
 	public:
@@ -81,6 +82,7 @@ namespace ZLS {
 		
 		string description();
 		
+		vector<ASTNode*>	_killme;
 		
 	private:
 		typedef map<string, ProductionRule> ProductionRuleMap;

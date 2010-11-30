@@ -133,7 +133,7 @@ int main(int argc, char** argv) {
 	ctx.reset();
 
 	stringstream ss;
-	ss << "1+2*3/4;";
+	ss << "F(12+99*4)f(11)+(10)-(9)[]";//"1+2*3/4;";
 	ctx.read( ss );
 	cout << ctx.description() << endl;
 	

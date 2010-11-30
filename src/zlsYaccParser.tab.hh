@@ -158,7 +158,14 @@ namespace ZLS {
      PRODUCTION = 260,
      INTEGER = 261,
      DOUBLE = 262,
-     STRING = 263
+     STRING = 263,
+     MOVE_FORWARD = 264,
+     DRAW_FORWARD = 265,
+     TURN_LEFT = 266,
+     TURN_RIGHT = 267,
+     CHANGE_COLOR = 268,
+     PUSH_STATE = 269,
+     POP_STATE = 270
    };
 
     };
@@ -255,7 +262,7 @@ namespace ZLS {
     static const unsigned char yytable_[];
     static const signed char yytable_ninf_;
 
-    static const signed char yycheck_[];
+    static const unsigned char yycheck_[];
 
     /// For a state, its accessing symbol.
     static const unsigned char yystos_[];
@@ -283,7 +290,7 @@ namespace ZLS {
     /// For each rule, the index of the first RHS symbol in \a yyrhs_.
     static const unsigned char yyprhs_[];
     /// For each rule, its source line number.
-    static const unsigned char yyrline_[];
+    static const unsigned short int yyrline_[];
     /// For each scanner token number, its symbol number.
     static const unsigned short int yytoken_number_[];
     /// Report on the debug stream that the rule \a r is going to be reduced.
@@ -334,7 +341,7 @@ namespace ZLS {
 } // ZLS
 
 /* Line 34 of lalr1.cc  */
-#line 338 "zlsYaccParser.tab.hh"
+#line 345 "zlsYaccParser.tab.hh"
 
 
 

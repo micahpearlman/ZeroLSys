@@ -73,9 +73,18 @@ using namespace ZLS;
 %token <floatVal>		DOUBLE          "double"
 %token <stringVal>		STRING          "string"
 
+/** Turtle Command Tokens **/
+%token					MOVE_FORWARD	"f"
+%token					DRAW_FORWARD	"F"
+%token					TURN_LEFT		"+"
+%token					TURN_RIGHT		"-"
+%token					CHANGE_COLOR	"C"
+%token					PUSH_STATE		"["
+%token					POP_STATE		"]"
+
 %type <astnode>  constant variable
 %type <astnode>  atomexpr powexpr unaryexpr mulexpr addexpr expr
-%type <astnode>  moveforward drawforward turnleft turnright pushstate popstate changecolor
+%type <astnode>  moveforward drawforward turnleft turnright pushstate popstate changecolor turtlecommand
 
 %destructor { delete $$; } STRING
 %destructor { delete $$; } constant variable
@@ -95,17 +104,19 @@ constant : INTEGER
            }
 
 variable : STRING
-           {
-               //if (!driver.calc.existsVariable(*$1)) {
-//                   error(yyloc, std::string("Unknown variable \"") + *$1 + "\"");
-//                   delete $1;
-//                   YYERROR;
-               //}
-               //else {
-               //    $$ = new CNConstant( driver.calc.getVariable(*$1) );
-               //    delete $1;
-               //}
-           }
+			{
+				cout << "STRING: " << *($1) << endl;
+
+			   //if (!driver.calc.existsVariable(*$1)) {
+			//                   error(yyloc, std::string("Unknown variable \"") + *$1 + "\"");
+			//                   delete $1;
+			//                   YYERROR;
+			   //}
+			   //else {
+			   //    $$ = new CNConstant( driver.calc.getVariable(*$1) );
+			   //    delete $1;
+			   //}
+			}
 
 atomexpr : constant
            {
@@ -163,11 +174,11 @@ addexpr : mulexpr
 		  {
 			  $$ = $1;
 		  }
-		| addexpr '+' mulexpr
+		| addexpr TURN_LEFT mulexpr
 		  {
 			  $$ = new ZLS::ASTAdd($1, $3);
 		  }
-		| addexpr '-' mulexpr
+		| addexpr TURN_RIGHT mulexpr
 		  {
 			  $$ = new ZLS::ASTSubtract($1, $3);
 		  }
@@ -185,58 +196,79 @@ assignment : STRING '=' expr
 //                 delete $1;
 //                 delete $3;
              }
-/*
-//void DrawForward();		// F
-//void MoveForward();		// f
-//void TurnLeft();		// +
-//void TurnRight();		// -
-//void ChangeColor();		// C
-//void PushState();		// [
-//void PopState();		// ]
-*/
-drawforward : 'F' '(' expr ')'
+			 
+
+/*	Turtle Commands
+*******************/
+			 
+drawforward : DRAW_FORWARD '(' expr ')'
 			{
+				cout << "drawforward" << endl;
 				$$ = new ZLS::ASTDrawForward( &context, $3 );
 			}
 
-moveforward : 'f' '(' expr ')'
+moveforward : MOVE_FORWARD '(' expr ')'
 			{
 				$$ = new ZLS::ASTMoveForward( &context, $3 );
 			}
 
-turnleft : '+' '(' expr ')'
+turnleft : TURN_LEFT '(' expr ')'
 			{
 				$$ = new ZLS::ASTTurnLeft( &context, $3 );
 			}
 
-turnright : '-' '(' expr ')'
+turnright : TURN_RIGHT '(' expr ')'
 			{
 				$$ = new ZLS::ASTTurnRight( &context, $3 );
 			}
 
-changecolor : '-' '(' expr ')'
+changecolor : CHANGE_COLOR '(' expr ')'
 			{
-				//$$ = new ZLS::ASTTurnRight( &context, $3 );
+				$$ = new ZLS::ASTTurnRight( &context, $3 );
 			}
-pushstate : '['
+pushstate : PUSH_STATE
 			{
 				$$ = new ZLS::ASTPushState( &context );
 			}
-popstate : ']'
+popstate : POP_STATE
 			{
 				$$ = new ZLS::ASTPopState( &context );
 			}
-			
+
+				 
+turtlecommand : drawforward
+				| moveforward
+				| turnleft
+				| turnright
+				| changecolor
+				| pushstate
+				| popstate
+
+turtlecommand_sequence : /* empty */
+				| turtlecommand_sequence turtlecommand
+				{
+					context._killme.push_back( $2 );
+				}
+				;
+			 
+				
 start   : /* empty */
 		| start ';'
 		| start EOL
 		| start assignment ';'
 		| start assignment EOL
 		| start assignment END
+		| start turtlecommand_sequence
+			{
+				//context.parser()->setRoot( $2 );
+				std::vector<ZLS::ASTNode*>::iterator it = context._killme.begin();
+				for( ; it != context._killme.end(); it++ ) {
+					(*it)->print(cout, 0);
+				}
+			}
 		| start expr ';'
 			{
 				context.parser()->setRoot( $2 );
-			  //driver.calc.expressions.push_back($2);
 			}
 		| start expr EOL
 			{
@@ -247,7 +279,6 @@ start   : /* empty */
 			  //driver.calc.expressions.push_back($2);
 			}
 
- /*** END EXAMPLE - Change the example grammar rules above ***/
 
 %% /*** Additional Code ***/
 
