@@ -14,10 +14,10 @@
 
 namespace ZLS {
 	using namespace std;
-
+	class Context;
 	class Parser  {
 	public:
-		bool parse( istream& is );
+		bool parse( Context* ctx, istream& is );
 		//template< typename Functor > void addHandler( const string& symbol, Functor handler );
 	};
 }
