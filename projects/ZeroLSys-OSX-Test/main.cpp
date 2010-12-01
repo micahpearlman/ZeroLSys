@@ -10,6 +10,7 @@
 #include "main.h"
 #include "../../src/zlsContext.h"
 #include "../../src/zlsTurtleViewer.h"
+#include "../../src/zlsParser.h"
 using namespace ZeroLSys;
 
 #include <stdlib.h>
@@ -132,14 +133,18 @@ int main(int argc, char** argv) {
 	ctx.reset();
 
 	
+//	stringstream ss;
+//	ctx.write(ss);
+//	
+//	cout << ss.str() << endl;
+//	
+//	LSystemContext killme;
+//	killme.initialize();
+//	killme.read( ss );
 	stringstream ss;
-	ctx.write(ss);
-	
-	cout << ss.str() << endl;
-	
-	LSystemContext killme;
-	killme.initialize();
-	killme.read( ss );
+	ss << "F+F--F+F";
+	Parser parser;
+	parser.parse( ss );
 	
 	viewer.initialize();
 	viewer.setRotateRadiansFromDegrees( 60.0f );

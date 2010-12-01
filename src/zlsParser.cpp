@@ -22,17 +22,9 @@ using namespace std;
 
 using namespace boost;
 
-#if 1
 namespace ZeroLSys {
 	
-	void test_function() {
-		cout << "test function!" << endl;
-	}
-	struct test_handler {
-		void test() {
-			cout << "test handler!" << endl;
-		}
-	};
+	
 	
 	
 	namespace spirit = boost::spirit;
@@ -40,9 +32,20 @@ namespace ZeroLSys {
 	namespace ascii = boost::spirit::ascii;
 	namespace phoenix = boost::phoenix;
 
+
+	struct debugprint {
+		string _name;
+		debugprint( string n ) : _name(n) {}
+		
+		void operator()(int const& i, qi::unused_type, qi::unused_type) const {
+			cout << _name << std::endl;
+        }		
+		
+		
+	};
 	
 	template <typename Iterator>
-	struct lsystem_parser :  qi::grammar<Iterator, unsigned() > {
+	struct lsystem_parser :  qi::grammar<Iterator, vector<unsigned> > {
 		lsystem_parser()
 		:	lsystem_parser::base_type(start) 
 		{
@@ -53,15 +56,31 @@ namespace ZeroLSys {
 			using qi::_1;
 			using phoenix::ref;
 			
-			float_parameters %= '(' >> (float_ >> *(',' >> float_)) >> ')';// >> *(',' >> float_);
-			draw_forward %= 'F' -float_parameters;
+			float_parameters = '(' >> (float_ >> *(',' >> float_)) >> ')';// >> *(',' >> float_);
 			
-			start %= draw_forward[&test_function];
+			/// turtle grammar ///
+			draw_forward = char_('F')[debugprint("draw_forward")];
+			move_forward = char_('f')[debugprint("move_forward")];
+			turn_left = char_('+')[debugprint("turn_left")];
+			turn_right = char_('-')[debugprint("turn_right")];
+			push_state = char_('[')[debugprint("push_state")];
+			pop_state = char_(']')[debugprint("pop_state")];
+			
+			turtle_commands = draw_forward | move_forward | turn_left | turn_right | push_state | pop_state;
+			
+			
+			start %= *turtle_commands;
 		}
-		qi::rule< Iterator, unsigned() > start;
+		qi::rule< Iterator, vector<unsigned> > start;
 		qi::rule< Iterator, vector<float> > float_parameters;
-		qi::rule< Iterator, unsigned() > draw_forward;
 		
+		qi::rule< Iterator, unsigned() > draw_forward;
+		qi::rule< Iterator, unsigned() > move_forward;
+		qi::rule< Iterator, unsigned() > turn_left;
+		qi::rule< Iterator, unsigned() > turn_right;
+		qi::rule< Iterator, unsigned() > push_state;
+		qi::rule< Iterator, unsigned() > pop_state;
+		qi::rule< Iterator, unsigned() > turtle_commands;		
 	};
 	
 	
@@ -70,17 +89,17 @@ namespace ZeroLSys {
 		typedef std::string::const_iterator iterator_type;
 		typedef lsystem_parser<iterator_type> parser_type;
 		
-		const string test("F(1,2,3)f");
-		
+		//const string test("F(1,2,3)f");
+		string s;
+		is >> s;
 		parser_type parser;
-		iterator_type begin(test.begin());
-		iterator_type end(test.end());
+		iterator_type begin(s.begin());
+		iterator_type end(s.end());
 		
 		unsigned result;
 		qi::phrase_parse( begin, end, parser, ascii::space, result );
 		return true;
 	}
 }
-#endif 
 
 
