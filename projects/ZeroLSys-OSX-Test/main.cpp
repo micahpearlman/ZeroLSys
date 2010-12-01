@@ -66,7 +66,7 @@ void keyboard(unsigned char key, int x, int y) {
 			gRenderContext._scale += 0.1f;
 			break;
 		case 'i':
-			viewer.execute( ctx.iterate() );
+			viewer.setState( ctx.iterate() );
 			break;
 		case 'r':
 			ctx.reset();

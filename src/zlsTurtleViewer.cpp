@@ -19,7 +19,7 @@ using namespace boost;
 namespace ZeroLSys {
 	
 	void TurtleViewer::initialize( ) {
-		
+		reset();
 		// add the symbol handlers
 		addSymbolHandlerForSymbol( string("F"), (StateViewer::SymbolHandler)&TurtleViewer::DrawForward );
 		addSymbolHandlerForSymbol( string("f"), (StateViewer::SymbolHandler)&TurtleViewer::MoveForward );

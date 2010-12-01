@@ -32,7 +32,7 @@ namespace ZeroLSys {
 		,	_scale(1)
 		{
 			_offset[0] = _offset[1] = 0;
-			reset();
+			//reset();
 		}
 		
 		virtual ~TurtleViewer();
@@ -117,7 +117,7 @@ namespace ZeroLSys {
 			:	_stepLength(10)
 			,	_rotateRadians( radians(33) )
 			,	_orientation(0)
-			,	_width(0.1)
+			,	_width(1.0)
 			,	_path(VG_INVALID_HANDLE)
 			,	_paint(VG_INVALID_HANDLE)
 			{
