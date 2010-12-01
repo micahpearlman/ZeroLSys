@@ -22,6 +22,7 @@ namespace ZLS {
 		Parser( Context* ctx, std::istream * in = 0, std::ostream * out = 0 ) //: _parser(_scanner) 
 		:	_scanner( in, out )
 		,	_parser( *ctx )
+		,	_rootASTNode( 0 )
 		{
 			
 		}

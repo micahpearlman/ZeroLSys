@@ -2,6 +2,7 @@
 
 %{ 
 	#include <string>
+	#include <vector>
 	#include "zlsScanner.h"
 	#include "zlsAbstractSyntaxTree.h"
 	typedef ZLS::BisonParser::token token;
@@ -11,6 +12,11 @@
 %option nodefault yyclass="FlexScanner" noyywrap c++
 
 %% /*** Regular Expressions Part ***/
+
+ /* gobble up white-spaces */
+[ \t\r\n]+ {
+    //yylloc->step();
+}
 
 
 [0-9]+ {
@@ -24,16 +30,22 @@
 }
 
 
-"axiom" | 
-"AXIOM" {
+"w" {
 	return token::AXIOM;
 }
 
-"production" | 
-"prod" | 
-"PROD" | 
-"PRODUCTION" {
+"P"[0-9]+ {
+
+	yylval->stringVal = new std::string(yytext, yyleng);
+	cout << "lex PRODUCTION: ";	
+	cout << *yylval->stringVal << endl;
+	
 	return token::PRODUCTION;
+}
+
+">>" {
+	cout << "TRANSFORM" << endl;
+	return token::TRANSFORM;
 }
 
 "f" {
@@ -41,14 +53,17 @@
 }
 
 "F" {
+	cout << "F" << endl;
 	return token::DRAW_FORWARD;
 }
 
 "+" {
+	cout << "+" << endl;
 	return token::TURN_LEFT;
 }
 
 "-" {
+	cout << "-" << endl;
 	return token::TURN_RIGHT;
 }
 
@@ -69,15 +84,12 @@
     return token::STRING;
 }
 
- /* gobble up white-spaces */
-[ \t\r]+ {
-    //yylloc->step();
-}
 
- /* gobble up end-of-lines */
+ /* gobble up end-of-lines 
 \n {
     return token::EOL;
 }
+ */
 
 
  /* pass all other characters up to bison */

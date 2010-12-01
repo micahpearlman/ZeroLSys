@@ -238,10 +238,10 @@ namespace ZLS {
 
     switch (yytype)
       {
-        case 8: /* "\"string\"" */
+        case 6: /* "\"string\"" */
 
 /* Line 479 of lalr1.cc  */
-#line 89 "zlsYaccParser.yy"
+#line 92 "zlsYaccParser.yy"
 	{ delete (yyvaluep->stringVal); };
 
 /* Line 479 of lalr1.cc  */
@@ -250,7 +250,7 @@ namespace ZLS {
       case 27: /* "constant" */
 
 /* Line 479 of lalr1.cc  */
-#line 90 "zlsYaccParser.yy"
+#line 93 "zlsYaccParser.yy"
 	{ delete (yyvaluep->astnode); };
 
 /* Line 479 of lalr1.cc  */
@@ -259,7 +259,7 @@ namespace ZLS {
       case 28: /* "variable" */
 
 /* Line 479 of lalr1.cc  */
-#line 90 "zlsYaccParser.yy"
+#line 93 "zlsYaccParser.yy"
 	{ delete (yyvaluep->astnode); };
 
 /* Line 479 of lalr1.cc  */
@@ -268,7 +268,7 @@ namespace ZLS {
       case 29: /* "atomexpr" */
 
 /* Line 479 of lalr1.cc  */
-#line 91 "zlsYaccParser.yy"
+#line 94 "zlsYaccParser.yy"
 	{ delete (yyvaluep->astnode); };
 
 /* Line 479 of lalr1.cc  */
@@ -277,7 +277,7 @@ namespace ZLS {
       case 30: /* "powexpr" */
 
 /* Line 479 of lalr1.cc  */
-#line 91 "zlsYaccParser.yy"
+#line 94 "zlsYaccParser.yy"
 	{ delete (yyvaluep->astnode); };
 
 /* Line 479 of lalr1.cc  */
@@ -286,7 +286,7 @@ namespace ZLS {
       case 31: /* "unaryexpr" */
 
 /* Line 479 of lalr1.cc  */
-#line 91 "zlsYaccParser.yy"
+#line 94 "zlsYaccParser.yy"
 	{ delete (yyvaluep->astnode); };
 
 /* Line 479 of lalr1.cc  */
@@ -295,7 +295,7 @@ namespace ZLS {
       case 32: /* "mulexpr" */
 
 /* Line 479 of lalr1.cc  */
-#line 91 "zlsYaccParser.yy"
+#line 94 "zlsYaccParser.yy"
 	{ delete (yyvaluep->astnode); };
 
 /* Line 479 of lalr1.cc  */
@@ -304,7 +304,7 @@ namespace ZLS {
       case 33: /* "addexpr" */
 
 /* Line 479 of lalr1.cc  */
-#line 91 "zlsYaccParser.yy"
+#line 94 "zlsYaccParser.yy"
 	{ delete (yyvaluep->astnode); };
 
 /* Line 479 of lalr1.cc  */
@@ -313,7 +313,7 @@ namespace ZLS {
       case 34: /* "expr" */
 
 /* Line 479 of lalr1.cc  */
-#line 91 "zlsYaccParser.yy"
+#line 94 "zlsYaccParser.yy"
 	{ delete (yyvaluep->astnode); };
 
 /* Line 479 of lalr1.cc  */
@@ -510,7 +510,7 @@ namespace ZLS {
 	  case 2:
 
 /* Line 677 of lalr1.cc  */
-#line 98 "zlsYaccParser.yy"
+#line 101 "zlsYaccParser.yy"
     {
                (yyval.astnode) = new ZLS::ASTConstant((yysemantic_stack_[(1) - (1)].intVal));
            }
@@ -519,7 +519,7 @@ namespace ZLS {
   case 3:
 
 /* Line 677 of lalr1.cc  */
-#line 102 "zlsYaccParser.yy"
+#line 105 "zlsYaccParser.yy"
     {
                (yyval.astnode) = new ZLS::ASTConstant((yysemantic_stack_[(1) - (1)].floatVal));
            }
@@ -528,7 +528,7 @@ namespace ZLS {
   case 4:
 
 /* Line 677 of lalr1.cc  */
-#line 107 "zlsYaccParser.yy"
+#line 110 "zlsYaccParser.yy"
     {
 				cout << "STRING: " << *((yysemantic_stack_[(1) - (1)].stringVal)) << endl;
 
@@ -538,8 +538,8 @@ namespace ZLS {
 			//                   YYERROR;
 			   //}
 			   //else {
-			   //    $$ = new CNConstant( driver.calc.getVariable(*$1) );
-			   //    delete $1;
+			       (yyval.astnode) = new ZLS::ASTConstant( 69 );
+			       delete (yysemantic_stack_[(1) - (1)].stringVal);
 			   //}
 			}
     break;
@@ -547,7 +547,7 @@ namespace ZLS {
   case 5:
 
 /* Line 677 of lalr1.cc  */
-#line 122 "zlsYaccParser.yy"
+#line 125 "zlsYaccParser.yy"
     {
                (yyval.astnode) = (yysemantic_stack_[(1) - (1)].astnode);
            }
@@ -556,7 +556,7 @@ namespace ZLS {
   case 6:
 
 /* Line 677 of lalr1.cc  */
-#line 126 "zlsYaccParser.yy"
+#line 129 "zlsYaccParser.yy"
     {
                (yyval.astnode) = (yysemantic_stack_[(1) - (1)].astnode);
            }
@@ -565,7 +565,7 @@ namespace ZLS {
   case 7:
 
 /* Line 677 of lalr1.cc  */
-#line 130 "zlsYaccParser.yy"
+#line 133 "zlsYaccParser.yy"
     {
                (yyval.astnode) = (yysemantic_stack_[(3) - (2)].astnode);
            }
@@ -574,7 +574,7 @@ namespace ZLS {
   case 8:
 
 /* Line 677 of lalr1.cc  */
-#line 135 "zlsYaccParser.yy"
+#line 138 "zlsYaccParser.yy"
     {
               (yyval.astnode) = (yysemantic_stack_[(1) - (1)].astnode);
           }
@@ -583,7 +583,7 @@ namespace ZLS {
   case 9:
 
 /* Line 677 of lalr1.cc  */
-#line 139 "zlsYaccParser.yy"
+#line 142 "zlsYaccParser.yy"
     {
               (yyval.astnode) = new ZLS::ASTPower((yysemantic_stack_[(3) - (1)].astnode), (yysemantic_stack_[(3) - (3)].astnode));
           }
@@ -592,7 +592,7 @@ namespace ZLS {
   case 10:
 
 /* Line 677 of lalr1.cc  */
-#line 144 "zlsYaccParser.yy"
+#line 147 "zlsYaccParser.yy"
     {
                 (yyval.astnode) = (yysemantic_stack_[(1) - (1)].astnode);
             }
@@ -601,8 +601,9 @@ namespace ZLS {
   case 11:
 
 /* Line 677 of lalr1.cc  */
-#line 148 "zlsYaccParser.yy"
+#line 151 "zlsYaccParser.yy"
     {
+				cout << "unary plus" << endl;
                 (yyval.astnode) = (yysemantic_stack_[(2) - (2)].astnode);
             }
     break;
@@ -610,8 +611,9 @@ namespace ZLS {
   case 12:
 
 /* Line 677 of lalr1.cc  */
-#line 152 "zlsYaccParser.yy"
+#line 156 "zlsYaccParser.yy"
     {
+				cout << "unary minus" << endl;
                 (yyval.astnode) = new ZLS::ASTNegate((yysemantic_stack_[(2) - (2)].astnode));
             }
     break;
@@ -619,7 +621,7 @@ namespace ZLS {
   case 13:
 
 /* Line 677 of lalr1.cc  */
-#line 157 "zlsYaccParser.yy"
+#line 162 "zlsYaccParser.yy"
     {
 			  (yyval.astnode) = (yysemantic_stack_[(1) - (1)].astnode);
 		  }
@@ -628,7 +630,7 @@ namespace ZLS {
   case 14:
 
 /* Line 677 of lalr1.cc  */
-#line 161 "zlsYaccParser.yy"
+#line 166 "zlsYaccParser.yy"
     {
 			  (yyval.astnode) = new ZLS::ASTMultiply((yysemantic_stack_[(3) - (1)].astnode), (yysemantic_stack_[(3) - (3)].astnode));
 		  }
@@ -637,7 +639,7 @@ namespace ZLS {
   case 15:
 
 /* Line 677 of lalr1.cc  */
-#line 165 "zlsYaccParser.yy"
+#line 170 "zlsYaccParser.yy"
     {
 			  (yyval.astnode) = new ZLS::ASTDivide((yysemantic_stack_[(3) - (1)].astnode), (yysemantic_stack_[(3) - (3)].astnode));
 		  }
@@ -646,7 +648,7 @@ namespace ZLS {
   case 16:
 
 /* Line 677 of lalr1.cc  */
-#line 169 "zlsYaccParser.yy"
+#line 174 "zlsYaccParser.yy"
     {
 			  (yyval.astnode) = new ZLS::ASTModulo((yysemantic_stack_[(3) - (1)].astnode), (yysemantic_stack_[(3) - (3)].astnode));
 		  }
@@ -655,34 +657,36 @@ namespace ZLS {
   case 17:
 
 /* Line 677 of lalr1.cc  */
-#line 174 "zlsYaccParser.yy"
+#line 179 "zlsYaccParser.yy"
     {
 			  (yyval.astnode) = (yysemantic_stack_[(1) - (1)].astnode);
-		  }
+			}
     break;
 
   case 18:
 
 /* Line 677 of lalr1.cc  */
-#line 178 "zlsYaccParser.yy"
+#line 183 "zlsYaccParser.yy"
     {
-			  (yyval.astnode) = new ZLS::ASTAdd((yysemantic_stack_[(3) - (1)].astnode), (yysemantic_stack_[(3) - (3)].astnode));
-		  }
+				cout << "addexpr" << endl;
+				(yyval.astnode) = new ZLS::ASTAdd((yysemantic_stack_[(3) - (1)].astnode), (yysemantic_stack_[(3) - (3)].astnode));
+			}
     break;
 
   case 19:
 
 /* Line 677 of lalr1.cc  */
-#line 182 "zlsYaccParser.yy"
+#line 188 "zlsYaccParser.yy"
     {
-			  (yyval.astnode) = new ZLS::ASTSubtract((yysemantic_stack_[(3) - (1)].astnode), (yysemantic_stack_[(3) - (3)].astnode));
-		  }
+				cout << "subexpr" << endl;
+				(yyval.astnode) = new ZLS::ASTSubtract((yysemantic_stack_[(3) - (1)].astnode), (yysemantic_stack_[(3) - (3)].astnode));
+			}
     break;
 
   case 20:
 
 /* Line 677 of lalr1.cc  */
-#line 187 "zlsYaccParser.yy"
+#line 194 "zlsYaccParser.yy"
     {
               (yyval.astnode) = (yysemantic_stack_[(1) - (1)].astnode);
           }
@@ -691,7 +695,7 @@ namespace ZLS {
   case 21:
 
 /* Line 677 of lalr1.cc  */
-#line 192 "zlsYaccParser.yy"
+#line 199 "zlsYaccParser.yy"
     {
 //                 driver.calc.variables[*$1] = $3->evaluate();
 //                 std::cout << "Setting variable " << *$1
@@ -704,9 +708,8 @@ namespace ZLS {
   case 22:
 
 /* Line 677 of lalr1.cc  */
-#line 205 "zlsYaccParser.yy"
+#line 212 "zlsYaccParser.yy"
     {
-				cout << "drawforward" << endl;
 				(yyval.astnode) = new ZLS::ASTDrawForward( &context, (yysemantic_stack_[(4) - (3)].astnode) );
 			}
     break;
@@ -714,101 +717,178 @@ namespace ZLS {
   case 23:
 
 /* Line 677 of lalr1.cc  */
-#line 211 "zlsYaccParser.yy"
+#line 216 "zlsYaccParser.yy"
     {
-				(yyval.astnode) = new ZLS::ASTMoveForward( &context, (yysemantic_stack_[(4) - (3)].astnode) );
+				cout << "DRAW_FORWARD" << endl;
+				(yyval.astnode) = new ZLS::ASTDrawForward( &context, 0 );
 			}
     break;
 
   case 24:
 
 /* Line 677 of lalr1.cc  */
-#line 216 "zlsYaccParser.yy"
+#line 221 "zlsYaccParser.yy"
     {
-				(yyval.astnode) = new ZLS::ASTTurnLeft( &context, (yysemantic_stack_[(4) - (3)].astnode) );
+				(yyval.astnode) = new ZLS::ASTMoveForward( &context, (yysemantic_stack_[(4) - (3)].astnode) );
 			}
     break;
 
   case 25:
 
 /* Line 677 of lalr1.cc  */
-#line 221 "zlsYaccParser.yy"
+#line 225 "zlsYaccParser.yy"
     {
-				(yyval.astnode) = new ZLS::ASTTurnRight( &context, (yysemantic_stack_[(4) - (3)].astnode) );
+				(yyval.astnode) = new ZLS::ASTMoveForward( &context, 0 );
 			}
     break;
 
   case 26:
 
 /* Line 677 of lalr1.cc  */
-#line 226 "zlsYaccParser.yy"
+#line 230 "zlsYaccParser.yy"
     {
-				(yyval.astnode) = new ZLS::ASTTurnRight( &context, (yysemantic_stack_[(4) - (3)].astnode) );
+				(yyval.astnode) = new ZLS::ASTTurnLeft( &context, (yysemantic_stack_[(4) - (3)].astnode) );
 			}
     break;
 
   case 27:
 
 /* Line 677 of lalr1.cc  */
-#line 230 "zlsYaccParser.yy"
+#line 234 "zlsYaccParser.yy"
     {
-				(yyval.astnode) = new ZLS::ASTPushState( &context );
+				cout << "TURN_LEFT" << endl;
+				(yyval.astnode) = new ZLS::ASTTurnLeft( &context, 0 );
 			}
     break;
 
   case 28:
 
 /* Line 677 of lalr1.cc  */
-#line 234 "zlsYaccParser.yy"
+#line 240 "zlsYaccParser.yy"
+    {
+				(yyval.astnode) = new ZLS::ASTTurnRight( &context, (yysemantic_stack_[(4) - (3)].astnode) );
+			}
+    break;
+
+  case 29:
+
+/* Line 677 of lalr1.cc  */
+#line 244 "zlsYaccParser.yy"
+    {
+				cout << "TURN_RIGHT" << endl;
+				(yyval.astnode) = new ZLS::ASTTurnRight( &context, 0 );
+			}
+    break;
+
+  case 30:
+
+/* Line 677 of lalr1.cc  */
+#line 250 "zlsYaccParser.yy"
+    {
+				(yyval.astnode) = new ZLS::ASTTurnRight( &context, (yysemantic_stack_[(4) - (3)].astnode) );
+			}
+    break;
+
+  case 31:
+
+/* Line 677 of lalr1.cc  */
+#line 254 "zlsYaccParser.yy"
+    {
+				(yyval.astnode) = new ZLS::ASTPushState( &context );
+			}
+    break;
+
+  case 32:
+
+/* Line 677 of lalr1.cc  */
+#line 258 "zlsYaccParser.yy"
     {
 				(yyval.astnode) = new ZLS::ASTPopState( &context );
 			}
     break;
 
-  case 37:
+  case 40:
 
 /* Line 677 of lalr1.cc  */
-#line 249 "zlsYaccParser.yy"
+#line 272 "zlsYaccParser.yy"
     {
-					context._killme.push_back( (yysemantic_stack_[(2) - (2)].astnode) );
+					cout << "single cmd" << endl;
+					context._killme.push_back( (yysemantic_stack_[(1) - (1)].astnode) );
 				}
     break;
 
-  case 44:
+  case 41:
 
 /* Line 677 of lalr1.cc  */
-#line 262 "zlsYaccParser.yy"
+#line 277 "zlsYaccParser.yy"
     {
-				//context.parser()->setRoot( $2 );
-				std::vector<ZLS::ASTNode*>::iterator it = context._killme.begin();
-				for( ; it != context._killme.end(); it++ ) {
-					(*it)->print(cout, 0);
+					cout << "cmd" << endl;
+					context._killme.push_back( (yysemantic_stack_[(2) - (1)].astnode) );
 				}
+    break;
+
+  case 42:
+
+/* Line 677 of lalr1.cc  */
+#line 284 "zlsYaccParser.yy"
+    {
+					cout << "Axiom:" << endl;
+					std::vector<ZLS::ASTNode*>::iterator it = context._killme.begin();
+					for( ; it != context._killme.end(); it++ ) {
+						(*it)->print(cout, 0);
+					}
+					
+				}
+    break;
+
+  case 43:
+
+/* Line 677 of lalr1.cc  */
+#line 293 "zlsYaccParser.yy"
+    {
+					cout << "Production: " << *(yysemantic_stack_[(6) - (1)].stringVal) << endl;
+				}
+    break;
+
+  case 50:
+
+/* Line 677 of lalr1.cc  */
+#line 304 "zlsYaccParser.yy"
+    {
 			}
     break;
 
-  case 45:
+  case 51:
 
 /* Line 677 of lalr1.cc  */
-#line 270 "zlsYaccParser.yy"
+#line 307 "zlsYaccParser.yy"
+    {
+				cout << "here" << endl;
+			}
+    break;
+
+  case 52:
+
+/* Line 677 of lalr1.cc  */
+#line 311 "zlsYaccParser.yy"
     {
 				context.parser()->setRoot( (yysemantic_stack_[(3) - (2)].astnode) );
 			}
     break;
 
-  case 46:
+  case 53:
 
 /* Line 677 of lalr1.cc  */
-#line 274 "zlsYaccParser.yy"
+#line 315 "zlsYaccParser.yy"
     {
 			  //driver.calc.expressions.push_back($2);
 			}
     break;
 
-  case 47:
+  case 54:
 
 /* Line 677 of lalr1.cc  */
-#line 278 "zlsYaccParser.yy"
+#line 319 "zlsYaccParser.yy"
     {
 			  //driver.calc.expressions.push_back($2);
 			}
@@ -817,7 +897,7 @@ namespace ZLS {
 
 
 /* Line 677 of lalr1.cc  */
-#line 821 "zlsYaccParser.tab.cc"
+#line 901 "zlsYaccParser.tab.cc"
 	default:
           break;
       }
@@ -1022,18 +1102,19 @@ namespace ZLS {
 
   /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
      STATE-NUM.  */
-  const signed char BisonParser::yypact_ninf_ = -12;
+  const signed char BisonParser::yypact_ninf_ = -26;
   const signed char
   BisonParser::yypact_[] =
   {
-       -12,     1,   -12,   -12,   -12,   -12,     9,    16,    23,    23,
-     -12,   -12,   -12,   -12,    -5,   -12,   -11,     4,     2,     3,
-      31,    16,   -12,     8,    -5,    -5,    23,    16,    16,    16,
-      16,    16,   -12,   -12,   -12,   -12,   -12,   -12,    18,    34,
-      35,    36,    37,   -12,   -12,   -12,   -12,   -12,   -12,   -12,
-     -12,   -12,   -12,   -12,   -12,   -12,   -12,   -12,   -12,   -11,
-     -11,    16,    16,    16,    16,    16,    42,    43,    44,    45,
-      46,   -12,   -12,   -12,   -12,   -12
+       -26,     2,   -26,   -26,   -26,   -26,    -7,    -2,     9,    24,
+      24,    19,   -26,   -26,   -26,   -26,     7,   -26,    25,    -9,
+      17,    18,    10,   -26,    19,    41,    41,   -26,     7,     7,
+      22,    24,    19,    19,    19,    19,    19,   -26,   -26,   -26,
+     -26,   -26,   -26,   -26,   -26,    27,    46,    47,    48,    49,
+     -26,   -26,   -26,   -26,   -26,   -26,   -26,   -26,   -26,    41,
+     -26,    58,   -26,   -26,   -26,   -26,   -26,    25,    25,    19,
+      19,    19,    19,    19,   -26,    41,    50,    51,    52,    53,
+      54,    55,   -26,   -26,   -26,   -26,   -26,   -26
   };
 
   /* YYDEFACT[S] -- default rule to reduce with in state S when YYTABLE
@@ -1042,30 +1123,33 @@ namespace ZLS {
   const unsigned char
   BisonParser::yydefact_[] =
   {
-        38,    36,     1,    40,     2,     3,     4,     0,     0,     0,
-      39,     5,     6,     8,    10,    13,    17,    20,     0,     0,
-      44,     0,     4,     0,    11,    12,     0,     0,     0,     0,
-       0,     0,    47,    46,    45,    43,    42,    41,     0,     0,
-       0,     0,     0,    27,    28,    29,    30,    31,    32,    33,
-      34,    35,    37,    21,     7,     9,    14,    15,    16,    18,
-      19,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,    23,    22,    24,    25,    26
+        44,     0,     1,    46,     2,     3,     4,     0,     0,     0,
+       0,     0,    45,     5,     6,     8,    10,    13,    17,    20,
+       0,     0,     0,    51,     0,     0,     0,     4,    11,    12,
+       0,     0,     0,     0,     0,     0,     0,    54,    53,    52,
+      49,    48,    47,    50,    21,    25,    23,    27,    29,     0,
+      31,    32,    33,    34,    35,    36,    37,    38,    39,    40,
+      42,     0,     7,     9,    14,    15,    16,    18,    19,     0,
+       0,     0,     0,     0,    41,     0,     0,     0,     0,     0,
+       0,     0,    24,    22,    26,    28,    30,    43
   };
 
   /* YYPGOTO[NTERM-NUM].  */
   const signed char
   BisonParser::yypgoto_[] =
   {
-       -12,   -12,   -12,    38,    10,    20,     7,   -12,    -7,   -12,
-     -12,   -12,   -12,   -12,   -12,   -12,   -12,   -12,   -12,   -12
+       -26,   -26,   -26,    42,    39,     5,   -24,   -26,   -11,   -26,
+     -26,   -26,   -26,   -26,   -26,   -26,   -26,   -26,   -25,   -26,
+     -26,   -26
   };
 
   /* YYDEFGOTO[NTERM-NUM].  */
   const signed char
   BisonParser::yydefgoto_[] =
   {
-        -1,    11,    12,    13,    14,    15,    16,    17,    18,    19,
-      45,    46,    47,    48,    49,    50,    51,    52,    20,     1
+        -1,    13,    14,    15,    16,    17,    18,    19,    20,    21,
+      52,    53,    54,    55,    56,    57,    58,    59,    60,    22,
+      23,     1
   };
 
   /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
@@ -1075,26 +1159,30 @@ namespace ZLS {
   const unsigned char
   BisonParser::yytable_[] =
   {
-        23,     2,    32,    35,     3,    33,    36,     4,     5,     6,
-      27,    28,    29,    26,    53,    30,    31,     7,    24,    25,
-       8,     9,     4,     5,    22,    54,    10,    34,    37,     4,
-       5,    22,     7,    21,    61,     8,     9,    59,    60,     7,
-      38,    39,    40,    41,    42,    43,    44,    56,    57,    58,
-      62,    63,    64,    65,    66,    67,    68,    69,    70,    71,
-      72,    73,    74,    75,    55
+        30,    61,     2,    35,    36,     3,     4,     5,     6,     7,
+       8,    67,    68,    44,     9,    10,    24,    37,    40,    11,
+      38,    41,    25,     4,     5,    27,    31,    12,     4,     5,
+      27,     9,    10,    26,    74,    43,    11,    64,    65,    66,
+      62,    11,    39,    42,    69,    32,    33,    34,    28,    29,
+      81,    45,    46,    47,    48,    49,    50,    51,    76,    77,
+      78,    79,    80,    70,    71,    72,    73,    75,    82,    83,
+      84,    85,    86,    63,     0,     0,     0,     0,     0,     0,
+      87
   };
 
   /* YYCHECK.  */
-  const unsigned char
+  const signed char
   BisonParser::yycheck_[] =
   {
-         7,     0,     0,     0,     3,     3,     3,     6,     7,     8,
-      21,    22,    23,    18,    21,    11,    12,    16,     8,     9,
-      19,    20,     6,     7,     8,    17,    25,    25,    25,     6,
-       7,     8,    16,    24,    16,    19,    20,    30,    31,    16,
-       9,    10,    11,    12,    13,    14,    15,    27,    28,    29,
-      16,    16,    16,    16,    61,    62,    63,    64,    65,    17,
-      17,    17,    17,    17,    26
+        11,    26,     0,    12,    13,     3,     4,     5,     6,     7,
+       8,    35,    36,    24,    12,    13,    23,     0,     0,    17,
+       3,     3,    24,     4,     5,     6,    19,    25,     4,     5,
+       6,    12,    13,    24,    59,    25,    17,    32,    33,    34,
+      18,    17,    25,    25,    17,    20,    21,    22,     9,    10,
+      75,    10,    11,    12,    13,    14,    15,    16,    69,    70,
+      71,    72,    73,    17,    17,    17,    17,     9,    18,    18,
+      18,    18,    18,    31,    -1,    -1,    -1,    -1,    -1,    -1,
+      25
   };
 
   /* STOS_[STATE-NUM] -- The (internal number of the) accessing
@@ -1102,14 +1190,15 @@ namespace ZLS {
   const unsigned char
   BisonParser::yystos_[] =
   {
-         0,    45,     0,     3,     6,     7,     8,    16,    19,    20,
-      25,    27,    28,    29,    30,    31,    32,    33,    34,    35,
-      44,    24,     8,    34,    30,    30,    18,    21,    22,    23,
-      11,    12,     0,     3,    25,     0,     3,    25,     9,    10,
-      11,    12,    13,    14,    15,    36,    37,    38,    39,    40,
-      41,    42,    43,    34,    17,    29,    31,    31,    31,    32,
-      32,    16,    16,    16,    16,    16,    34,    34,    34,    34,
-      34,    17,    17,    17,    17,    17
+         0,    47,     0,     3,     4,     5,     6,     7,     8,    12,
+      13,    17,    25,    27,    28,    29,    30,    31,    32,    33,
+      34,    35,    45,    46,    23,    24,    24,     6,    30,    30,
+      34,    19,    20,    21,    22,    12,    13,     0,     3,    25,
+       0,     3,    25,    25,    34,    10,    11,    12,    13,    14,
+      15,    16,    36,    37,    38,    39,    40,    41,    42,    43,
+      44,    44,    18,    29,    31,    31,    31,    32,    32,    17,
+      17,    17,    17,    17,    44,     9,    34,    34,    34,    34,
+      34,    44,    18,    18,    18,    18,    18,    25
   };
 
 #if YYDEBUG
@@ -1119,8 +1208,8 @@ namespace ZLS {
   BisonParser::yytoken_number_[] =
   {
          0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
-     265,   266,   267,   268,   269,   270,    40,    41,    94,    43,
-      45,    42,    47,    37,    61,    59
+     265,   266,   267,   268,   269,   270,   271,    40,    41,    94,
+      42,    47,    37,    61,    58,    59
   };
 #endif
 
@@ -1130,9 +1219,10 @@ namespace ZLS {
   {
          0,    26,    27,    27,    28,    29,    29,    29,    30,    30,
       31,    31,    31,    32,    32,    32,    32,    33,    33,    33,
-      34,    35,    36,    37,    38,    39,    40,    41,    42,    43,
-      43,    43,    43,    43,    43,    43,    44,    44,    45,    45,
-      45,    45,    45,    45,    45,    45,    45,    45
+      34,    35,    36,    36,    37,    37,    38,    38,    39,    39,
+      40,    41,    42,    43,    43,    43,    43,    43,    43,    43,
+      44,    44,    45,    46,    47,    47,    47,    47,    47,    47,
+      47,    47,    47,    47,    47
   };
 
   /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
@@ -1141,9 +1231,10 @@ namespace ZLS {
   {
          0,     2,     1,     1,     1,     1,     1,     3,     1,     3,
        1,     2,     2,     1,     3,     3,     3,     1,     3,     3,
-       1,     3,     4,     4,     4,     4,     4,     1,     1,     1,
-       1,     1,     1,     1,     1,     1,     0,     2,     0,     2,
-       2,     3,     3,     3,     2,     3,     3,     3
+       1,     3,     4,     1,     4,     1,     4,     1,     4,     1,
+       4,     1,     1,     1,     1,     1,     1,     1,     1,     1,
+       1,     2,     3,     6,     0,     2,     2,     3,     3,     3,
+       3,     2,     3,     3,     3
   };
 
 #if YYDEBUG || YYERROR_VERBOSE || YYTOKEN_TABLE
@@ -1153,13 +1244,14 @@ namespace ZLS {
   const BisonParser::yytname_[] =
   {
     "\"end of file\"", "error", "$undefined", "\"end of line\"",
-  "\"axiom\"", "\"production\"", "\"integer\"", "\"double\"", "\"string\"",
+  "\"integer\"", "\"double\"", "\"string\"", "\"w\"", "\"P\"", "\">>\"",
   "\"f\"", "\"F\"", "\"+\"", "\"-\"", "\"C\"", "\"[\"", "\"]\"", "'('",
-  "')'", "'^'", "'+'", "'-'", "'*'", "'/'", "'%'", "'='", "';'", "$accept",
+  "')'", "'^'", "'*'", "'/'", "'%'", "'='", "':'", "';'", "$accept",
   "constant", "variable", "atomexpr", "powexpr", "unaryexpr", "mulexpr",
   "addexpr", "expr", "assignment", "drawforward", "moveforward",
   "turnleft", "turnright", "changecolor", "pushstate", "popstate",
-  "turtlecommand", "turtlecommand_sequence", "start", 0
+  "turtlecommand", "turtlecommand_sequence", "axiom_definition",
+  "production_rule_definition", "start", 0
   };
 #endif
 
@@ -1168,21 +1260,23 @@ namespace ZLS {
   const BisonParser::rhs_number_type
   BisonParser::yyrhs_[] =
   {
-        45,     0,    -1,     6,    -1,     7,    -1,     8,    -1,    27,
-      -1,    28,    -1,    16,    34,    17,    -1,    29,    -1,    30,
-      18,    29,    -1,    30,    -1,    19,    30,    -1,    20,    30,
-      -1,    31,    -1,    32,    21,    31,    -1,    32,    22,    31,
-      -1,    32,    23,    31,    -1,    32,    -1,    33,    11,    32,
-      -1,    33,    12,    32,    -1,    33,    -1,     8,    24,    34,
-      -1,    10,    16,    34,    17,    -1,     9,    16,    34,    17,
-      -1,    11,    16,    34,    17,    -1,    12,    16,    34,    17,
-      -1,    13,    16,    34,    17,    -1,    14,    -1,    15,    -1,
-      36,    -1,    37,    -1,    38,    -1,    39,    -1,    40,    -1,
-      41,    -1,    42,    -1,    -1,    44,    43,    -1,    -1,    45,
-      25,    -1,    45,     3,    -1,    45,    35,    25,    -1,    45,
-      35,     3,    -1,    45,    35,     0,    -1,    45,    44,    -1,
-      45,    34,    25,    -1,    45,    34,     3,    -1,    45,    34,
-       0,    -1
+        47,     0,    -1,     4,    -1,     5,    -1,     6,    -1,    27,
+      -1,    28,    -1,    17,    34,    18,    -1,    29,    -1,    30,
+      19,    29,    -1,    30,    -1,    12,    30,    -1,    13,    30,
+      -1,    31,    -1,    32,    20,    31,    -1,    32,    21,    31,
+      -1,    32,    22,    31,    -1,    32,    -1,    33,    12,    32,
+      -1,    33,    13,    32,    -1,    33,    -1,     6,    23,    34,
+      -1,    11,    17,    34,    18,    -1,    11,    -1,    10,    17,
+      34,    18,    -1,    10,    -1,    12,    17,    34,    18,    -1,
+      12,    -1,    13,    17,    34,    18,    -1,    13,    -1,    14,
+      17,    34,    18,    -1,    15,    -1,    16,    -1,    36,    -1,
+      37,    -1,    38,    -1,    39,    -1,    40,    -1,    41,    -1,
+      42,    -1,    43,    -1,    43,    44,    -1,     7,    24,    44,
+      -1,     8,    24,    44,     9,    44,    25,    -1,    -1,    47,
+      25,    -1,    47,     3,    -1,    47,    35,    25,    -1,    47,
+      35,     3,    -1,    47,    35,     0,    -1,    47,    45,    25,
+      -1,    47,    46,    -1,    47,    34,    25,    -1,    47,    34,
+       3,    -1,    47,    34,     0,    -1
   };
 
   /* YYPRHS[YYN] -- Index of the first RHS symbol of rule number YYN in
@@ -1192,20 +1286,22 @@ namespace ZLS {
   {
          0,     0,     3,     5,     7,     9,    11,    13,    17,    19,
       23,    25,    28,    31,    33,    37,    41,    45,    47,    51,
-      55,    57,    61,    66,    71,    76,    81,    86,    88,    90,
-      92,    94,    96,    98,   100,   102,   104,   105,   108,   109,
-     112,   115,   119,   123,   127,   130,   134,   138
+      55,    57,    61,    66,    68,    73,    75,    80,    82,    87,
+      89,    94,    96,    98,   100,   102,   104,   106,   108,   110,
+     112,   114,   117,   121,   128,   129,   132,   135,   139,   143,
+     147,   151,   154,   158,   162
   };
 
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
   const unsigned short int
   BisonParser::yyrline_[] =
   {
-         0,    97,    97,   101,   106,   121,   125,   129,   134,   138,
-     143,   147,   151,   156,   160,   164,   168,   173,   177,   181,
-     186,   191,   204,   210,   215,   220,   225,   229,   233,   239,
-     240,   241,   242,   243,   244,   245,   247,   248,   255,   256,
-     257,   258,   259,   260,   261,   269,   273,   277
+         0,   100,   100,   104,   109,   124,   128,   132,   137,   141,
+     146,   150,   155,   161,   165,   169,   173,   178,   182,   187,
+     193,   198,   211,   215,   220,   224,   229,   233,   239,   243,
+     249,   253,   257,   263,   264,   265,   266,   267,   268,   269,
+     271,   276,   283,   292,   297,   298,   299,   300,   301,   302,
+     303,   306,   310,   314,   318
   };
 
   // Print the state stack on the debug stream.
@@ -1248,13 +1344,13 @@ namespace ZLS {
            0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,    23,     2,     2,
-      16,    17,    21,    19,     2,    20,     2,    22,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,    25,
-       2,    24,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,    22,     2,     2,
+      17,    18,    20,     2,     2,     2,     2,    21,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,    24,    25,
+       2,    23,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,    18,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,    19,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -1272,7 +1368,7 @@ namespace ZLS {
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
-      15
+      15,    16
     };
     if ((unsigned int) t <= yyuser_token_number_max_)
       return translate_table[t];
@@ -1281,15 +1377,15 @@ namespace ZLS {
   }
 
   const int BisonParser::yyeof_ = 0;
-  const int BisonParser::yylast_ = 64;
-  const int BisonParser::yynnts_ = 20;
+  const int BisonParser::yylast_ = 80;
+  const int BisonParser::yynnts_ = 22;
   const int BisonParser::yyempty_ = -2;
   const int BisonParser::yyfinal_ = 2;
   const int BisonParser::yyterror_ = 1;
   const int BisonParser::yyerrcode_ = 256;
   const int BisonParser::yyntokens_ = 26;
 
-  const unsigned int BisonParser::yyuser_token_number_max_ = 270;
+  const unsigned int BisonParser::yyuser_token_number_max_ = 271;
   const BisonParser::token_number_type BisonParser::yyundef_token_ = 2;
 
 
@@ -1298,16 +1394,17 @@ namespace ZLS {
 } // ZLS
 
 /* Line 1053 of lalr1.cc  */
-#line 1302 "zlsYaccParser.tab.cc"
+#line 1398 "zlsYaccParser.tab.cc"
 
 
 /* Line 1055 of lalr1.cc  */
-#line 283 "zlsYaccParser.yy"
+#line 324 "zlsYaccParser.yy"
  /*** Additional Code ***/
 
 // We have to implement the error function
 void ZLS::BisonParser::error(const ZLS::BisonParser::location_type &loc, const std::string &msg) {
-	std::cerr << "Error: " << msg << std::endl;
+	std::cerr << "Error: " << msg << " ::: [" << loc << "]" << std::endl;
+	std::cerr << "\t" << string(context.parser()->scanner().YYText()) << std::endl;
 }
 
 // Now that we have the Parser declared, we can declare the Scanner and implement

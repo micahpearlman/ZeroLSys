@@ -154,18 +154,19 @@ namespace ZLS {
    enum yytokentype {
      END = 0,
      EOL = 258,
-     AXIOM = 259,
-     PRODUCTION = 260,
-     INTEGER = 261,
-     DOUBLE = 262,
-     STRING = 263,
-     MOVE_FORWARD = 264,
-     DRAW_FORWARD = 265,
-     TURN_LEFT = 266,
-     TURN_RIGHT = 267,
-     CHANGE_COLOR = 268,
-     PUSH_STATE = 269,
-     POP_STATE = 270
+     INTEGER = 259,
+     DOUBLE = 260,
+     STRING = 261,
+     AXIOM = 262,
+     PRODUCTION = 263,
+     TRANSFORM = 264,
+     MOVE_FORWARD = 265,
+     DRAW_FORWARD = 266,
+     TURN_LEFT = 267,
+     TURN_RIGHT = 268,
+     CHANGE_COLOR = 269,
+     PUSH_STATE = 270,
+     POP_STATE = 271
    };
 
     };
@@ -262,7 +263,7 @@ namespace ZLS {
     static const unsigned char yytable_[];
     static const signed char yytable_ninf_;
 
-    static const unsigned char yycheck_[];
+    static const signed char yycheck_[];
 
     /// For a state, its accessing symbol.
     static const unsigned char yystos_[];
@@ -341,7 +342,7 @@ namespace ZLS {
 } // ZLS
 
 /* Line 34 of lalr1.cc  */
-#line 345 "zlsYaccParser.tab.hh"
+#line 346 "zlsYaccParser.tab.hh"
 
 
 

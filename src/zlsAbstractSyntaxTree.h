@@ -256,14 +256,16 @@ namespace ZLS {
 		{}
 		
 		virtual float evaluate() {
-			_context->stateViewer()->addParameter( _parameter->evaluate() );
+			if ( _parameter ) 
+				_context->stateViewer()->addParameter( _parameter->evaluate() );
 			_context->stateViewer()->executeHandlerForSymbol( string("F") );
 			return 0;
 		}
 		
 		virtual void print(std::ostream &os, unsigned int depth) const {
 			os << indent(depth) << "F DrawForward" << std::endl;
-			_parameter->print(os, depth+1);
+			if ( _parameter ) 
+				_parameter->print(os, depth+1);
 		}		
 		
 	private:
@@ -280,7 +282,8 @@ namespace ZLS {
 		{}
 		
 		virtual float evaluate() {
-			_context->stateViewer()->addParameter( _parameter->evaluate() );
+			if ( _parameter ) 
+				_context->stateViewer()->addParameter( _parameter->evaluate() );
 			_context->stateViewer()->executeHandlerForSymbol( string("f") );
 			return 0;
 		}
@@ -304,14 +307,16 @@ namespace ZLS {
 		{}
 		
 		virtual float evaluate() {
-			_context->stateViewer()->addParameter( _parameter->evaluate() );
+			if ( _parameter ) 
+				_context->stateViewer()->addParameter( _parameter->evaluate() );
 			_context->stateViewer()->executeHandlerForSymbol( string("+") );
 			return 0;
 		}
 		
 		virtual void print(std::ostream &os, unsigned int depth) const {
 			os << indent(depth) << "+ TurnLeft" << std::endl;
-			_parameter->print(os, depth+1);
+			if ( _parameter ) 
+				_parameter->print(os, depth+1);
 		}		
 		
 	private:
@@ -328,14 +333,16 @@ namespace ZLS {
 		{}
 		
 		virtual float evaluate() {
-			_context->stateViewer()->addParameter( _parameter->evaluate() );
+			if ( _parameter ) 
+				_context->stateViewer()->addParameter( _parameter->evaluate() );
 			_context->stateViewer()->executeHandlerForSymbol( string("-") );
 			return 0;
 		}
 		
 		virtual void print(std::ostream &os, unsigned int depth) const {
 			os << indent(depth) << "- TurnRight" << std::endl;
-			_parameter->print(os, depth+1);
+			if ( _parameter ) 
+				_parameter->print(os, depth+1);
 		}		
 		
 	private:

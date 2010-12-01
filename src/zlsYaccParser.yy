@@ -67,11 +67,14 @@ using namespace ZLS;
 
 %token                  END          0  "end of file"
 %token                  EOL             "end of line"
-%token                  AXIOM           "axiom"
-%token					PRODUCTION		"production"
 %token <intVal>			INTEGER         "integer"
 %token <floatVal>		DOUBLE          "double"
 %token <stringVal>		STRING          "string"
+
+/** L-System Grammar **/
+%token					AXIOM           "w"
+%token <stringVal>		PRODUCTION		"P"
+%token					TRANSFORM		">>"
 
 /** Turtle Command Tokens **/
 %token					MOVE_FORWARD	"f"
@@ -113,8 +116,8 @@ variable : STRING
 			//                   YYERROR;
 			   //}
 			   //else {
-			   //    $$ = new CNConstant( driver.calc.getVariable(*$1) );
-			   //    delete $1;
+			       $$ = new ZLS::ASTConstant( 69 );
+			       delete $1;
 			   //}
 			}
 
@@ -144,12 +147,14 @@ unaryexpr : powexpr
             {
                 $$ = $1;
             }
-          | '+' powexpr
+          | TURN_LEFT powexpr
             {
+				cout << "unary plus" << endl;
                 $$ = $2;
             }
-          | '-' powexpr
+          | TURN_RIGHT powexpr
             {
+				cout << "unary minus" << endl;
                 $$ = new ZLS::ASTNegate($2);
             }
 
@@ -171,17 +176,19 @@ mulexpr : unaryexpr
 		  }
 
 addexpr : mulexpr
-		  {
+			{
 			  $$ = $1;
-		  }
+			}
 		| addexpr TURN_LEFT mulexpr
-		  {
-			  $$ = new ZLS::ASTAdd($1, $3);
-		  }
+			{
+				cout << "addexpr" << endl;
+				$$ = new ZLS::ASTAdd($1, $3);
+			}
 		| addexpr TURN_RIGHT mulexpr
-		  {
-			  $$ = new ZLS::ASTSubtract($1, $3);
-		  }
+			{
+				cout << "subexpr" << endl;
+				$$ = new ZLS::ASTSubtract($1, $3);
+			}
 
 expr    : addexpr
           {
@@ -198,28 +205,45 @@ assignment : STRING '=' expr
              }
 			 
 
-/*	Turtle Commands
-*******************/
+/**	Turtle Commands **/
+
 			 
 drawforward : DRAW_FORWARD '(' expr ')'
 			{
-				cout << "drawforward" << endl;
 				$$ = new ZLS::ASTDrawForward( &context, $3 );
 			}
-
+			| DRAW_FORWARD
+			{
+				cout << "DRAW_FORWARD" << endl;
+				$$ = new ZLS::ASTDrawForward( &context, 0 );
+			}
 moveforward : MOVE_FORWARD '(' expr ')'
 			{
 				$$ = new ZLS::ASTMoveForward( &context, $3 );
+			}
+			| MOVE_FORWARD
+			{
+				$$ = new ZLS::ASTMoveForward( &context, 0 );
 			}
 
 turnleft : TURN_LEFT '(' expr ')'
 			{
 				$$ = new ZLS::ASTTurnLeft( &context, $3 );
 			}
+			| TURN_LEFT
+			{
+				cout << "TURN_LEFT" << endl;
+				$$ = new ZLS::ASTTurnLeft( &context, 0 );
+			}
 
 turnright : TURN_RIGHT '(' expr ')'
 			{
 				$$ = new ZLS::ASTTurnRight( &context, $3 );
+			}
+			| TURN_RIGHT
+			{
+				cout << "TURN_RIGHT" << endl;
+				$$ = new ZLS::ASTTurnRight( &context, 0 );
 			}
 
 changecolor : CHANGE_COLOR '(' expr ')'
@@ -243,14 +267,33 @@ turtlecommand : drawforward
 				| changecolor
 				| pushstate
 				| popstate
+				;
 
-turtlecommand_sequence : /* empty */
+turtlecommand_sequence : turtlecommand
+				{
+					cout << "single cmd" << endl;
+					context._killme.push_back( $1 );
+				}
 				| turtlecommand_sequence turtlecommand
 				{
-					context._killme.push_back( $2 );
+					cout << "cmd" << endl;
+					context._killme.push_back( $1 );
 				}
 				;
 			 
+axiom_definition : AXIOM ':' turtlecommand_sequence
+				{
+					cout << "Axiom:" << endl;
+					std::vector<ZLS::ASTNode*>::iterator it = context._killme.begin();
+					for( ; it != context._killme.end(); it++ ) {
+						(*it)->print(cout, 0);
+					}
+					
+				}
+production_rule_definition : PRODUCTION ':' turtlecommand_sequence TRANSFORM turtlecommand_sequence ';'
+				{
+					cout << "Production: " << *$1 << endl;
+				}
 				
 start   : /* empty */
 		| start ';'
@@ -258,13 +301,12 @@ start   : /* empty */
 		| start assignment ';'
 		| start assignment EOL
 		| start assignment END
-		| start turtlecommand_sequence
+		| start axiom_definition ';'
 			{
-				//context.parser()->setRoot( $2 );
-				std::vector<ZLS::ASTNode*>::iterator it = context._killme.begin();
-				for( ; it != context._killme.end(); it++ ) {
-					(*it)->print(cout, 0);
-				}
+			}
+		| start production_rule_definition 
+			{
+				cout << "here" << endl;
 			}
 		| start expr ';'
 			{
@@ -284,7 +326,8 @@ start   : /* empty */
 
 // We have to implement the error function
 void ZLS::BisonParser::error(const ZLS::BisonParser::location_type &loc, const std::string &msg) {
-	std::cerr << "Error: " << msg << std::endl;
+	std::cerr << "Error: " << msg << " ::: [" << loc << "]" << std::endl;
+	std::cerr << "\t" << string(context.parser()->scanner().YYText()) << std::endl;
 }
 
 // Now that we have the Parser declared, we can declare the Scanner and implement

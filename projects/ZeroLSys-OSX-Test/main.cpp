@@ -15,6 +15,7 @@ using namespace ZLS;
 
 #include <stdlib.h>
 #include <iostream>
+#include <fstream>
 
 #include <GLUT/glut.h>
 
@@ -132,9 +133,11 @@ int main(int argc, char** argv) {
 	
 	ctx.reset();
 
-	stringstream ss;
-	ss << "F(12+99*4)f(11)+(10)-(9)[]";//"1+2*3/4;";
-	ctx.read( ss );
+//	stringstream ss;
+//	ss << "F(12+99*4)f(11)+(10)-(9)[]";//"1+2*3/4;";
+	ifstream ifs;
+	ifs.open("./assets/test.zls");
+	ctx.read( ifs );
 	cout << ctx.description() << endl;
 	
 	viewer.initialize();
