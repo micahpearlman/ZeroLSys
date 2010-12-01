@@ -17,7 +17,7 @@
 #include <VG/vgu.h>
 #include <boost/shared_ptr.hpp>
 
-namespace ZeroLSys {
+namespace ZLS {
 	
 	using namespace boost;
 	

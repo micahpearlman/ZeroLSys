@@ -8,7 +8,7 @@
  */
 
 #include "zlsParser.h"
-
+#include "zlsAbstractSyntaxTree.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -22,7 +22,7 @@ using namespace std;
 
 using namespace boost;
 
-namespace ZeroLSys {
+namespace ZLS {
 	
 	
 	
@@ -40,7 +40,7 @@ namespace ZeroLSys {
 		void operator()(int const& i, qi::unused_type, qi::unused_type) const {
 			cout << _name << std::endl;
         }		
-		
+		// todo: more of these for each type
 		
 	};
 	

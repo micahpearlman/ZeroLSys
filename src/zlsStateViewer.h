@@ -15,7 +15,7 @@
 #include <vector>
 #include <deque>
 
-namespace ZeroLSys {
+namespace ZLS {
 	
 	using namespace std;
 	
@@ -36,6 +36,7 @@ namespace ZeroLSys {
 		virtual void terminate() = 0;
 		//virtual void execute( const string& state ) = 0;
 		virtual void draw() = 0;
+		virtual string description() = 0;
 		
 		string state() const {
 			return _state;
@@ -55,7 +56,17 @@ namespace ZeroLSys {
 			return 0;
 		}
 		
-	protected:
+		void executeHandlerForSymbol( const string& symbol ) {
+			SymbolHandler sh = handlerForSymbol( symbol );
+			if ( sh ) {
+				(this->*sh)();
+			}
+		}
+		
+		void addParameter( const float p ) {
+			_currentParameters.push_back( p );
+		}
+		
 		float nextParameter() {
 			const float p = _currentParameters.front();
 			_currentParameters.pop_front();

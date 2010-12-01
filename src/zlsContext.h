@@ -21,15 +21,15 @@
 #include "zlsStateViewer.h"
 
 
-namespace ZeroLSys {
+namespace ZLS {
 	
 	using namespace std;
 	
 	
-	class LSystemContext {
+	class Context {
 	public:
 		
-		LSystemContext()
+		Context()
 		:	_stateViewer( 0 )
 		,	_start("empty")
 		,	_state("empty")

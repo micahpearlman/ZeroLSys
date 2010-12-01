@@ -21,21 +21,21 @@ using namespace std;
 
 
 
-namespace ZeroLSys {
+namespace ZLS {
 	
 	
-	void LSystemContext::initialize() {
+	void Context::initialize() {
 		
 	}
 	
-	void LSystemContext::reset() {
+	void Context::reset() {
 		_state = _start;
 	}
-	void LSystemContext::terminate() {
+	void Context::terminate() {
 		
 	}
 	
-	void LSystemContext::setStartState( const string& start ) {
+	void Context::setStartState( const string& start ) {
 		_start = start;
 		// remove white space
 		_start.erase(std::remove_if(_start.begin(), _start.end(), ::isspace), _start.end());
@@ -45,7 +45,7 @@ namespace ZeroLSys {
 	
 	using boost::property_tree::ptree;
 	
-	void LSystemContext::read( istream& is ) {
+	void Context::read( istream& is ) {
 		ptree pt;
 		
 		read_xml( is, pt );
@@ -62,7 +62,7 @@ namespace ZeroLSys {
 		
 	}
 	
-	void LSystemContext::write( ostream& os ) {
+	void Context::write( ostream& os ) {
 		
 		ptree root;
 		root.put( "LSystem.Start", _start );
@@ -81,7 +81,7 @@ namespace ZeroLSys {
 
 	
 	
-	string& LSystemContext::iterate() {
+	string& Context::iterate() {
 		const char* s = _state.c_str();
 		string newstate;
 		

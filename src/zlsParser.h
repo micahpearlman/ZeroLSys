@@ -12,7 +12,7 @@
 
 #include <iostream>
 
-namespace ZeroLSys {
+namespace ZLS {
 	using namespace std;
 
 	class Parser  {

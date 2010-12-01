@@ -16,7 +16,7 @@
 
 using namespace boost;
 
-namespace ZeroLSys {
+namespace ZLS {
 	
 	void TurtleViewer::initialize( ) {
 		reset();
@@ -189,4 +189,4 @@ namespace ZeroLSys {
 
 	
 	
-}	// namespace ZeroLSys
+}	// namespace ZLS

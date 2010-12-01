@@ -9,7 +9,7 @@
 
 #include "zlsStateViewer.h"
 
-namespace ZeroLSys {
+namespace ZLS {
 	void StateViewer::setState( const string& s ) {
 		_isDirty = true;
 		_state = s;

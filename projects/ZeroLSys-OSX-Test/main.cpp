@@ -11,7 +11,7 @@
 #include "../../src/zlsContext.h"
 #include "../../src/zlsTurtleViewer.h"
 #include "../../src/zlsParser.h"
-using namespace ZeroLSys;
+using namespace ZLS;
 
 #include <stdlib.h>
 #include <iostream>
